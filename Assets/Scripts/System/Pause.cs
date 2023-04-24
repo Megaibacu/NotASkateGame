@@ -41,11 +41,13 @@ public class Pause : MonoBehaviour
             {
                 Time.timeScale = 0;
                 changestates("Pause");
+                _playerInput.SwitchCurrentActionMap("MenuControls");
             }
             else
-            {
+            {                
                 changestates("UnPause");
                 Time.timeScale = 1;
+                _playerInput.SwitchCurrentActionMap("Gameplay_p");
             }
         }
 
@@ -130,6 +132,7 @@ public class Pause : MonoBehaviour
             {
                 changestates("UnPause");
                 Time.timeScale = 1;
+                _playerInput.SwitchCurrentActionMap("Gameplay_p");
             }
             else
             {
