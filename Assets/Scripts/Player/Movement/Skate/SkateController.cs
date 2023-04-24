@@ -64,11 +64,10 @@ public class SkateController : Movement
     [Header("===============Skate Tricks===============")]
     public SkateTricks[] tricks; //All the tricks that can be perfornmed by the player. In the future it would be cool to make this customizable
     public float comboTimer; // The time that the player has to do another trick to continue the combo
-    [HideInInspector] public bool tricking; //Checks if the player is mid trick to know if they have to fall
-    [HideInInspector] public bool fall; //If the player touches the ground and is doing a tricks then they fall
+    [HideInInspector] public bool tricking; //Checks if the player is mid trick to know if they have to fall    
 
-    ScoreManager scoreM;
     splineTesting sT;
+    Tricking tR;
     public PlayerInput _playerInput;
 
     [Header("===========Sound=========")]
@@ -91,47 +90,30 @@ public class SkateController : Movement
         source = newaudiomanager.GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
-        scoreM = GetComponent<ScoreManager>();
         _playerInput = GetComponent<PlayerInput>();
-
+        tR = GetComponent<Tricking>();
         canMove = true; //Makes sure that the player can move when they put the skate on
     }
 
     public override void Update()
     {
-        
-
-        SlopeDetection();
+        base.Update();
         if (touchingGround)
         {
-            Movement();
+            Move();
             Jump();
             Steering();
-            Drift();
             Boost();
         }
         else if (!touchingGround)
         {
             AirMovement();
         }
-
-
-        GroundRotation();
-
-
-        SkateTricks();
         SpeedControl();
         AirDetection();
-
         SoundCheck();
     }
-    
-
-    //====================================================
-    //====================NEW MOVEMENT====================
-    //====================================================
-
-    public void Movement()
+    public void Move()
     {
         playerDirection = transform.forward * _playerInput.actions["Forward"].ReadValue<float>() + transform.right * _playerInput.actions["Sideways"].ReadValue<float>();
 
@@ -143,21 +125,11 @@ public class SkateController : Movement
             steerMultiplier = Mathf.Lerp(steerMultiplier, minSteering, forwardAcceleration * Time.deltaTime);
             reverseTimer = 0;
 
-
-            //so that the skate sounds higher as you accelerate
-            /*if (source.volume < 1)
-            //The player accelerates forward when the forward input is performed
-            //Use of lerp to make the velocity change prograsively not at an instant because it would not be realistic enough
-            currentSpeed = Mathf.Lerp(currentSpeed, maxSpeed, Time.deltaTime * forwardAcceleration);
-            steerMultiplier = Mathf.Lerp(steerMultiplier, minSteering, forwardAcceleration * Time.deltaTime);
-            reverseTimer = 0;*/
-            //so that the skate sounds higher as you accelerate
             if (source.volume < 1) //If thre player isn't facing a slope with a high angle they can move forward
             {
                 source.volume += Time.deltaTime;
             }
-                
-        
+                       
                 //The player accelerates forward when the forward input is performed
                 //Use of lerp to make the velocity change prograsively not at an instant because it would not be realistic enough
                 currentSpeed = Mathf.Lerp(currentSpeed, maxSpeed, Time.deltaTime * forwardAcceleration);
@@ -197,40 +169,13 @@ public class SkateController : Movement
      
     }
 
-    //================================================
     //====================Steering====================
-    //================================================
 
     public void Steering()
     {
         steerDirection = _playerInput.actions["Sideways"].ReadValue<float>();
         Vector3 steerVect; //Used to get the final rotation of the object
         float steerAmount;
-
-        //----------Drifting----------
-        //if(driftLeft && !driftRight)
-        //{
-        //    steerDirection = _playerInput.actions["Sideways"].ReadValue<float>() < 0 ? -1.5f : -0.5f;
-        //    transform.GetChild(0).localRotation = Quaternion.Lerp(transform.GetChild(0).localRotation, Quaternion.Euler(0, 20f, 0), 8f * Time.deltaTime);
-
-        //    if (isSliding && touchingGround)
-        //        rb.AddForce(transform.right * outwardsDriftForce * Time.deltaTime, ForceMode.Acceleration);
-        //}
-        //else if (!driftLeft && driftRight)
-        //{
-        //    steerDirection = _playerInput.actions["Sideways"].ReadValue<float>() > 0 ? 1.5f : 0.5f;
-        //    transform.GetChild(0).localRotation = Quaternion.Lerp(transform.GetChild(0).localRotation, Quaternion.Euler(0, 20f, 0), 8f * Time.deltaTime);
-
-        //    if (isSliding && touchingGround)
-        //        rb.AddForce(transform.right * -outwardsDriftForce * Time.deltaTime, ForceMode.Acceleration);
-        //}
-        //else
-        //{
-        //    transform.GetChild(0).localRotation = Quaternion.Lerp(transform.GetChild(0).localRotation, Quaternion.Euler(0, 0f, 0), 8f * Time.deltaTime);
-        //}
-
-        //if(currentSpeed < 1) { steerAmount = 0; }
-        //else { steerAmount = realSpeed > 30 ? realSpeed / 4 * steerDirection : steerAmount = realSpeed * steerDirection * steerMultiplier; }
 
         //----------Final Steering Direction---------
         steerAmount = steerDirection * steerMultiplier;
@@ -243,84 +188,7 @@ public class SkateController : Movement
         {
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y + 180, transform.eulerAngles.z);
         }
-    }
-
-    //==================================================================
-    //====================Rotates Towards The Ground====================
-    //==================================================================
-
-    public void Drift()
-    {
-        if (_playerInput.actions["Drift"].IsPressed() && touchingGround)  //If the player is grounded and mantains shift, depending on the direciton, one of the bools for drifting will become true
-        {
-            isSliding = true;
-
-            if (steerDirection > 0) //If steering to the right
-            {
-                driftRight = true;
-                driftLeft = false;
-            }
-            else if (steerDirection < 0) //If steering to the left
-            {
-                driftRight = false;
-                driftLeft = true;
-            }
-        }
-
-        if (_playerInput.actions["Drift"].IsPressed() && touchingGround && currentSpeed > minSpeedToDrift && Input.GetAxis("Horizontal") != 0) //If the player is pressinf the drift key, touching the ground, moving quick enough and steering, the drifting particles will be getting deployed depending on the time spent drifitng
-        {
-            driftTime += Time.deltaTime * 2;
-
-            //Minute 30 in the tuto
-            if (driftTime > smallBoostTime && driftTime < mediumBoostTime)
-            {
-                smallDrift.SetActive(true);
-                mediumDrift.SetActive(false);
-                largeDrift.SetActive(false);
-            }
-            else if(driftTime >= mediumBoostTime && driftTime < largeBoostTime)
-            {
-                smallDrift.SetActive(false);
-                mediumDrift.SetActive(true);
-                largeDrift.SetActive(false);
-            }
-            else if (driftTime >= largeBoostTime)
-            {
-                smallDrift.SetActive(false);
-                mediumDrift.SetActive(false);
-                largeDrift.SetActive(true);
-            }
-
-        }
-
-        if (!_playerInput.actions["Drift"].IsPressed() || currentSpeed < minSpeedToDrift)
-        {
-            driftLeft = false;
-            driftRight = false;
-            isSliding = false;
-
-            //Drift Boost
-            if (driftTime > smallBoostTime && driftTime < mediumBoostTime)
-            {
-                boostTime = smallBoostAmount;
-            }
-            else if (driftTime >= mediumBoostTime && driftTime < largeBoostTime)
-            {
-                boostTime = mediumBoostAmount;
-            }
-            else if (driftTime >= largeBoostTime)
-            {
-                boostTime = largeBoostAmount;
-            }
-
-            //Reset Stats
-            driftTime = 0;
-            smallDrift.SetActive(false);
-            mediumDrift.SetActive(false);
-            largeDrift.SetActive(false);
-        }
-    }
-
+    } 
     public void Boost()
     {
         boostTime -= Time.deltaTime;
@@ -358,68 +226,7 @@ public class SkateController : Movement
             skateJumpPreassure = 0;
         }
     }
-
-    //====================================================
-    //====================Skate Tricks====================
-    //====================================================
-
-    public void SkateTricks()
-    {
-
-        if (!touchingGround && !tricking)
-        {
-            if (Input.GetButtonDown("FlipTricks"))
-            {
-                if (Input.GetAxisRaw("Vertical") < 0)
-                {
-                    Debug.Log("Heelflip");
-                }
-                else if (Input.GetAxisRaw("Vertical") > 0)
-                {
-                    Debug.Log("Pop Shuvit");
-                }
-                else if (Input.GetAxisRaw("Horizontal") < 0)
-                {
-                    Debug.Log("Kickflip");
-                }
-                else if (Input.GetAxisRaw("Horizontal") > 0)
-                {
-                    Debug.Log("Heelflip");
-                }
-
-                StopCoroutine(StartComboCounter());
-                scoreM.combo++;
-                if (scoreM.combo > 0) { scoreM.score += (tricks[0].scoreAwarded * scoreM.combo); }
-                else { scoreM.score += tricks[0].scoreAwarded; }
-                anim.SetTrigger("KickFlip");
-                tricking = true;
-            }
-
-            if (Input.GetButton("GrabTricks"))
-            {
-                tricking = true;
-            }
-        }
-
-        if (touchingGround && tricking)
-        {
-            fall = true;
-            anim.SetTrigger("Fall");
-        }
-
-        if (fall)
-        {
-           // maxSpeed = 0;
-        }
-        else { maxSpeed = ogMaxSpeed; }
-    }
-
-    public IEnumerator StartComboCounter()
-    {
-        yield return new WaitForSeconds(comboTimer);
-        scoreM.combo = 0;
-    }
-
+ 
     //====================================================
     //====================Air Movement====================
     //====================================================
@@ -438,7 +245,7 @@ public class SkateController : Movement
         if (touchingGround)
         {
             momentum = rb.velocity;
-            EndTrick();
+            tR.EndTrick();
         }
 
         if (!touchingGround) //Will only work if the player is in the air
@@ -483,38 +290,13 @@ public class SkateController : Movement
         }
 
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-    }
-
-    public void EndTrick()
-    {
-        tricking = false;
     }    
 
-    //===================================================================
     //==============================Setters==============================
-    //===================================================================
     public void SetCurrentSpeed(float amount)
     {
         currentSpeed = amount;
-    }
-
-    //=======================================================================
-    //==============================Anim Events==============================
-    //=======================================================================
-
-    public void GetUp()
-    {
-        fall = false;
-    }
-
-    public void RestartRB()
-    {
-        rb.isKinematic = false;
-    }
-
-    //=====================================================================
-    //==============================Corutines==============================
-    //=====================================================================
+    }   
 
     public void SoundCheck()
     {

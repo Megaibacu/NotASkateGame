@@ -19,7 +19,7 @@ public abstract class Movement : MonoBehaviour
     public float maxSpeed;
     public float ogMaxSpeed;
     public float currentSpeed;
-
+    [HideInInspector] public bool fall; //If the player touches the ground and is doing a tricks then they fall
 
     [Header("===============Slope===============")]
     public float slopeAcceleration;
@@ -36,6 +36,7 @@ public abstract class Movement : MonoBehaviour
     }
     public virtual void Update()
     {
+        SlopeDetection();
         StateHandler();
         GroundRotation();
     }
