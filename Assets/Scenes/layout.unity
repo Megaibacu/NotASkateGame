@@ -3696,6 +3696,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7605939476020561737, guid: 4d5eb2c36e9b1274fadf7258b6d2afa3, type: 3}
+      propertyPath: trickIndicator
+      value: 
+      objectReference: {fileID: 382803551}
     - target: {fileID: 7794162413595069589, guid: 4d5eb2c36e9b1274fadf7258b6d2afa3, type: 3}
       propertyPath: m_text
       value: 'Use WASD to navigate the menu
@@ -9229,6 +9233,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 382517691}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &382803551 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5505968529664325356, guid: 4d5eb2c36e9b1274fadf7258b6d2afa3, type: 3}
+  m_PrefabInstance: {fileID: 152379193}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &384097647
 GameObject:
   m_ObjectHideFlags: 0
@@ -33025,6 +33034,14 @@ PrefabInstance:
       value: 393.6158
       objectReference: {fileID: 0}
     - target: {fileID: 3945440651393942699, guid: 7ddf442bdb13a2c49817ee6f28301870, type: 3}
+      propertyPath: _finalResult.forward.x
+      value: -0.9999742
+      objectReference: {fileID: 0}
+    - target: {fileID: 3945440651393942699, guid: 7ddf442bdb13a2c49817ee6f28301870, type: 3}
+      propertyPath: _finalResult.forward.z
+      value: -0.007196509
+      objectReference: {fileID: 0}
+    - target: {fileID: 3945440651393942699, guid: 7ddf442bdb13a2c49817ee6f28301870, type: 3}
       propertyPath: _clipToSample.forward.x
       value: -0.9999742
       objectReference: {fileID: 0}
@@ -33034,7 +33051,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3945440651393942699, guid: 7ddf442bdb13a2c49817ee6f28301870, type: 3}
       propertyPath: _finalResult.position.x
-      value: -2.1580086
+      value: -8.062849
+      objectReference: {fileID: 0}
+    - target: {fileID: 3945440651393942699, guid: 7ddf442bdb13a2c49817ee6f28301870, type: 3}
+      propertyPath: _finalResult.position.y
+      value: 108.745674
+      objectReference: {fileID: 0}
+    - target: {fileID: 3945440651393942699, guid: 7ddf442bdb13a2c49817ee6f28301870, type: 3}
+      propertyPath: _finalResult.position.z
+      value: 393.6158
       objectReference: {fileID: 0}
     - target: {fileID: 3945440651393942699, guid: 7ddf442bdb13a2c49817ee6f28301870, type: 3}
       propertyPath: _clipToSample.position.x
@@ -33199,6 +33224,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5514682090212137391, guid: 7ddf442bdb13a2c49817ee6f28301870, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1431282619}
+    - targetCorrespondingSourceObject: {fileID: 5514682090212137391, guid: 7ddf442bdb13a2c49817ee6f28301870, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1431282633}
   m_SourcePrefab: {fileID: 100100000, guid: 7ddf442bdb13a2c49817ee6f28301870, type: 3}
 --- !u!4 &1431282572 stripped
 Transform:
@@ -33274,6 +33302,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ddc1a2536715a24095c464a2c394d5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1431282627 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5866666021331452498, guid: 7ddf442bdb13a2c49817ee6f28301870, type: 3}
+  m_PrefabInstance: {fileID: 1431282571}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1431282575}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ef04dc3a7c59a542b41823ba4675841, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1431282633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1431282575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9674d250c01e0742a8cbe569a8d006d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sC: {fileID: 1431282627}
+  tricks:
+  - trickName: Kickflip
+    animationTriggered: Kickflip
+    scoreAwarded: 100
+    trickKey: 107
+  comboTimer: 1
+  tricking: 0
+  fall: 0
 --- !u!1 &1433032303
 GameObject:
   m_ObjectHideFlags: 0
@@ -50807,15 +50867,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1143472954402729420, guid: 268fded3364cf9d42bd852709db5e9e6, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.013125165
+      value: -0.013125167
       objectReference: {fileID: 0}
     - target: {fileID: 1143472954402729420, guid: 268fded3364cf9d42bd852709db5e9e6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.7095238
+      value: -0.70952374
       objectReference: {fileID: 0}
     - target: {fileID: 1143472954402729420, guid: 268fded3364cf9d42bd852709db5e9e6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.013219977
+      value: -0.013219976
       objectReference: {fileID: 0}
     - target: {fileID: 3282440597710011968, guid: 268fded3364cf9d42bd852709db5e9e6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -50907,19 +50967,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6822685665175367015, guid: 268fded3364cf9d42bd852709db5e9e6, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7044353
+      value: 0.70443535
       objectReference: {fileID: 0}
     - target: {fileID: 6822685665175367015, guid: 268fded3364cf9d42bd852709db5e9e6, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.013125166
+      value: -0.013125167
       objectReference: {fileID: 0}
     - target: {fileID: 6822685665175367015, guid: 268fded3364cf9d42bd852709db5e9e6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.7095238
+      value: -0.70952374
       objectReference: {fileID: 0}
     - target: {fileID: 6822685665175367015, guid: 268fded3364cf9d42bd852709db5e9e6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.013219976
+      value: -0.013219975
       objectReference: {fileID: 0}
     - target: {fileID: 6840631075982484802, guid: 268fded3364cf9d42bd852709db5e9e6, type: 3}
       propertyPath: m_LookAt

@@ -223,6 +223,7 @@ public class SkateController : Movement
 
         if (!Grounded()) //Will only work if the player is in the air
         {
+            anim.SetBool("Air", true);
             RaycastHit hit;
             if (Physics.Raycast(orientation.transform.position, -Vector3.up, out hit, 100f))
             {

@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
-    public float score;
+    [Header("==========Overall Stats==========")]
+    public float overallScore;
+
+    [Header("==========Current Stats==========")]
+    public float curretnScore;
     public float combo;
 }

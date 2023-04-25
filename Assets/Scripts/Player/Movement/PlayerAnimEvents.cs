@@ -12,6 +12,12 @@ public class PlayerAnimEvents : MonoBehaviour
         mS = GetComponent<Movement>();
         rb = GetComponent<Rigidbody>();
     }
+
+    public void EndTrick()
+    {
+        
+    }
+
     public void GetUp()
     {
         mS.fall = false;
