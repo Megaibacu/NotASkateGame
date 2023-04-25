@@ -29,7 +29,8 @@ public class Tricking : MonoBehaviour
     void Update()
     {
         if (sC.grounded)
-        {
+     
+		{
             sC.momentum = rB.velocity;
             EndTrick();
         }
@@ -42,6 +43,7 @@ public class Tricking : MonoBehaviour
         {
             if (Input.GetButtonDown("FlipTricks"))
             {
+                Debug.Log("Kickflip");
                 if (Input.GetAxisRaw("Vertical") < 0)
                 {
                     Debug.Log("Heelflip");
@@ -61,8 +63,8 @@ public class Tricking : MonoBehaviour
 
                 StopCoroutine(StartComboCounter());
                 scoreM.combo++;
-                if (scoreM.combo > 0) { scoreM.score += (tricks[0].scoreAwarded * scoreM.combo); }
-                else { scoreM.score += tricks[0].scoreAwarded; }
+                if (scoreM.combo > 0) { scoreM.curretnScore += (tricks[0].scoreAwarded * scoreM.combo); }
+                else { scoreM.curretnScore += tricks[0].scoreAwarded; }
                 anim.SetTrigger("KickFlip");
                 tricking = true;
             }

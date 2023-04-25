@@ -17,7 +17,7 @@ public class PlayerUI : MonoBehaviour
     private void Start()
     {
         //TRUCOS DESACTIVADOS DEMOMENTO
-        //trk = FindObjectOfType<Tricking>();
+        trk = FindObjectOfType<Tricking>();
         scoreM = FindObjectOfType<ScoreManager>();
         ui = GameObject.Find("UI");
         trickIndicator = ui.transform.GetChild(1).gameObject;
@@ -26,7 +26,7 @@ public class PlayerUI : MonoBehaviour
 
     private void Update()
     {
-        //PointsUI();
+        PointsUI();
     }
 
     public void PointsUI()
@@ -40,7 +40,7 @@ public class PlayerUI : MonoBehaviour
             trickIndicator.SetActive(false);
         }
 
-        playerPoints.text = $"Score: {scoreM.score}";
+        playerPoints.text = $"Score: {scoreM.curretnScore}";
         playerCombo.text = $"Combo: {scoreM.combo}";
     }
 }
