@@ -101,7 +101,7 @@ public class PlayerMovement : Movement
 
     public override void Update()
     {
-
+        base.Update();
         // ground check
         grounded = Grounded() ;
         anim.SetBool("Grounded", grounded);
@@ -118,7 +118,7 @@ public class PlayerMovement : Movement
         }
         MyInput();
         SpeedControl();
-        StateHandler();
+
         //  animator
         anim.SetFloat("XSpeed", rb.velocity.magnitude);
         anim.SetBool("Sliding", sliding);

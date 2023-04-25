@@ -93,6 +93,7 @@ public class SkateController : Movement
 
     public override void Update()
     {
+
         base.Update();
         if (touchingGround)
         {
