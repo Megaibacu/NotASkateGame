@@ -125,15 +125,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Drift"",
-                    ""type"": ""Button"",
-                    ""id"": ""b23467b3-057d-4346-8bde-c539705ee0d8"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -532,28 +523,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Turn"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""d8d59cec-7df9-4cad-a84e-c2782bcce275"",
-                    ""path"": ""<Keyboard>/leftShift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Drift"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""ad81d76b-0927-4778-b73a-19623e8dc998"",
-                    ""path"": ""<Gamepad>/rightShoulder"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Drift"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -880,13 +849,55 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""2691e2ed-379d-498c-b5d4-cf3de13efb95"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
                     ""id"": ""dbe91f19-ec2b-45a2-9175-5f3a6e83379b"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5ee297da-b1f8-4863-a6f0-552bc97bc2f3"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""61d93889-5d2a-448c-b07f-3d1e108cb185"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d239e096-be4f-4dcd-8d32-fd16fc88b085"",
+                    ""path"": ""<Gamepad>/leftStick/up"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -897,7 +908,29 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""e6965c7c-e711-4b4b-a73f-9663aea1a69d"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9af62ea9-10e6-4216-9eee-e4443854fe71"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""795dfdfc-ca20-4147-b5c1-ec1368d608ed"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -908,11 +941,44 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""3e744198-38a9-4946-80f2-7fb97311209e"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""418b99d5-234f-4a82-b75f-96176fb13852"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2ffa938a-6b51-4875-b645-9b277f097622"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""90d4d3cc-9def-42d3-89af-5ed47abf5298"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -934,7 +1000,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Gameplay_p_SwitchState = m_Gameplay_p.FindAction("SwitchState", throwIfNotFound: true);
         m_Gameplay_p_Look = m_Gameplay_p.FindAction("Look", throwIfNotFound: true);
         m_Gameplay_p_Turn = m_Gameplay_p.FindAction("Turn", throwIfNotFound: true);
-        m_Gameplay_p_Drift = m_Gameplay_p.FindAction("Drift", throwIfNotFound: true);
         // ShopControls
         m_ShopControls = asset.FindActionMap("ShopControls", throwIfNotFound: true);
         m_ShopControls_Up = m_ShopControls.FindAction("Up", throwIfNotFound: true);
@@ -948,6 +1013,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_MenuControls_Up = m_MenuControls.FindAction("Up", throwIfNotFound: true);
         m_MenuControls_Down = m_MenuControls.FindAction("Down", throwIfNotFound: true);
         m_MenuControls_Select = m_MenuControls.FindAction("Select", throwIfNotFound: true);
+        m_MenuControls_Pause = m_MenuControls.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1020,7 +1086,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_p_SwitchState;
     private readonly InputAction m_Gameplay_p_Look;
     private readonly InputAction m_Gameplay_p_Turn;
-    private readonly InputAction m_Gameplay_p_Drift;
     public struct Gameplay_pActions
     {
         private @PlayerControls m_Wrapper;
@@ -1036,7 +1101,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @SwitchState => m_Wrapper.m_Gameplay_p_SwitchState;
         public InputAction @Look => m_Wrapper.m_Gameplay_p_Look;
         public InputAction @Turn => m_Wrapper.m_Gameplay_p_Turn;
-        public InputAction @Drift => m_Wrapper.m_Gameplay_p_Drift;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay_p; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1079,9 +1143,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Turn.started += instance.OnTurn;
             @Turn.performed += instance.OnTurn;
             @Turn.canceled += instance.OnTurn;
-            @Drift.started += instance.OnDrift;
-            @Drift.performed += instance.OnDrift;
-            @Drift.canceled += instance.OnDrift;
         }
 
         private void UnregisterCallbacks(IGameplay_pActions instance)
@@ -1119,9 +1180,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Turn.started -= instance.OnTurn;
             @Turn.performed -= instance.OnTurn;
             @Turn.canceled -= instance.OnTurn;
-            @Drift.started -= instance.OnDrift;
-            @Drift.performed -= instance.OnDrift;
-            @Drift.canceled -= instance.OnDrift;
         }
 
         public void RemoveCallbacks(IGameplay_pActions instance)
@@ -1232,6 +1290,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_MenuControls_Up;
     private readonly InputAction m_MenuControls_Down;
     private readonly InputAction m_MenuControls_Select;
+    private readonly InputAction m_MenuControls_Pause;
     public struct MenuControlsActions
     {
         private @PlayerControls m_Wrapper;
@@ -1239,6 +1298,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Up => m_Wrapper.m_MenuControls_Up;
         public InputAction @Down => m_Wrapper.m_MenuControls_Down;
         public InputAction @Select => m_Wrapper.m_MenuControls_Select;
+        public InputAction @Pause => m_Wrapper.m_MenuControls_Pause;
         public InputActionMap Get() { return m_Wrapper.m_MenuControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1257,6 +1317,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Select.started += instance.OnSelect;
             @Select.performed += instance.OnSelect;
             @Select.canceled += instance.OnSelect;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(IMenuControlsActions instance)
@@ -1270,6 +1333,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Select.started -= instance.OnSelect;
             @Select.performed -= instance.OnSelect;
             @Select.canceled -= instance.OnSelect;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(IMenuControlsActions instance)
@@ -1300,7 +1366,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnSwitchState(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnTurn(InputAction.CallbackContext context);
-        void OnDrift(InputAction.CallbackContext context);
     }
     public interface IShopControlsActions
     {
@@ -1316,5 +1381,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnUp(InputAction.CallbackContext context);
         void OnDown(InputAction.CallbackContext context);
         void OnSelect(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }

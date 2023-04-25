@@ -11,13 +11,14 @@ public class PlayerUI : MonoBehaviour
     public TextMeshProUGUI playerPoints;
     public TextMeshProUGUI playerCombo;
     GameObject ui;
-    SkateController skate;
+    Tricking trk;
     ScoreManager scoreM;
 
     private void Start()
     {
-        skate = FindObjectOfType<SkateController>();
-        scoreM = skate.GetComponent<ScoreManager>();
+        //TRUCOS DESACTIVADOS DEMOMENTO
+        //trk = FindObjectOfType<Tricking>();
+        scoreM = FindObjectOfType<ScoreManager>();
         ui = GameObject.Find("UI");
         trickIndicator = ui.transform.GetChild(1).gameObject;
     }
@@ -25,12 +26,12 @@ public class PlayerUI : MonoBehaviour
 
     private void Update()
     {
-        PointsUI();
+        //PointsUI();
     }
 
     public void PointsUI()
     {
-        if (skate.tricking)
+        if (trk.tricking)
         {
             trickIndicator.SetActive(true);
         }

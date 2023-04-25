@@ -5,6 +5,18 @@ using UnityEngine.InputSystem;
 
 public class SkateController : Movement
 {
+    [Header("===============States===============")]
+    public bool grinding; //Checks if the player is grinding
+
+    new public enum MovementState
+    {
+        Skating,
+        Drifting,
+        Grinding,
+        Tricking,
+
+    }
+
     [Header("===============Movement===============")]
     public float maxReverseSpeed;
     public float timeToReverse; //The time multiplier to make the skate reevert smooth
@@ -16,15 +28,6 @@ public class SkateController : Movement
     private float reverseTimer;
     private bool turning;
 
-    new public enum MovementState
-    {
-        Skating,
-        Drifting,
-        Grinding,
-        Tricking,
-
-    }
-
     [Header("===============Accelerations===============")]
 
     public float forwardAcceleration; //Acceleration when going forward
@@ -32,7 +35,7 @@ public class SkateController : Movement
     public float breaking; //Deceleration when not holding a key
     private float boostTime; //How long does the player have a boost from drift or trick combos
     private Vector3 playerDirection;
-    private Vector3 momentum;
+    public Vector3 momentum;
 
     [Header("===============Steering===============")]
     public float steerMultiplier; //Multiplier that changes the amount of steering
@@ -59,15 +62,9 @@ public class SkateController : Movement
     public float skateJumpPreassure; //The force used on the obj when jumping
     public float minSkateJumpFoce; //The minimum force that will be perfomred even if the player just presses the jump for one frame
     public float maxSkateJumpFoce; //Max force. Cannot jump higher
-    public float skateJumpMultiplier; //Final jump force
-
-    [Header("===============Skate Tricks===============")]
-    public SkateTricks[] tricks; //All the tricks that can be perfornmed by the player. In the future it would be cool to make this customizable
-    public float comboTimer; // The time that the player has to do another trick to continue the combo
-    [HideInInspector] public bool tricking; //Checks if the player is mid trick to know if they have to fall    
-
+    public float skateJumpMultiplier; //Final jump force   
+    
     splineTesting sT;
-    Tricking tR;
     public PlayerInput _playerInput;
 
     [Header("===========Sound=========")]
@@ -91,7 +88,6 @@ public class SkateController : Movement
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
         _playerInput = GetComponent<PlayerInput>();
-        tR = GetComponent<Tricking>();
         canMove = true; //Makes sure that the player can move when they put the skate on
     }
 
@@ -100,7 +96,7 @@ public class SkateController : Movement
         base.Update();
         if (touchingGround)
         {
-            Move();
+            Movement();
             Jump();
             Steering();
             Boost();
@@ -109,11 +105,12 @@ public class SkateController : Movement
         {
             AirMovement();
         }
-        SpeedControl();
         AirDetection();
+
         SoundCheck();
     }
-    public void Move()
+    
+    public void Movement()
     {
         playerDirection = transform.forward * _playerInput.actions["Forward"].ReadValue<float>() + transform.right * _playerInput.actions["Sideways"].ReadValue<float>();
 
@@ -124,12 +121,13 @@ public class SkateController : Movement
             currentSpeed = Mathf.Lerp(currentSpeed, maxSpeed, Time.deltaTime * forwardAcceleration);
             steerMultiplier = Mathf.Lerp(steerMultiplier, minSteering, forwardAcceleration * Time.deltaTime);
             reverseTimer = 0;
-
+            
+            //so that the skate sounds higher as you accelerate
             if (source.volume < 1) //If thre player isn't facing a slope with a high angle they can move forward
             {
                 source.volume += Time.deltaTime;
             }
-                       
+                        
                 //The player accelerates forward when the forward input is performed
                 //Use of lerp to make the velocity change prograsively not at an instant because it would not be realistic enough
                 currentSpeed = Mathf.Lerp(currentSpeed, maxSpeed, Time.deltaTime * forwardAcceleration);
@@ -176,7 +174,7 @@ public class SkateController : Movement
         steerDirection = _playerInput.actions["Sideways"].ReadValue<float>();
         Vector3 steerVect; //Used to get the final rotation of the object
         float steerAmount;
-
+        
         //----------Final Steering Direction---------
         steerAmount = steerDirection * steerMultiplier;
         steerVect = new Vector3(orientation.transform.eulerAngles.x, orientation.transform.eulerAngles.y + steerAmount, orientation.transform.eulerAngles.z);
@@ -188,7 +186,10 @@ public class SkateController : Movement
         {
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y + 180, transform.eulerAngles.z);
         }
-    } 
+    }
+
+ 
+
     public void Boost()
     {
         boostTime -= Time.deltaTime;
@@ -226,10 +227,8 @@ public class SkateController : Movement
             skateJumpPreassure = 0;
         }
     }
- 
-    //====================================================
+    
     //====================Air Movement====================
-    //====================================================
 
     public void AirMovement()
     {
@@ -241,12 +240,7 @@ public class SkateController : Movement
         //WE SHOULD TALK ABOUT THINGS LIKE HIGH RAMPS AND HOW TO FACE THAT PROBLEM
 
         //Function to keep the momentum of the player
-        
-        if (touchingGround)
-        {
-            momentum = rb.velocity;
-            tR.EndTrick();
-        }
+              
 
         if (!touchingGround) //Will only work if the player is in the air
         {
@@ -273,10 +267,8 @@ public class SkateController : Movement
         }
     }
 
-
-    //=====================================================
     //====================Air Detection====================
-    //=====================================================
+
     public void AirDetection()
     {
 
@@ -290,13 +282,13 @@ public class SkateController : Movement
         }
 
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-    }    
+    }
 
     //==============================Setters==============================
     public void SetCurrentSpeed(float amount)
     {
         currentSpeed = amount;
-    }   
+    }
 
     public void SoundCheck()
     {

@@ -6,22 +6,20 @@ public abstract class Movement : MonoBehaviour
 {
     public GameObject orientation; //The way the player model is facing
 
-    [Header("===============References===============")]
+    //[Header("===============References===============")]
     public Animator anim;
     public Rigidbody rb;
+   
+    public bool touchingGround; //Touching ground is a basic air checker
 
-    [Header("===============States===============")]
-    public bool grinding; //Checks if the player is grinding
-    public bool isSliding, touchingGround; //Is sliding means that the player si drifting. Touching ground is a basic air checker
-
-    [Header("===============Movement===============")]
+    //[Header("===============Movement===============")]
     public Vector3 currentMomentum;
     public float maxSpeed;
     public float ogMaxSpeed;
     public float currentSpeed;
     [HideInInspector] public bool fall; //If the player touches the ground and is doing a tricks then they fall
 
-    [Header("===============Slope===============")]
+    //[Header("===============Slope===============")]
     public float slopeAcceleration;
     public float maxDegreeAngle; //the max angle that where the player can move forward with the skate
     public bool onUpSlope; //When on slope if the slope is facing upwards
@@ -39,6 +37,8 @@ public abstract class Movement : MonoBehaviour
         SlopeDetection();
         StateHandler();
         GroundRotation();
+        SlopeDetection();
+        SpeedControl();
     }
     public virtual void FixedUpdate()
     {
