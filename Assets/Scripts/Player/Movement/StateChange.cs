@@ -7,20 +7,21 @@ public enum States { parkour, skating}
 
 public class StateChange : MonoBehaviour
 {
+    public Movement _mov;
+    private SkateController _sc;
+    [HideInInspector]public PlayerMovement _pMov;
+
     [Header("==========Boost==========")]
     public float parkourSpeedPercentage;
     public float skateSpeedPercentage;
     public float skateSwitchBoost;
 
     public States state;
-    public PlayerMovement playerMov;
-    public SkateController skateController;
     public GameObject skateGO;
     public GameObject audiomanager;
     public float boostTimer;
     public float boostMultiplier;
     Animator anim;
-    public PlayerInput _playerInput;
 
     public float cooldown;
 
@@ -33,79 +34,81 @@ public class StateChange : MonoBehaviour
 
     private void Start()
     {
-        playerMov = GetComponent<PlayerMovement>();
-        skateController = GetComponent<SkateController>();
+        _pMov = GetComponent<PlayerMovement>();
+        _sc = GetComponent<SkateController>();
         anim = GetComponent<Animator>();
-        _playerInput = GetComponent<PlayerInput>();
+        _mov = _pMov;
     }
 
     private void Update()
     {
-        InputManager();
+        AnimationLayers();
+        _mov.StateHandler();
+        _mov.Grounded();
+        _mov.CoyoteCheck();
+        _mov.SpeedControl();
+        _mov.AirMovement();
+        _mov.AirDetection();
+        _mov.SoundCheck();
+        _mov.Move();
 
-        if(state == States.parkour)
+    }
+
+    public void FixedUpdate()
+    {
+        
+    }
+
+    public void AnimationLayers()
+    {
+        if (state == States.parkour)
         {
             anim.SetLayerWeight(anim.GetLayerIndex("Parkour"), 1.0f);
             anim.SetLayerWeight(anim.GetLayerIndex("SkateLayer"), 0.0f);
         }
-        else if(state == States.skating)
+        else if (state == States.skating)
         {
             anim.SetLayerWeight(anim.GetLayerIndex("SkateLayer"), 1.0f);
             anim.SetLayerWeight(anim.GetLayerIndex("Parkour"), 0.0f);
         }
     }
 
-    public void InputManager()
+    public void SwitchState()
     {
         if(state == States.parkour)
         {
-            if (_playerInput.actions["SwitchState"].WasPressedThisFrame() && paused == false)
-            {
                 state = States.skating;
-                skateGO.SetActive(true);
-                playerMov.gameObject.GetComponent<PlayerMovement>().enabled = false;
-                playerMov.gameObject.GetComponent<SkateController>().enabled = true;
-
-                parkourSpeedPercentage = Mathf.Abs(playerMov.moveSpeed / playerMov.sprintSpeed);
-                skateController.currentSpeed = skateController.maxSpeed * parkourSpeedPercentage;
-                //StartCoroutine(SkateBoost());
-            }
+                skateGO.SetActive(true);                
+                parkourSpeedPercentage = Mathf.Abs(_mov.currentSpeed / _pMov.sprintSpeed);
+                _mov = _sc;
+                _mov.currentSpeed = _mov.maxSpeed * parkourSpeedPercentage;           
         }
+
         else
-        {
-            if (_playerInput.actions["SwitchState"].WasPressedThisFrame() && paused == false)
-            {
+        {           
                 state = States.parkour;
-                skateController.isplaying = false;
-                skateGO.SetActive(false);
-                playerMov.gameObject.GetComponent<PlayerMovement>().enabled = true;
-                playerMov.gameObject.GetComponent<SkateController>().enabled = false;
+                _sc.isplaying = false;
+                skateGO.SetActive(false);               
 
                 //Conservation of momentum
-                skateSpeedPercentage = skateController.currentSpeed / skateController.maxSpeed;
+                skateSpeedPercentage = _mov.currentSpeed / _mov.maxSpeed;
+                _mov = _pMov;
                 if (skateSpeedPercentage < .5f)
                 {
-                    playerMov.moveSpeed = 5;
+                    _mov.currentSpeed = 5;
                 }
                 else
                 {
-                    playerMov.moveSpeed = 10;
-                }
-                
-                //to stop the sound of the skate
-               //newaudiomanager.GetComponent<NewAudioManager>().StopSound();
-               // source = newaudiomanager.GetComponent<AudioSource>();
-                //source.volume = 1;
-            }
-
+                    _mov.currentSpeed = 10;
+                }    
         }
     }
 
-    public IEnumerator SkateBoost()
+    /*public IEnumerator SkateBoost()
     {
         skateController.maxSpeed = skateSwitchBoost;
         yield return new WaitForSeconds(boostTimer);
         skateController.maxSpeed = skateController.ogMaxSpeed;
         StopCoroutine(SkateBoost());
-    }
+    }*/
 }

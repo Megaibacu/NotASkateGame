@@ -8,11 +8,8 @@ public class PlayerMovement : Movement
     public float moveSpeed;
     private float desiredMoveSpeed;
     private float lastDesiredMoveSpeed;
-    public PlayerInput _playerInput;
 
-    [Header("==========Movement==========")]
-    float horizontalInput;
-    float verticalInput;
+    [Header("==========Movement==========")]    
     Vector3 moveDirection;
     public float walkSpeed;
     public float sprintSpeed;
@@ -28,22 +25,10 @@ public class PlayerMovement : Movement
     [Header("==========Jumping==========")]
     public float jumpForce;
     public float jumpCooldown;
-    public float airMultiplier;
-    public bool readyToJump;
-    public float coyoteTime;
-    public bool coyote;
-    public bool coyoteDone;
-    public bool sprinting;
+    public float airMultiplier;   
 
     [Header("==========Crouching==========")]
-    public float crouchSpeed;
-    public float crouchYScale;
-    private float startYScale;
-
-    [Header("==========Ground Check==========")]
-    public float playerHeight;
-    public LayerMask whatIsGround;
-    public bool grounded;
+    public float crouchSpeed;   
 
     [Header("==========References==========")]
     public splineTesting sT;
@@ -60,6 +45,7 @@ public class PlayerMovement : Movement
         air
     }
 
+    public bool sprinting;
     public bool sliding;
     public bool crouching;
     public bool wallrunning;
@@ -73,91 +59,11 @@ public class PlayerMovement : Movement
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-        _playerInput = GetComponent<PlayerInput>();
         player = this.gameObject;
-
         readyToJump = true;
-
-        startYScale = transform.localScale.y;
         newmanager = newaudiomanager.GetComponent<NewAudioManager>();
     }
 
-    public void Update()
-    {
-        StateHandler();
-        // ground check
-        grounded = Grounded() ;
-        anim.SetBool("Grounded", grounded);
-        if (!grounded && !coyoteDone)
-        {
-            coyoteDone = true;
-            coyote = true;
-        }
-            if (grounded) coyoteDone = false;
-       
-        MyInput();
-        SpeedControl();
-
-        //  animator
-        anim.SetFloat("XSpeed", rb.velocity.magnitude);
-        anim.SetBool("Sliding", sliding);
-
-        // handle drag
-        if ((state == MovementState.walking || state == MovementState.sprinting || state == MovementState.crouching) && !activeGrapple)
-            rb.drag = groundDrag;
-        else
-            rb.drag = 0;
-    }
-
-    public void FixedUpdate()
-    {
-       MovePlayer();
-    }
-
-    private void MyInput()
-    {
-        horizontalInput = _playerInput.actions["Sideways"].ReadValue<float>();
-        verticalInput = _playerInput.actions["Forward"].ReadValue<float>(); 
-
-        // when to jump
-        
-        if (_playerInput.actions["Jump"].IsPressed() && ((readyToJump && grounded)|| coyote && readyToJump) && paused == false)
-        {                                    
-            
-                readyToJump = false;
-
-                Jump();
-                newmanager.PlaySound("Jump");
-                anim.SetTrigger("Jump");
-
-                Invoke(nameof(ResetJump), jumpCooldown);
-            
-        }
-
-        if (_playerInput.actions["Sprint"].WasPressedThisFrame())
-        {
-            sprinting = !sprinting;
-        }
-
-        // start crouch
-        if (_playerInput.actions["Crouch"].WasPressedThisFrame() && !sliding && grounded)
-        {
-            anim.SetBool("Crouch", true);
-
-            crouching = true;
-        }
-
-        // stop crouch
-        if (!_playerInput.actions["Crouch"].IsPressed() && !Physics.Raycast(orientation.transform.position + Vector3.down * 0.3f, Vector3.up, playerHeight * 0.5f + 0.1f, whatIsGround))
-        {
-            transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
-
-            crouching = false;
-
-            anim.SetBool("Crouch", false);
-        }
-       
-    }
     public override void StateHandler()
     {
         //  Reseting capsule size
@@ -186,6 +92,7 @@ public class PlayerMovement : Movement
         else if (sliding)
         {
             state = MovementState.sliding;
+            anim.SetBool("Sliding", sliding);
             GetComponent<CapsuleCollider>().height = 1;
             GetComponent<CapsuleCollider>().center = new Vector3(0, 0.35f, 0);
 
@@ -233,7 +140,7 @@ public class PlayerMovement : Movement
         }
     }
 
-    private void MovePlayer()
+    public override void Move()
     {
         if (activeGrapple) return;
 
@@ -261,19 +168,18 @@ public class PlayerMovement : Movement
 
     public override void Jump()
     {
-        // reset y velocity
+        readyToJump = false;
+        newmanager.PlaySound("Jump");
+        anim.SetTrigger("Jump");
+
+        // Jump Velocity
         rb.velocity = new Vector3(rb.velocity.x, 1f * jumpForce, rb.velocity.z);
 
+        Invoke(nameof(ResetJump), jumpCooldown);
     }
     public void ResetJump()
     {
         readyToJump = true;
-    }
-
-    public IEnumerator DeactivateCoyote()
-    {
-        yield return new WaitForSeconds(coyoteTime);
-            coyote = false;
     }
 
     public void JumpToPosition(Vector3 targetPosition, float trajectoryHeight)

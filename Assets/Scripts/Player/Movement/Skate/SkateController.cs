@@ -61,8 +61,7 @@ public class SkateController : Movement
     public float maxSkateJumpFoce; //Max force. Cannot jump higher
     public float skateJumpMultiplier; //Final jump force   
     
-    splineTesting sT;
-    public PlayerInput _playerInput;    
+    splineTesting sT; 
 
     AudioSource source;
     
@@ -75,39 +74,21 @@ public class SkateController : Movement
 
     private void Start()
     {
+        readyToJump = true;
         sT = GetComponent<splineTesting>();
         newmanager = newaudiomanager.GetComponent<NewAudioManager>();
         source = newaudiomanager.GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
-        _playerInput = GetComponent<PlayerInput>();
         canMove = true; //Makes sure that the player can move when they put the skate on
         player = this.gameObject;
     }
 
-    public void Update()
+    public override void Move()
     {
-        if (Grounded())
-        {
-            Movement();
-            Jump();
-            Steering();
-            Boost();
-        }
-        else if (!Grounded())
-        {
-            AirMovement();
-        }
-        AirDetection();
+        playerDirection = transform.forward * verticalInput + transform.right * horizontalInput;
 
-        SoundCheck();
-    }
-    
-    public void Movement()
-    {
-        playerDirection = transform.forward * _playerInput.actions["Forward"].ReadValue<float>() + transform.right * _playerInput.actions["Sideways"].ReadValue<float>();
-
-        if (_playerInput.actions["Forward"].ReadValue<float>() > 0 && canMove)
+        if (verticalInput > 0 && canMove)
         {
             //The player accelerates forward when the forward input is performed
             //Use of lerp to make the velocity change prograsively not at an instant because it would not be realistic enough
@@ -122,7 +103,7 @@ public class SkateController : Movement
             }
         }
         
-        else if (_playerInput.actions["Forward"].ReadValue<float>() < 0)
+        else if (verticalInput < 0)
         {
             //Instead of going backwards changing to goofy
             //Player needs to have a slower reverse speed and acceleration to simulate the real world in a minimum way
@@ -146,31 +127,22 @@ public class SkateController : Movement
         //Change of velocity in the local forward
         Vector3 velocity = orientation.transform.forward * currentSpeed; //This part of the script is only meant to change the forward movement of the player so it should only change the forward vector (local)
         rb.velocity = new Vector3(velocity.x, rb.velocity.y, velocity.z); //Changed the movement mechanics from force based to velocity based
-     
-    }
 
-    //====================Steering====================
-
-    public void Steering()
-    {
-        steerDirection = _playerInput.actions["Sideways"].ReadValue<float>();
+        //===================Steering============
+        steerDirection = horizontalInput;
         Vector3 steerVect; //Used to get the final rotation of the object
         float steerAmount;
-        
+
         //----------Final Steering Direction---------
         steerAmount = steerDirection * steerMultiplier;
         steerVect = new Vector3(orientation.transform.eulerAngles.x, orientation.transform.eulerAngles.y + steerAmount, orientation.transform.eulerAngles.z);
-        orientation.transform.eulerAngles = Vector3.Lerp(orientation.transform.eulerAngles, steerVect, steerTiming* Time.deltaTime);
-
-        //===============Turning 180===============
-
-        if (_playerInput.actions["Turn"].WasPressedThisFrame() && currentSpeed <= 0.5f)  
-        {
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y + 180, transform.eulerAngles.z);
-        }
+        orientation.transform.eulerAngles = Vector3.Lerp(orientation.transform.eulerAngles, steerVect, steerTiming * Time.deltaTime);      
     }
-
  
+    public void Turn()
+    {
+        transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y + 180, transform.eulerAngles.z);
+    }
 
     public void Boost()
     {
@@ -190,16 +162,20 @@ public class SkateController : Movement
 
     public override void Jump()
     {
-        if (_playerInput.actions["Jump"].WasPressedThisFrame() && grinding)
+        if (grinding)
         {
             sT.EndGrind();
         }
-        if (_playerInput.actions["Jump"].IsPressed() && !grinding)
+        if (!grinding)
         {
             if (skateJumpPreassure < maxSkateJumpFoce) { skateJumpPreassure += Time.deltaTime * skateJumpMultiplier; }
             else { skateJumpPreassure = maxSkateJumpFoce; }
         }
-        if (_playerInput.actions["Jump"].WasReleasedThisFrame() && !grinding)
+
+    }
+    public override void JumpRelease()
+    {
+        if (!grinding)
         {
             skateJumpPreassure += skateJumpPreassure + minSkateJumpFoce;
             rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
@@ -209,7 +185,7 @@ public class SkateController : Movement
             skateJumpPreassure = 0;
         }
     }
-    public void AirMovement()
+        public override void AirMovement()
     {
         //Function serves for players to always have their skate facing the floor
         //This makes the skating easier and more arcade as they don't have to worry about landing mechanics like in Skate 3
@@ -221,7 +197,7 @@ public class SkateController : Movement
         //Function to keep the momentum of the player
               
 
-        if (!Grounded()) //Will only work if the player is in the air
+        if (!grounded) //Will only work if the player is in the air
         {
             RaycastHit hit;
             if (Physics.Raycast(orientation.transform.position, -Vector3.up, out hit, 100f))
@@ -231,7 +207,7 @@ public class SkateController : Movement
             }
 
             //NEED TO CHANGE THE REAL ROTATION FOR A SIMPLE MESH ROTATION IN ORDER TO GET THE FORWARD OF THE GAMEOBJECT AND COMPARE IT TO THE FORWARD OF THE ROTATING MESH TO CHECK IF AT THE MOMENT OF LANDING YOU SHOULD FALL
-            steerDirection = _playerInput.actions["Sideways"].ReadValue<float>();
+            steerDirection = horizontalInput;
 
             if (steerDirection != 0)
             {
@@ -252,11 +228,11 @@ public class SkateController : Movement
         currentSpeed = amount;
     }
 
-    public void SoundCheck()
+    public override void SoundCheck()
     {
         //mira si tiene que sonar el sonido del skate rodando y a que volumen
         //acordarse que para tocar el volumen mientras que se juega hay que manipular el source que se crea, no el de la escena
-        if (currentSpeed > 0.4f && Grounded() == true)
+        if (currentSpeed > 0.4f && grounded == true)
         {
             if (isplaying == false)
             {

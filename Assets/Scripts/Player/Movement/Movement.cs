@@ -13,14 +13,21 @@ public abstract class Movement : MonoBehaviour
 
 
     //[Header("===============Movement===============")]
+    public float horizontalInput;
+    public float verticalInput;
     protected RaycastHit hit;
     [HideInInspector] public Vector3 currentMomentum;
     [HideInInspector] public float maxSpeed;
     [HideInInspector] public float ogMaxSpeed;
     [HideInInspector] public float currentSpeed;
     [HideInInspector] public bool fall; //If the player touches the ground and is doing a tricks then they fall
-    public float localGravity; //Used for the down force when in air
-    public float forwardAcceleration; //Acceleration when going forward
+    [HideInInspector] public float localGravity; //Used for the down force when in air
+    [HideInInspector] public float forwardAcceleration; //Acceleration when going forward
+    [HideInInspector] public bool readyToJump;
+    public float coyoteTime;
+    public bool coyote;
+    public bool coyoteDone;
+    public bool grounded;
 
     [Header("===============Slope===============")]
     public float slopeAcceleration;
@@ -52,13 +59,33 @@ public abstract class Movement : MonoBehaviour
     {
 
     }
+    public void CoyoteCheck()
+    {
+        if (!grounded && !coyoteDone)
+        {
+            coyoteDone = true;
+            coyote = true;
+            StartCoroutine(DeactivateCoyote());
+        }
+        if (grounded) coyoteDone = false;
+    }
+    public IEnumerator DeactivateCoyote()
+    {
+        yield return new WaitForSeconds(coyoteTime);
+        coyote = false;
+    }
+    public virtual void JumpRelease()
+    {
+
+    }
     public virtual void StateHandler()
     {
 
     }
+    public virtual void SoundCheck() { }
     public void GroundRotation()
     {
-        if (Grounded()) //Checks if the player is hitting the ground by shooting a raycast downwards
+        if (grounded) //Checks if the player is hitting the ground by shooting a raycast downwards
         {
             if (canMove) //Only rotates to face the ground if the slope in front is less than the maximum
             {
@@ -72,25 +99,25 @@ public abstract class Movement : MonoBehaviour
             anim.SetBool("Air", true);
         }
     }
-    public bool Grounded() 
+    public void Grounded() 
     {       
         Debug.DrawRay(player.transform.position, -orientation.transform.up, Color.green, .05f);
-        return Physics.Raycast(player.transform.position, -orientation.transform.up, out hit, .05f);
-        
+        grounded = Physics.Raycast(player.transform.position, -orientation.transform.up, out hit, .05f);
+        anim.SetBool("Grounded", grounded);
+
     }
 
     public void SpeedControl()
     {
 
         Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
         // limit velocity if needed
         if (flatVel.magnitude > currentSpeed)
         {
             Vector3 limitedVel = flatVel.normalized * currentSpeed;
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
-
+        anim.SetFloat("XSpeed", flatVel.magnitude);
     }
 
     public void AirDetection()
@@ -100,12 +127,17 @@ public abstract class Movement : MonoBehaviour
         //If the player is in air they can do backflips now and gravity is added
         //The shouldn't be gravity while the player is not in the air because they will lose speed in slopes
 
-        if (!Grounded())
+        if (!grounded)
         {
             rb.AddForce(Vector3.up * localGravity, ForceMode.Force);
         }
 
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+    }
+
+    public virtual void AirMovement()
+    {
+
     }
 
     //====================Slope Behavior====================

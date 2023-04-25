@@ -2187,10 +2187,11 @@ GameObject:
   - component: {fileID: 1235088405893749103}
   - component: {fileID: 5866666021331452489}
   - component: {fileID: 5866666021331452490}
+  - component: {fileID: 8016601825345255085}
+  - component: {fileID: 3531411485052105630}
   - component: {fileID: 5866666021331452488}
   - component: {fileID: 2026051602978260082}
   - component: {fileID: 2349150233410222395}
-  - component: {fileID: 3531411485052105630}
   - component: {fileID: 5866666021331452497}
   - component: {fileID: 5866666021331452498}
   - component: {fileID: 5866666021331452499}
@@ -2198,7 +2199,6 @@ GameObject:
   - component: {fileID: 7582398950274055220}
   - component: {fileID: 21406634040118175}
   - component: {fileID: 2445585396216011592}
-  - component: {fileID: 373673748862672566}
   m_Layer: 3
   m_Name: PlayerPrefab
   m_TagString: Player
@@ -2221,7 +2221,7 @@ Transform:
   - {fileID: 908924504}
   - {fileID: 6005557396522497707}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1235088405893749103
 Animator:
@@ -2295,6 +2295,43 @@ CapsuleCollider:
   m_Height: 1.76
   m_Direction: 1
   m_Center: {x: 0, y: 0.86, z: 0}
+--- !u!114 &8016601825345255085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5514682090212137391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 799a3f4020d107044be100582eb6b2dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3531411485052105630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5514682090212137391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344a5416d2d26694e84cc77ae5b78c53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mov: {fileID: 0}
+  _pMov: {fileID: 0}
+  parkourSpeedPercentage: 0
+  skateSpeedPercentage: 0
+  skateSwitchBoost: 40
+  state: 0
+  skateGO: {fileID: 1420903282056837225}
+  audiomanager: {fileID: 0}
+  boostTimer: 1
+  boostMultiplier: 3
+  cooldown: 0
+  paused: 0
+  newaudiomanager: {fileID: 0}
 --- !u!114 &5866666021331452488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2307,8 +2344,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2181d6e7b70e8b44298490f0982d7f2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  orientation: {fileID: 908924504}
+  player: {fileID: 0}
+  anim: {fileID: 1235088405893749103}
+  rb: {fileID: 5866666021331452489}
+  horizontalInput: 0
+  verticalInput: 0
+  currentMomentum: {x: 0, y: 0, z: 0}
+  maxSpeed: 0
+  ogMaxSpeed: 0
+  currentSpeed: 0
+  fall: 0
+  localGravity: 0
+  forwardAcceleration: 0
+  readyToJump: 0
+  coyoteTime: 0.25
+  coyote: 0
+  coyoteDone: 0
+  grounded: 0
+  slopeAcceleration: 0
+  maxDegreeAngle: 0
+  onUpSlope: 0
+  onDownSlope: 0
+  canMove: 0
+  slopeChecker: {fileID: 0}
+  newaudiomanager: {fileID: 0}
+  newmanager: {fileID: 0}
+  paused: 0
   moveSpeed: 0
-  _playerInput: {fileID: 0}
   walkSpeed: 5
   sprintSpeed: 10
   slideSpeed: 30
@@ -2320,26 +2383,10 @@ MonoBehaviour:
   jumpForce: 5
   jumpCooldown: 1.25
   airMultiplier: 0.4
-  readyToJump: 0
-  coyoteTime: 0.25
-  coyote: 0
-  coyoteDone: 0
-  sprinting: 0
   crouchSpeed: 3
-  crouchYScale: 0.5
-  playerHeight: 0.1
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 128
-  grounded: 0
-  maxSlopeAngle: 40
-  anim: {fileID: 1235088405893749103}
   sT: {fileID: 7582398950274055220}
-  orientation: {fileID: 908924504}
-  rb: {fileID: 5866666021331452489}
   state: 0
-  newaudiomanager: {fileID: 0}
-  paused: 0
+  sprinting: 0
   sliding: 0
   crouching: 0
   wallrunning: 0
@@ -2392,32 +2439,6 @@ MonoBehaviour:
   gravityCounterForce: 11
   orientation: {fileID: 908924504}
   _playerInput: {fileID: 0}
---- !u!114 &3531411485052105630
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5514682090212137391}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 344a5416d2d26694e84cc77ae5b78c53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parkourSpeedPercentage: 0
-  skateSpeedPercentage: 0
-  skateSwitchBoost: 40
-  state: 0
-  playerMov: {fileID: 5866666021331452488}
-  skateController: {fileID: 5866666021331452498}
-  skateGO: {fileID: 1420903282056837225}
-  audiomanager: {fileID: 0}
-  boostTimer: 1
-  boostMultiplier: 3
-  _playerInput: {fileID: 0}
-  cooldown: 0
-  paused: 0
-  newaudiomanager: {fileID: 0}
 --- !u!114 &5866666021331452497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2439,6 +2460,7 @@ MonoBehaviour:
     m_Bits: 0
   obj: {fileID: 0}
   orientation: {fileID: 6005557396522497707}
+  _playerInput: {fileID: 0}
 --- !u!114 &5866666021331452498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2446,29 +2468,46 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5514682090212137391}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ef04dc3a7c59a542b41823ba4675841, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentSpeed: 0
+  orientation: {fileID: 1502002698182652772}
+  player: {fileID: 0}
+  anim: {fileID: 0}
+  rb: {fileID: 0}
+  horizontalInput: 0
+  verticalInput: 0
+  currentMomentum: {x: 0, y: 0, z: 0}
   maxSpeed: 20
   ogMaxSpeed: 0
-  maxReverseSpeed: 15
-  timeToReverse: 1
-  boostSpeed: 50
-  reverseSpeedDecrease: 2
+  currentSpeed: 0
+  fall: 0
   localGravity: -10
-  orientation: {fileID: 1502002698182652772}
   forwardAcceleration: 2
-  reverseAcceleration: 3
-  breaking: 1.5
+  readyToJump: 0
+  coyoteTime: 0
+  coyote: 0
+  coyoteDone: 0
+  grounded: 0
+  slopeAcceleration: 0
   maxDegreeAngle: 45
   onUpSlope: 0
   onDownSlope: 0
   canMove: 0
+  slopeChecker: {fileID: 0}
+  newaudiomanager: {fileID: 0}
+  newmanager: {fileID: 0}
+  paused: 0
   grinding: 0
-  skateObj: {fileID: 7147143307105443039}
+  maxReverseSpeed: 15
+  timeToReverse: 1
+  boostSpeed: 50
+  reverseSpeedDecrease: 2
+  reverseAcceleration: 3
+  breaking: 1.5
+  momentum: {x: 0, y: 0, z: 0}
   steerMultiplier: 20
   minSteering: 20
   maxSteering: 35
@@ -2491,27 +2530,6 @@ MonoBehaviour:
   minSkateJumpFoce: 10
   maxSkateJumpFoce: 50
   skateJumpMultiplier: 100
-  tricks:
-  - trickName: Kickflip
-    animationTriggered: 
-    scoreAwarded: 100
-    trickKey: 0
-  - trickName: 
-    animationTriggered: 
-    scoreAwarded: 0
-    trickKey: 0
-  - trickName: 
-    animationTriggered: 
-    scoreAwarded: 0
-    trickKey: 0
-  - trickName: 
-    animationTriggered: 
-    scoreAwarded: 0
-    trickKey: 0
-  comboTimer: 0
-  tricking: 0
-  fall: 0
-  newaudiomanager: {fileID: 0}
   isplaying: 0
 --- !u!114 &5866666021331452499
 MonoBehaviour:
@@ -2708,6 +2726,7 @@ MonoBehaviour:
   startingPos: 0
   from: 0
   to: 1
+  storedvel: 0
   balance: 0
 --- !u!114 &21406634040118175
 MonoBehaviour:
@@ -2740,36 +2759,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 0
   combo: 0
---- !u!114 &373673748862672566
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5514682090212137391}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 3e9b6c6b4265ea64c9c1089610f7f23e, type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Gameplay
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!1 &5655495988208346264
 GameObject:
   m_ObjectHideFlags: 0

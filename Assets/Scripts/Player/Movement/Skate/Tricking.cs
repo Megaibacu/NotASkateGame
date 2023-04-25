@@ -28,7 +28,7 @@ public class Tricking : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (sC.Grounded())
+        if (sC.grounded)
         {
             sC.momentum = rB.velocity;
             EndTrick();
@@ -38,7 +38,7 @@ public class Tricking : MonoBehaviour
     public void SkateTricks()
     {
 
-        if (!sC.Grounded() && !tricking)
+        if (!sC.grounded && !tricking)
         {
             if (Input.GetButtonDown("FlipTricks"))
             {
@@ -73,7 +73,7 @@ public class Tricking : MonoBehaviour
             }
         }
 
-        if (sC.Grounded() && tricking)
+        if (sC.grounded && tricking)
         {
             fall = true;
             anim.SetTrigger("Fall");
