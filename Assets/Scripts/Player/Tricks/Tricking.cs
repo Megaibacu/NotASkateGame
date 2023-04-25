@@ -28,8 +28,8 @@ public class Tricking : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        SkateTricks();
         if (sC.grounded)
-     
 		{
             sC.momentum = rB.velocity;
             EndTrick();

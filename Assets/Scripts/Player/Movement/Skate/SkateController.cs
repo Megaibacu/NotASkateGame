@@ -221,6 +221,10 @@ public class SkateController : Movement
             airSpeed.y = rb.velocity.y;
             rb.velocity = airSpeed;
         }
+        else
+        {
+            anim.SetBool("Air", false);
+        }
     }  
 
     //==============================Setters==============================
