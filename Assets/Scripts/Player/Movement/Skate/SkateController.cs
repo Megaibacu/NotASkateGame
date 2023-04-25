@@ -22,15 +22,12 @@ public class SkateController : Movement
     public float timeToReverse; //The time multiplier to make the skate reevert smooth
     public float boostSpeed; //Speed for boosts like when changing from parkour to skate or when drifting
     private float realSpeed; //Checks the real velocity of the rb
-    public float reverseSpeedDecrease; //Number that is used to divide the speed so that when you go backwards you go slower
-    public float localGravity; //Used for the down force when in air
+    public float reverseSpeedDecrease; //Number that is used to divide the speed so that when you go backwards you go slower   
 
     private float reverseTimer;
     private bool turning;
 
     [Header("===============Accelerations===============")]
-
-    public float forwardAcceleration; //Acceleration when going forward
     public float reverseAcceleration; //Acceleration for full stopping. Makes breaking forcefully smooth
     public float breaking; //Deceleration when not holding a key
     private float boostTime; //How long does the player have a boost from drift or trick combos
@@ -65,11 +62,7 @@ public class SkateController : Movement
     public float skateJumpMultiplier; //Final jump force   
     
     splineTesting sT;
-    public PlayerInput _playerInput;
-
-    [Header("===========Sound=========")]
-    public GameObject newaudiomanager;
-    NewAudioManager newmanager;
+    public PlayerInput _playerInput;    
 
     AudioSource source;
     
@@ -89,20 +82,19 @@ public class SkateController : Movement
         anim = GetComponent<Animator>();
         _playerInput = GetComponent<PlayerInput>();
         canMove = true; //Makes sure that the player can move when they put the skate on
+        player = this.gameObject;
     }
 
-    public override void Update()
+    public void Update()
     {
-
-        base.Update();
-        if (touchingGround)
+        if (Grounded())
         {
             Movement();
             Jump();
             Steering();
             Boost();
         }
-        else if (!touchingGround)
+        else if (!Grounded())
         {
             AirMovement();
         }
@@ -128,17 +120,6 @@ public class SkateController : Movement
             {
                 source.volume += Time.deltaTime;
             }
-                        
-                //The player accelerates forward when the forward input is performed
-                //Use of lerp to make the velocity change prograsively not at an instant because it would not be realistic enough
-                currentSpeed = Mathf.Lerp(currentSpeed, maxSpeed, Time.deltaTime * forwardAcceleration);
-                steerMultiplier = Mathf.Lerp(steerMultiplier, minSteering, forwardAcceleration * Time.deltaTime);
-                reverseTimer = 0;
-                //so that the skate sounds higher as you accelerate
-                if (source.volume < 1)
-                {
-                    source.volume += Time.deltaTime;
-                }
         }
         
         else if (_playerInput.actions["Forward"].ReadValue<float>() < 0)
@@ -221,16 +202,11 @@ public class SkateController : Movement
         if (_playerInput.actions["Jump"].WasReleasedThisFrame() && !grinding)
         {
             skateJumpPreassure += skateJumpPreassure + minSkateJumpFoce;
-            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+            rb.velocity = new Vector3(rb.velocity.x, skateJumpPreassure, rb.velocity.z);
             newmanager.PlaySound("Skate Jump");
-
-            rb.AddForce(Vector3.up * skateJumpPreassure, ForceMode.Impulse);
             skateJumpPreassure = 0;
         }
     }
-    
-    //====================Air Movement====================
-
     public void AirMovement()
     {
         //Function serves for players to always have their skate facing the floor
@@ -243,7 +219,7 @@ public class SkateController : Movement
         //Function to keep the momentum of the player
               
 
-        if (!touchingGround) //Will only work if the player is in the air
+        if (!Grounded()) //Will only work if the player is in the air
         {
             RaycastHit hit;
             if (Physics.Raycast(orientation.transform.position, -Vector3.up, out hit, 100f))
@@ -266,24 +242,7 @@ public class SkateController : Movement
             airSpeed.y = rb.velocity.y;
             rb.velocity = airSpeed;
         }
-    }
-
-    //====================Air Detection====================
-
-    public void AirDetection()
-    {
-
-        //==========Change of contraints and gravity depending if on air==========
-        //If the player is in air they can do backflips now and gravity is added
-        //The shouldn't be gravity while the player is not in the air because they will lose speed in slopes
-
-        if (!touchingGround)
-        {
-            rb.AddForce(Vector3.up * localGravity, ForceMode.Force);
-        }
-
-        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-    }
+    }  
 
     //==============================Setters==============================
     public void SetCurrentSpeed(float amount)
@@ -295,7 +254,7 @@ public class SkateController : Movement
     {
         //mira si tiene que sonar el sonido del skate rodando y a que volumen
         //acordarse que para tocar el volumen mientras que se juega hay que manipular el source que se crea, no el de la escena
-        if (currentSpeed > 0.4f && touchingGround == true)
+        if (currentSpeed > 0.4f && Grounded() == true)
         {
             if (isplaying == false)
             {

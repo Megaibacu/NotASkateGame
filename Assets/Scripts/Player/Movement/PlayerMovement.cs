@@ -11,6 +11,9 @@ public class PlayerMovement : Movement
     public PlayerInput _playerInput;
 
     [Header("==========Movement==========")]
+    float horizontalInput;
+    float verticalInput;
+    Vector3 moveDirection;
     public float walkSpeed;
     public float sprintSpeed;
     public float slideSpeed;
@@ -42,27 +45,9 @@ public class PlayerMovement : Movement
     public LayerMask whatIsGround;
     public bool grounded;
 
-    [Header("==========Slope Handling==========")]
-    public float maxSlopeAngle;
-    private RaycastHit slopeHit;
-    private bool exitingSlope;
-
     [Header("==========References==========")]
     public splineTesting sT;
-
-    float horizontalInput;
-    float verticalInput;
-
-    Vector3 moveDirection;
-
-
     public MovementState state;
-
-    //sound
-    public GameObject newaudiomanager;
-    NewAudioManager newmanager;
-    //pausing
-    public bool paused;
 
     new public enum MovementState
     {
@@ -78,10 +63,7 @@ public class PlayerMovement : Movement
     public bool sliding;
     public bool crouching;
     public bool wallrunning;
-
-
     public bool freeze;
-
     public bool activeGrapple;
 
     private void Start()
@@ -92,6 +74,7 @@ public class PlayerMovement : Movement
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         _playerInput = GetComponent<PlayerInput>();
+        player = this.gameObject;
 
         readyToJump = true;
 
@@ -99,9 +82,9 @@ public class PlayerMovement : Movement
         newmanager = newaudiomanager.GetComponent<NewAudioManager>();
     }
 
-    public override void Update()
+    public void Update()
     {
-        base.Update();
+        StateHandler();
         // ground check
         grounded = Grounded() ;
         anim.SetBool("Grounded", grounded);
@@ -111,11 +94,7 @@ public class PlayerMovement : Movement
             coyote = true;
         }
             if (grounded) coyoteDone = false;
-
-        if(_playerInput.actions["Sprint"].WasPressedThisFrame())
-        {
-            sprinting = !sprinting;
-        }
+       
         MyInput();
         SpeedControl();
 
@@ -130,7 +109,7 @@ public class PlayerMovement : Movement
             rb.drag = 0;
     }
 
-    public override void FixedUpdate()
+    public void FixedUpdate()
     {
        MovePlayer();
     }
@@ -155,6 +134,11 @@ public class PlayerMovement : Movement
             
         }
 
+        if (_playerInput.actions["Sprint"].WasPressedThisFrame())
+        {
+            sprinting = !sprinting;
+        }
+
         // start crouch
         if (_playerInput.actions["Crouch"].WasPressedThisFrame() && !sliding && grounded)
         {
@@ -174,8 +158,6 @@ public class PlayerMovement : Movement
         }
        
     }
-
-    bool keepMomentum;
     public override void StateHandler()
     {
         //  Reseting capsule size
@@ -190,14 +172,14 @@ public class PlayerMovement : Movement
         {
             state = MovementState.freeze;
             rb.velocity = Vector3.zero;
-            desiredMoveSpeed = 0f;
+            moveSpeed = 0f;
         }
 
         // Mode - Wallrunning
         else if (wallrunning)
         {
             state = MovementState.wallrunning;
-            desiredMoveSpeed = wallrunSpeed;
+            moveSpeed = wallrunSpeed;
         }
 
         // Mode - Sliding
@@ -208,14 +190,13 @@ public class PlayerMovement : Movement
             GetComponent<CapsuleCollider>().center = new Vector3(0, 0.35f, 0);
 
             // increase speed by one every second
-            if (OnSlope() && rb.velocity.y < 0.1f)
+            if (onDownSlope)
             {
-                desiredMoveSpeed = slideSpeed;
-                keepMomentum = true;
+                moveSpeed = slideSpeed;
             }
 
             else
-                desiredMoveSpeed = sprintSpeed;
+                moveSpeed = sprintSpeed;
         }
 
         // Mode - Crouching
@@ -224,7 +205,7 @@ public class PlayerMovement : Movement
             state = MovementState.crouching;
             GetComponent<CapsuleCollider>().height = 1;
             GetComponent<CapsuleCollider>().center = new Vector3(0, 0.35f, 0);
-            desiredMoveSpeed = crouchSpeed;
+            moveSpeed = crouchSpeed;
         }
 
         // Mode - Sprinting
@@ -232,14 +213,14 @@ public class PlayerMovement : Movement
         {
             Debug.Log("Sprint");
             state = MovementState.sprinting;
-            desiredMoveSpeed = sprintSpeed;
+            moveSpeed = sprintSpeed;
         }
 
         // Mode - Walking
         else if (grounded)
         {
             state = MovementState.walking;
-            desiredMoveSpeed = walkSpeed;
+            moveSpeed = walkSpeed;
         }
 
         // Mode - Air
@@ -248,55 +229,8 @@ public class PlayerMovement : Movement
             state = MovementState.air;
 
             if (moveSpeed < airMinSpeed)
-                desiredMoveSpeed = airMinSpeed;
+                moveSpeed = airMinSpeed;
         }
-
-        bool desiredMoveSpeedHasChanged = desiredMoveSpeed != lastDesiredMoveSpeed;
-
-        if (desiredMoveSpeedHasChanged)
-        {
-            if (keepMomentum)
-            {
-                StopAllCoroutines();
-                StartCoroutine(SmoothlyLerpMoveSpeed());
-            }
-            else
-            {
-                moveSpeed = desiredMoveSpeed;
-            }
-        }
-
-        lastDesiredMoveSpeed = desiredMoveSpeed;
-
-        // deactivate keepMomentum
-        if (Mathf.Abs(desiredMoveSpeed - moveSpeed) < 0.1f) keepMomentum = false;
-    }
-
-    private IEnumerator SmoothlyLerpMoveSpeed()
-    {
-        // smoothly lerp movementSpeed to desired value
-        float time = 0;
-        float difference = Mathf.Abs(desiredMoveSpeed - moveSpeed);
-        float startValue = moveSpeed;
-
-        while (time < difference)
-        {
-            moveSpeed = Mathf.Lerp(startValue, desiredMoveSpeed, time / difference);
-
-            if (OnSlope())
-            {
-                float slopeAngle = Vector3.Angle(Vector3.up, slopeHit.normal);
-                float slopeAngleIncrease = 1 + (slopeAngle / 90f);
-
-                time += Time.deltaTime * speedIncreaseMultiplier * slopeIncreaseMultiplier * slopeAngleIncrease;
-            }
-            else
-                time += Time.deltaTime * speedIncreaseMultiplier;
-
-            yield return null;
-        }
-
-        moveSpeed = desiredMoveSpeed;
     }
 
     private void MovePlayer()
@@ -307,65 +241,33 @@ public class PlayerMovement : Movement
         moveDirection = orientation.transform.forward * verticalInput + orientation.transform.right * horizontalInput;
 
         // on slope
-        if (OnSlope() && !exitingSlope)
+        if (onUpSlope || onDownSlope)
         {
             rb.AddForce(GetSlopeMoveDirection(moveDirection) * moveSpeed * 20f, ForceMode.Force);
-
-            if (rb.velocity.y > 0)
-                rb.AddForce(Vector3.down * 80f, ForceMode.Force);
         }
 
         // on ground
         else if (grounded)
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+            currentSpeed = Mathf.Lerp(currentSpeed, moveSpeed, Time.deltaTime * forwardAcceleration);
+        
 
         // in air
         else if (!grounded)
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+            currentSpeed = Mathf.Lerp(currentSpeed, moveSpeed, Time.deltaTime * forwardAcceleration);
 
-        // turn gravity off while on slope
-        if (!wallrunning) rb.useGravity = !OnSlope();
-    }
-
-    private void SpeedControl()
-    {
-        if (activeGrapple) return;
-
-        // limiting speed on slope
-        if (OnSlope() && !exitingSlope)
-        {
-            if (rb.velocity.magnitude > moveSpeed)
-                rb.velocity = rb.velocity.normalized * moveSpeed;
-        }
-
-        // limiting speed on ground or in air
-        else
-        {
-            Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
-            // limit velocity if needed
-            if (flatVel.magnitude > moveSpeed)
-            {
-                Vector3 limitedVel = flatVel.normalized * moveSpeed;
-                rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
-            }
-        }
-    }
+        Vector3 velocity = (orientation.transform.forward * verticalInput + orientation.transform.right * horizontalInput).normalized * currentSpeed; //This part of the script is only meant to change the forward movement of the player so it should only change the forward vector (local)
+        rb.velocity = new Vector3(velocity.x, rb.velocity.y, velocity.z); //Changed the movement mechanics from force based to velocity based
+    }    
 
     public override void Jump()
     {
-        exitingSlope = true;
-
         // reset y velocity
-        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        rb.velocity = new Vector3(rb.velocity.x, 1f * jumpForce, rb.velocity.z);
 
-        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
     public void ResetJump()
     {
         readyToJump = true;
-
-        exitingSlope = false;
     }
 
     public IEnumerator DeactivateCoyote()
@@ -382,19 +284,9 @@ public class PlayerMovement : Movement
         Invoke(nameof(SetVelocity), 0.1f);
     }
 
-    public bool OnSlope()
-    {
-        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.3f))
-        {
-            float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
-            return angle < maxSlopeAngle && angle != 0;
-        }
-
-        return false;
-    }
-
+    //Aplicarlo al movimiento de Slope
     public Vector3 GetSlopeMoveDirection(Vector3 direction)
-    {
+    {       
         return Vector3.ProjectOnPlane(direction, slopeHit.normal).normalized;
     }
 

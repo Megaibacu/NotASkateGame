@@ -6,9 +6,11 @@ public class PlayerAnimEvents : MonoBehaviour
 {
 
     Movement mS;
+    Rigidbody rb;
     private void Start()
     {
         mS = GetComponent<Movement>();
+        rb = GetComponent<Rigidbody>();
     }
     public void GetUp()
     {
@@ -17,6 +19,6 @@ public class PlayerAnimEvents : MonoBehaviour
 
     public void RestartRB()
     {
-        mS.rb.isKinematic = false;
+        rb.isKinematic = false;
     }
 }

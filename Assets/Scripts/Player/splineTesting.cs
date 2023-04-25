@@ -42,8 +42,7 @@ public class splineTesting : MonoBehaviour
                 splineF.spline = sp;
                 sp.Project(collision.GetContact(0).point, ref result, from = 0, to = 1);
                 startingPos = result.percent;
-                splineF._startPosition = startingPos;
-                Debug.Log(startingPos);               
+                splineF._startPosition = startingPos;              
 
                 if(this.transform.position.y >= result.position.y)
                 {

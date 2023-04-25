@@ -6,6 +6,8 @@ public class Tricking : MonoBehaviour
 {
     public SkateController sC;
     ScoreManager scoreM;
+    private Animator anim;
+    private Rigidbody rB;
 
     [Header("===============Skate Tricks===============")]
     public SkateTricks[] tricks; //All the tricks that can be perfornmed by the player. In the future it would be cool to make this customizable
@@ -19,14 +21,16 @@ public class Tricking : MonoBehaviour
     {
         sC = GetComponent<SkateController>();
         scoreM = GetComponent<ScoreManager>();
+        rB = GetComponent<Rigidbody>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (sC.touchingGround)
+        if (sC.Grounded())
         {
-            sC.momentum = sC.rb.velocity;
+            sC.momentum = rB.velocity;
             EndTrick();
         }
     }
@@ -34,7 +38,7 @@ public class Tricking : MonoBehaviour
     public void SkateTricks()
     {
 
-        if (!sC.touchingGround && !tricking)
+        if (!sC.Grounded() && !tricking)
         {
             if (Input.GetButtonDown("FlipTricks"))
             {
@@ -59,7 +63,7 @@ public class Tricking : MonoBehaviour
                 scoreM.combo++;
                 if (scoreM.combo > 0) { scoreM.score += (tricks[0].scoreAwarded * scoreM.combo); }
                 else { scoreM.score += tricks[0].scoreAwarded; }
-                sC.anim.SetTrigger("KickFlip");
+                anim.SetTrigger("KickFlip");
                 tricking = true;
             }
 
@@ -69,10 +73,10 @@ public class Tricking : MonoBehaviour
             }
         }
 
-        if (sC.touchingGround && tricking)
+        if (sC.Grounded() && tricking)
         {
             fall = true;
-            sC.anim.SetTrigger("Fall");
+            anim.SetTrigger("Fall");
         }
 
         if (fall)
