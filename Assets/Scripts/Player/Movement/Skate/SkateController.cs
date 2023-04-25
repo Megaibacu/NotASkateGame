@@ -145,7 +145,7 @@ public class SkateController : Movement
 
         //Change of velocity in the local forward
         Vector3 velocity = orientation.transform.forward * currentSpeed; //This part of the script is only meant to change the forward movement of the player so it should only change the forward vector (local)
-        rb.velocity = velocity; //Changed the movement mechanics from force based to velocity based
+        rb.velocity = new Vector3(velocity.x, rb.velocity.y, velocity.z); //Changed the movement mechanics from force based to velocity based
      
     }
 
@@ -202,7 +202,9 @@ public class SkateController : Movement
         if (_playerInput.actions["Jump"].WasReleasedThisFrame() && !grinding)
         {
             skateJumpPreassure += skateJumpPreassure + minSkateJumpFoce;
+            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
             rb.velocity = new Vector3(rb.velocity.x, skateJumpPreassure, rb.velocity.z);
+            Debug.Log(rb.velocity);
             newmanager.PlaySound("Skate Jump");
             skateJumpPreassure = 0;
         }
