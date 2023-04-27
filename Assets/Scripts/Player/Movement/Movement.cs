@@ -46,6 +46,12 @@ public abstract class Movement : MonoBehaviour
     //pausing
     public bool paused;
 
+    private void Update()
+    {
+        //SlopeDetection();
+        //GroundRotation();
+    }
+
     public enum MovementState
     {
 
@@ -83,6 +89,7 @@ public abstract class Movement : MonoBehaviour
 
     }
     public virtual void SoundCheck() { }
+
     public void GroundRotation()
     {
         if (grounded) //Checks if the player is hitting the ground by shooting a raycast downwards
