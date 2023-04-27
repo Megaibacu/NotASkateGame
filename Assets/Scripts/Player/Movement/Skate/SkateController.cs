@@ -216,7 +216,7 @@ public class SkateController : Movement
                 orientation.transform.eulerAngles = Vector3.Lerp(orientation.transform.eulerAngles, airRot, airSteerTiming * Time.deltaTime);
             }
 
-            currentSpeed = Mathf.Lerp(currentSpeed, 0, .25f * Time.deltaTime);
+            //currentSpeed = Mathf.Lerp(currentSpeed, 0, .25f * Time.deltaTime);
             Vector3 airSpeed = orientation.transform.forward * currentSpeed;
             airSpeed.y = rb.velocity.y;
             rb.velocity = airSpeed;
