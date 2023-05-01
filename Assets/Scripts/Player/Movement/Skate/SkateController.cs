@@ -141,14 +141,14 @@ public class SkateController : Movement
  
     public void Turn()
     {
-        transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y + 180, transform.eulerAngles.z);
+        orientation.transform.eulerAngles = new Vector3(orientation.transform.eulerAngles.x, orientation.transform.eulerAngles.y + 180, orientation.transform.eulerAngles.z);
     }
 
     public void Boost()
     {
         boostTime -= Time.deltaTime;
 
-        if(boostTime > 0) //If the player has a boost
+        if (boostTime > 0) //If the player has a boost
         {
             //Play animation for boosts
             maxSpeed = boostSpeed;
@@ -185,7 +185,7 @@ public class SkateController : Movement
             skateJumpPreassure = 0;
         }
     }
-        public override void AirMovement()
+    public override void AirMovement()
     {
         //Function serves for players to always have their skate facing the floor
         //This makes the skating easier and more arcade as they don't have to worry about landing mechanics like in Skate 3
@@ -217,9 +217,9 @@ public class SkateController : Movement
             }
 
             //currentSpeed = Mathf.Lerp(currentSpeed, 0, .25f * Time.deltaTime);
-            Vector3 airSpeed = orientation.transform.forward * currentSpeed;
-            airSpeed.y = rb.velocity.y;
-            rb.velocity = airSpeed;
+            //Vector3 airSpeed = orientation.transform.forward * currentSpeed;
+            //airSpeed.y = rb.velocity.y;
+            //rb.velocity = airSpeed;
         }
         else
         {

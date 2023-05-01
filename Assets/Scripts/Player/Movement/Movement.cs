@@ -17,7 +17,7 @@ public abstract class Movement : MonoBehaviour
     public float verticalInput;
     protected RaycastHit hit;
     [HideInInspector] public Vector3 currentMomentum;
-    [HideInInspector] public float maxSpeed;
+     public float maxSpeed;
     [HideInInspector] public float ogMaxSpeed;
     [HideInInspector] public float currentSpeed;
     [HideInInspector] public bool fall; //If the player touches the ground and is doing a tricks then they fall
@@ -46,10 +46,11 @@ public abstract class Movement : MonoBehaviour
     //pausing
     public bool paused;
 
+
     private void Update()
     {
-        //SlopeDetection();
-        //GroundRotation();
+        SlopeDetection();
+        GroundRotation();
     }
 
     public enum MovementState
@@ -191,20 +192,30 @@ public abstract class Movement : MonoBehaviour
             }
         }
     }
-    public void SlopeMovement(float angle)
+
+    public void SlopeMovement(float slopeAngle)
     {
-        float newMaxSpeed = Mathf.Abs(ogMaxSpeed / (angle * 10));
+        float newMaxSpeed = maxSpeed;
         if (onUpSlope && !onDownSlope)
         {
-            maxSpeed = Mathf.Lerp(maxSpeed, newMaxSpeed, Time.deltaTime * slopeAcceleration);
+            if (slopeAngle > 0)
+            {
+                newMaxSpeed = Mathf.Abs(ogMaxSpeed / (slopeAngle / 10));
+            }
+
+            maxSpeed = newMaxSpeed; //Change once we know this is functional
+            //maxSpeed = Mathf.Lerp(maxSpeed, newMaxSpeed, Time.deltaTime * slopeAcceleration);
         }
         else if (onDownSlope && !onUpSlope)
         {
-            maxSpeed = Mathf.Lerp(maxSpeed, newMaxSpeed, Time.deltaTime * slopeAcceleration);
+            newMaxSpeed = Mathf.Abs(ogMaxSpeed * (slopeAngle / 10));
+            maxSpeed = newMaxSpeed;
+            //maxSpeed = Mathf.Lerp(maxSpeed, newMaxSpeed, Time.deltaTime * slopeAcceleration);
         }
         else if (!onDownSlope && !onUpSlope)
         {
-            maxSpeed = Mathf.Lerp(maxSpeed, ogMaxSpeed, Time.deltaTime * slopeAcceleration);
+            maxSpeed = ogMaxSpeed;
+            //maxSpeed = Mathf.Lerp(maxSpeed, ogMaxSpeed, Time.deltaTime * slopeAcceleration);
         }
     }
 }
