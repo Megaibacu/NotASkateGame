@@ -38327,7 +38327,7 @@ PrefabInstance:
       objectReference: {fileID: 1431282591}
     - target: {fileID: 5866666021331452488, guid: 7ddf442bdb13a2c49817ee6f28301870, type: 3}
       propertyPath: localGravity
-      value: 2
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021331452488, guid: 7ddf442bdb13a2c49817ee6f28301870, type: 3}
       propertyPath: slopeChecker
@@ -56675,11 +56675,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1143472954402729420, guid: 268fded3364cf9d42bd852709db5e9e6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.7095238
+      value: -0.70952374
       objectReference: {fileID: 0}
     - target: {fileID: 1143472954402729420, guid: 268fded3364cf9d42bd852709db5e9e6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.013219977
+      value: -0.013219974
       objectReference: {fileID: 0}
     - target: {fileID: 3282440597710011968, guid: 268fded3364cf9d42bd852709db5e9e6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -56771,19 +56771,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6822685665175367015, guid: 268fded3364cf9d42bd852709db5e9e6, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7044353
+      value: 0.70443535
       objectReference: {fileID: 0}
     - target: {fileID: 6822685665175367015, guid: 268fded3364cf9d42bd852709db5e9e6, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.013125166
+      value: -0.013125167
       objectReference: {fileID: 0}
     - target: {fileID: 6822685665175367015, guid: 268fded3364cf9d42bd852709db5e9e6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.7095238
+      value: -0.70952374
       objectReference: {fileID: 0}
     - target: {fileID: 6822685665175367015, guid: 268fded3364cf9d42bd852709db5e9e6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.013219976
+      value: -0.013219975
       objectReference: {fileID: 0}
     - target: {fileID: 6840631075982484802, guid: 268fded3364cf9d42bd852709db5e9e6, type: 3}
       propertyPath: m_LookAt

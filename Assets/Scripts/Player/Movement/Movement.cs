@@ -21,7 +21,7 @@ public abstract class Movement : MonoBehaviour
     [HideInInspector] public float ogMaxSpeed;
     [HideInInspector] public float currentSpeed;
     [HideInInspector] public bool fall; //If the player touches the ground and is doing a tricks then they fall
-    [HideInInspector] public float localGravity; //Used for the down force when in air
+    public float localGravity; //Used for the down force when in air
     [HideInInspector] public float forwardAcceleration; //Acceleration when going forward
     [HideInInspector] public bool readyToJump;
     public float coyoteTime;
