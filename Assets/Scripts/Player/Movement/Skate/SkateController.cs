@@ -59,7 +59,7 @@ public class SkateController : Movement
     public float skateJumpPreassure; //The force used on the obj when jumping
     public float minSkateJumpFoce; //The minimum force that will be perfomred even if the player just presses the jump for one frame
     public float maxSkateJumpFoce; //Max force. Cannot jump higher
-    public float skateJumpMultiplier; //Final jump force   
+    public float skateJumpMultiplier; //Final jump force
     
     splineTesting sT; 
 
@@ -213,7 +213,7 @@ public class SkateController : Movement
             if (steerDirection != 0)
             {
                 Vector3 airRot = new Vector3(orientation.transform.eulerAngles.x, orientation.transform.eulerAngles.y + airSteerMultiplier * steerDirection, orientation.transform.eulerAngles.z);
-                orientation.transform.eulerAngles = Vector3.Lerp(orientation.transform.eulerAngles, airRot, airSteerTiming * Time.deltaTime);
+                //orientation.transform.eulerAngles = Vector3.Lerp(orientation.transform.eulerAngles, airRot, airSteerTiming * Time.deltaTime);
             }
 
             //currentSpeed = Mathf.Lerp(currentSpeed, 0, .25f * Time.deltaTime);
