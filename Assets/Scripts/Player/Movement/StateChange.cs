@@ -44,6 +44,8 @@ public class StateChange : MonoBehaviour
     {
         AnimationLayers();
         _mov.StateHandler();
+        //_mov.SlopeDetection();
+        _mov.GroundRotation();
         _mov.Grounded();
         _mov.CoyoteCheck();
         _mov.SpeedControl();

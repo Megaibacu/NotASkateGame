@@ -46,7 +46,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &985721317
 Transform:
   m_ObjectHideFlags: 0
@@ -2199,6 +2199,9 @@ GameObject:
   - component: {fileID: 7582398950274055220}
   - component: {fileID: 21406634040118175}
   - component: {fileID: 2445585396216011592}
+  - component: {fileID: 829474494731765835}
+  - component: {fileID: 3006619786719330453}
+  - component: {fileID: 3898482157093212101}
   m_Layer: 3
   m_Name: PlayerPrefab
   m_TagString: Player
@@ -2221,7 +2224,7 @@ Transform:
   - {fileID: 908924504}
   - {fileID: 6005557396522497707}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1235088405893749103
 Animator:
@@ -2254,7 +2257,7 @@ Rigidbody:
   m_GameObject: {fileID: 5514682090212137391}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 4
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -2267,7 +2270,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 16
@@ -2344,7 +2347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2181d6e7b70e8b44298490f0982d7f2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  orientation: {fileID: 908924504}
+  orientation: {fileID: 908924503}
   player: {fileID: 0}
   anim: {fileID: 1235088405893749103}
   rb: {fileID: 5866666021331452489}
@@ -2355,19 +2358,19 @@ MonoBehaviour:
   ogMaxSpeed: 0
   currentSpeed: 0
   fall: 0
-  localGravity: 0
-  forwardAcceleration: 0
+  localGravity: -4
+  forwardAcceleration: 5
   readyToJump: 0
   coyoteTime: 0.25
   coyote: 0
   coyoteDone: 0
   grounded: 0
   slopeAcceleration: 0
-  maxDegreeAngle: 0
+  maxDegreeAngle: 45
   onUpSlope: 0
   onDownSlope: 0
   canMove: 0
-  slopeChecker: {fileID: 0}
+  slopeChecker: {fileID: 5171195084686607125}
   newaudiomanager: {fileID: 0}
   newmanager: {fileID: 0}
   paused: 0
@@ -2380,8 +2383,8 @@ MonoBehaviour:
   speedIncreaseMultiplier: 1.5
   slopeIncreaseMultiplier: 2.5
   groundDrag: 4
-  jumpForce: 5
-  jumpCooldown: 1.25
+  jumpForce: 30
+  jumpCooldown: 1
   airMultiplier: 0.4
   crouchSpeed: 3
   sT: {fileID: 7582398950274055220}
@@ -2430,7 +2433,7 @@ MonoBehaviour:
   wallRunForce: 200
   wallJumpUpForce: 5
   wallJumpSideForce: 30
-  wallJumpForwardForce: 5
+  wallJumpForwardForce: 3
   maxWallRunTime: 1
   wallCheckDistance: 0.7
   minJumpHeight: 1
@@ -2484,7 +2487,7 @@ MonoBehaviour:
   ogMaxSpeed: 0
   currentSpeed: 0
   fall: 0
-  localGravity: -10
+  localGravity: -8
   forwardAcceleration: 2
   readyToJump: 0
   coyoteTime: 0
@@ -2496,7 +2499,7 @@ MonoBehaviour:
   onUpSlope: 0
   onDownSlope: 0
   canMove: 0
-  slopeChecker: {fileID: 0}
+  slopeChecker: {fileID: 7147143307105443039}
   newaudiomanager: {fileID: 0}
   newmanager: {fileID: 0}
   paused: 0
@@ -2527,9 +2530,9 @@ MonoBehaviour:
   mediumDrift: {fileID: 1411699291954378204}
   largeDrift: {fileID: 1411699292319809253}
   skateJumpPreassure: 0
-  minSkateJumpFoce: 10
-  maxSkateJumpFoce: 50
-  skateJumpMultiplier: 100
+  minSkateJumpFoce: 0
+  maxSkateJumpFoce: 10
+  skateJumpMultiplier: 50
   isplaying: 0
 --- !u!114 &5866666021331452499
 MonoBehaviour:
@@ -2590,16 +2593,16 @@ MonoBehaviour:
     useClippedPercent: 0
     keys: []
   _clipFromSample:
-    position: {x: -2.9827392, y: 109.03797, z: 376.6136}
+    position: {x: -8.062849, y: 108.745674, z: 393.6158}
     up: {x: 0, y: 1, z: 0}
-    forward: {x: -0.08943345, y: 0, z: 0.99599296}
+    forward: {x: -0.9999742, y: 0, z: -0.007196509}
     color: {r: 1, g: 1, b: 1, a: 1}
     size: 1
     percent: 0
   _clipToSample:
-    position: {x: -3.109492, y: 109.03797, z: 406.08246}
+    position: {x: -8.707364, y: 108.745674, z: 393.51898}
     up: {x: 0, y: 1, z: 0}
-    forward: {x: -0.08943343, y: 0, z: 0.99599296}
+    forward: {x: -0.9999742, y: 0, z: -0.007196509}
     color: {r: 1, g: 1, b: 1, a: 1}
     size: 1
     percent: 1
@@ -2644,16 +2647,16 @@ MonoBehaviour:
   targetRigidbody2D: {fileID: 0}
   targetTransform: {fileID: 5171195084686607125}
   _result:
-    position: {x: 0, y: 0, z: 0}
-    up: {x: 0, y: 0, z: 0}
-    forward: {x: 0, y: 0, z: 0}
-    color: {r: 0, g: 0, b: 0, a: 0}
-    size: 0
+    position: {x: -8.062849, y: 108.745674, z: 393.6158}
+    up: {x: 0, y: 1, z: 0}
+    forward: {x: -0.9999742, y: 0, z: -0.007196509}
+    color: {r: 1, g: 1, b: 1, a: 1}
+    size: 1
     percent: 0
   _finalResult:
-    position: {x: -2.9827392, y: 109.03797, z: 376.6136}
+    position: {x: -8.062849, y: 108.745674, z: 393.6158}
     up: {x: 0, y: 1, z: 0}
-    forward: {x: -0.08943345, y: 0, z: 0.99599296}
+    forward: {x: -0.9999742, y: 0, z: -0.007196509}
     color: {r: 1, g: 1, b: 1, a: 1}
     size: 1
     percent: 0
@@ -2757,8 +2760,73 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a629e2752d993434c87e8c18e71a2460, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 0
+  overallScore: 0
+  curretnScore: 0
   combo: 0
+--- !u!114 &829474494731765835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5514682090212137391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 3e9b6c6b4265ea64c9c1089610f7f23e, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Gameplay_p
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &3006619786719330453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5514682090212137391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39a155fc357263a4381e7432bde15845, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioobject: {fileID: 0}
+--- !u!114 &3898482157093212101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5514682090212137391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9674d250c01e0742a8cbe569a8d006d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sC: {fileID: 5866666021331452498}
+  tricks:
+  - trickName: Kickflip
+    animationTriggered: Kickflip
+    scoreAwarded: 100
+    trickKey: 107
+  comboTimer: 1
+  tricking: 0
+  fall: 0
 --- !u!1 &5655495988208346264
 GameObject:
   m_ObjectHideFlags: 0

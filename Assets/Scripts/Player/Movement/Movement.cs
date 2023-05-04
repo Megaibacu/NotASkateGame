@@ -45,14 +45,6 @@ public abstract class Movement : MonoBehaviour
 
     //pausing
     public bool paused;
-
-
-    private void Update()
-    {
-        SlopeDetection();
-        GroundRotation();
-    }
-
     public enum MovementState
     {
 
@@ -125,7 +117,7 @@ public abstract class Movement : MonoBehaviour
             Vector3 limitedVel = flatVel.normalized * currentSpeed;
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
-        anim.SetFloat("XSpeed", flatVel.magnitude);
+        
     }
 
     public void AirDetection()
