@@ -180,7 +180,6 @@ public class SkateController : Movement
             skateJumpPreassure += skateJumpPreassure + minSkateJumpFoce;
             rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
             rb.velocity = new Vector3(rb.velocity.x, skateJumpPreassure, rb.velocity.z);
-            Debug.Log(rb.velocity);
             newmanager.PlaySound("Skate Jump");
             skateJumpPreassure = 0;
         }

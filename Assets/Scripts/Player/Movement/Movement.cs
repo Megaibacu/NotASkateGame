@@ -129,7 +129,8 @@ public abstract class Movement : MonoBehaviour
 
         if (!grounded)
         {
-            rb.AddForce(Vector3.up * localGravity, ForceMode.Force);
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + localGravity/2 * Mathf.Pow(Time.deltaTime,2), rb.velocity.z);
+            //rb.AddForce(Vector3.up * localGravity, ForceMode.Force);
         }
 
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
