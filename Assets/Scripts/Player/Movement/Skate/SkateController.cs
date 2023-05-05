@@ -63,7 +63,7 @@ public class SkateController : Movement
     
     splineTesting sT; 
 
-    AudioSource source;
+    //AudioSource source;
     
     public bool isplaying;
 

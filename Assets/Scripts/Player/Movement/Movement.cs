@@ -42,6 +42,7 @@ public abstract class Movement : MonoBehaviour
     [Header("===========Sound=========")]
     public GameObject newaudiomanager;
     public NewAudioManager newmanager;
+    public AudioSource source;
 
     //pausing
     public bool paused;
