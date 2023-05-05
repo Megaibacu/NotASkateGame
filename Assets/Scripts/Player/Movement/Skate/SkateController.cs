@@ -87,56 +87,58 @@ public class SkateController : Movement
     public override void Move()
     {
         playerDirection = transform.forward * verticalInput + transform.right * horizontalInput;
-
-        if (verticalInput > 0 && canMove)
+        if(canMove)
         {
-            //The player accelerates forward when the forward input is performed
-            //Use of lerp to make the velocity change prograsively not at an instant because it would not be realistic enough
-            currentSpeed = Mathf.Lerp(currentSpeed, maxSpeed, Time.deltaTime * forwardAcceleration);
-            steerMultiplier = Mathf.Lerp(steerMultiplier, minSteering, forwardAcceleration * Time.deltaTime);
-            reverseTimer = 0;
-            
-            //so that the skate sounds higher as you accelerate
-            if (source.volume < 1) //If thre player isn't facing a slope with a high angle they can move forward
+            if (verticalInput > 0)
             {
-                source.volume += Time.deltaTime;
-            }
-        }
-        
-        else if (verticalInput < 0)
-        {
-            //Instead of going backwards changing to goofy
-            //Player needs to have a slower reverse speed and acceleration to simulate the real world in a minimum way
+                //The player accelerates forward when the forward input is performed
+                //Use of lerp to make the velocity change prograsively not at an instant because it would not be realistic enough
+                currentSpeed = Mathf.Lerp(currentSpeed, maxSpeed, Time.deltaTime * forwardAcceleration);
+                steerMultiplier = Mathf.Lerp(steerMultiplier, minSteering, forwardAcceleration * Time.deltaTime);
+                reverseTimer = 0;
 
-            currentSpeed = Mathf.Lerp(currentSpeed, 0, Time.deltaTime * reverseAcceleration);
-            steerMultiplier = Mathf.Lerp(steerMultiplier, maxSteering, reverseAcceleration * Time.deltaTime);
-        }
-        else
-        {
-            //Breaking needs to be discussed. Whaqt should be the timing of deceleration?
-            currentSpeed = Mathf.Lerp(currentSpeed, 0, Time.deltaTime * breaking);
-            steerMultiplier = Mathf.Lerp(steerMultiplier, maxSteering, breaking * Time.deltaTime);
-            reverseTimer = 0;
-            //make the skate sound lower as you brake
-            if (source.volume > 0)
+                //so that the skate sounds higher as you accelerate
+                if (source.volume < 1) //If thre player isn't facing a slope with a high angle they can move forward
+                {
+                    source.volume += Time.deltaTime;
+                }
+            }
+
+            else if (verticalInput < 0)
             {
-                source.volume -= Time.deltaTime;
+                //Instead of going backwards changing to goofy
+                //Player needs to have a slower reverse speed and acceleration to simulate the real world in a minimum way
+
+                currentSpeed = Mathf.Lerp(currentSpeed, 0, Time.deltaTime * reverseAcceleration);
+                steerMultiplier = Mathf.Lerp(steerMultiplier, maxSteering, reverseAcceleration * Time.deltaTime);
             }
-        }
+            else
+            {
+                //Breaking needs to be discussed. Whaqt should be the timing of deceleration?
+                currentSpeed = Mathf.Lerp(currentSpeed, 0, Time.deltaTime * breaking);
+                steerMultiplier = Mathf.Lerp(steerMultiplier, maxSteering, breaking * Time.deltaTime);
+                reverseTimer = 0;
+                //make the skate sound lower as you brake
+                if (source.volume > 0)
+                {
+                    source.volume -= Time.deltaTime;
+                }
+            }
 
-        //Change of velocity in the local forward
-        Vector3 velocity = orientation.transform.forward * currentSpeed; //This part of the script is only meant to change the forward movement of the player so it should only change the forward vector (local)
-        rb.velocity = new Vector3(velocity.x, rb.velocity.y, velocity.z); //Changed the movement mechanics from force based to velocity based
+            //Change of velocity in the local forward
+            Vector3 velocity = orientation.transform.forward * currentSpeed; //This part of the script is only meant to change the forward movement of the player so it should only change the forward vector (local)
+            rb.velocity = new Vector3(velocity.x, rb.velocity.y, velocity.z); //Changed the movement mechanics from force based to velocity based
 
-        //===================Steering============
-        steerDirection = horizontalInput;
-        Vector3 steerVect; //Used to get the final rotation of the object
-        float steerAmount;
+            //===================Steering============
+            steerDirection = horizontalInput;
+            Vector3 steerVect; //Used to get the final rotation of the object
+            float steerAmount;
 
-        //----------Final Steering Direction---------
-        steerAmount = steerDirection * steerMultiplier;
-        steerVect = new Vector3(orientation.transform.eulerAngles.x, orientation.transform.eulerAngles.y + steerAmount, orientation.transform.eulerAngles.z);
-        orientation.transform.eulerAngles = Vector3.Lerp(orientation.transform.eulerAngles, steerVect, steerTiming * Time.deltaTime);      
+            //----------Final Steering Direction---------
+            steerAmount = steerDirection * steerMultiplier;
+            steerVect = new Vector3(orientation.transform.eulerAngles.x, orientation.transform.eulerAngles.y + steerAmount, orientation.transform.eulerAngles.z);
+            orientation.transform.eulerAngles = Vector3.Lerp(orientation.transform.eulerAngles, steerVect, steerTiming * Time.deltaTime);
+        }       
     }
  
     public void Turn()

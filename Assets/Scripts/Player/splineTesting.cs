@@ -62,6 +62,7 @@ public class splineTesting : MonoBehaviour
 
     public void Grind()
     {
+        sc.canMove = false;
         Vector3 flatVel = new Vector3(pm.rb.velocity.x, 0f, pm.rb.velocity.z);
         sc.grinding = true;
         splineF._startPosition = startingPos;
@@ -90,6 +91,7 @@ public class splineTesting : MonoBehaviour
 
     public void EndGrind()
     {
+        sc.canMove = true;
         splineF.follow = false;
         sc.grinding = false;
         GetComponent<Rigidbody>().velocity = storedvel * transform.forward;
