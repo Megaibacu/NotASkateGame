@@ -16,6 +16,7 @@ public class Sliding : MonoBehaviour
     public float maxSlideTime;
     public float slideForce;
     private float slideTimer;
+    public bool sliding;
 
     [Header("Input")]
     private float horizontalInput;
@@ -30,30 +31,16 @@ public class Sliding : MonoBehaviour
         _playerInput = GetComponent<PlayerInput>();
     }
 
-    private void Update()
-    {
-        horizontalInput = _playerInput.actions["Sideways"].ReadValue<float>();
-        verticalInput = _playerInput.actions["Forward"].ReadValue<float>();
-
-        if (_playerInput.actions["Crouch"].WasPressedThisFrame() && (horizontalInput != 0 || verticalInput != 0) && pm.grounded)
-        {
-            StartSlide();
-        }
-
-        if(_playerInput.actions["Crouch"].WasReleasedThisFrame() && pm.sliding)
-        {
-            StopSlide();
-        }
-    }
     private void FixedUpdate()
     {
+        sliding = pm.sliding;
         if(pm.sliding)
         {
             SlidingMovement();
         }
     }
 
-    private void StartSlide()
+    public void StartSlide()
     {
         pm.sliding = true;
 
@@ -84,7 +71,7 @@ public class Sliding : MonoBehaviour
 
     }
 
-    private void StopSlide()
+    public void StopSlide()
     {
         pm.sliding = false;
         slideTimer = maxSlideTime;

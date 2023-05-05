@@ -53,12 +53,7 @@ public class StateChange : MonoBehaviour
         _mov.AirDetection();
         _mov.SoundCheck();
         _mov.Move();
-
-    }
-
-    public void FixedUpdate()
-    {
-        
+        print(GetComponent<Rigidbody>().velocity);
     }
 
     public void AnimationLayers()
