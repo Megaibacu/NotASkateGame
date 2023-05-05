@@ -16,6 +16,7 @@ public class Customizationshop : MonoBehaviour
     public GameObject playercam;
     public GameObject shopui;
     public GameObject player;
+    public GameObject soundmanager;
     public PlayerInput _playerInput;
 
     public CinemachineVirtualCamera shopcam;
@@ -60,7 +61,7 @@ public class Customizationshop : MonoBehaviour
         blackarrows[1] = shopui.transform.GetChild(3).GetComponent<Image>();
         blackarrows[2] = shopui.transform.GetChild(8).GetComponent<Image>();
         blackarrows[3] = shopui.transform.GetChild(9).GetComponent<Image>();
-        manager = GetComponent<NewAudioManager>();
+        manager = soundmanager.GetComponent<NewAudioManager>();
         shopui.GetComponent<Finderscript>().numberofobjects--;
         //la camara del jugador deberia ser idealmente una virtual cam, este script es algo chusco ahora
         shopcam.Priority = 1;
@@ -242,15 +243,15 @@ public class Customizationshop : MonoBehaviour
     {
         if (skatetype == "Real")
         {
-            if (selectedmaterial == 0)
+            if (currentmaterial == 0)
             {
                 Skate.GetComponent<Renderer>().material.color = new Color(255, 255, 255);
             }
-            if (selectedmaterial == 1)
+            if (currentmaterial == 1)
             {
                 Skate.GetComponent<Renderer>().material.color = new Color(0, 98, 255);
             }
-            if (selectedmaterial == 2)
+            if (currentmaterial == 2)
             {
                 Skate.GetComponent<Renderer>().material.color = new Color(0, 255, 0);
             }
@@ -271,7 +272,7 @@ public class Customizationshop : MonoBehaviour
             }
         }
 
-        skateimagereal.GetComponent<Image>().sprite = skateimages[selectedimage];
+        skateimagereal.GetComponent<Image>().sprite = skateimages[currentimage];
     }
     public void placeblackbox()
     {
