@@ -40,10 +40,8 @@ public class InputManager : MonoBehaviour
             _sChange._pMov.sprinting = !_sChange._pMov.sprinting;
         }
 
-        if (_pInput.actions["Crouch"].WasPressedThisFrame() && !_sChange._pMov.sliding && _sChange._mov.grounded)
+        if (_pInput.actions["Crouch"].IsPressed() && !_sChange._pMov.sliding && _sChange._mov.grounded)
         {
-            _sChange._mov.anim.SetBool("Crouch", true);
-
             _sChange._pMov.crouching = true;
         }
 

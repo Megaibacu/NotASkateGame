@@ -91,10 +91,9 @@ public class PlayerMovement : Movement
         // Mode - Sliding
         else if (sliding)
         {
-            state = MovementState.sliding;
-            anim.SetBool("Sliding", sliding);
+            state = MovementState.sliding;            
             GetComponent<CapsuleCollider>().height = 1;
-            GetComponent<CapsuleCollider>().center = new Vector3(0, 0.35f, 0);
+            GetComponent<CapsuleCollider>().center = new Vector3(0, 0.5f, 0);
 
             // increase speed by one every second
             if (onDownSlope)
@@ -111,7 +110,7 @@ public class PlayerMovement : Movement
         {
             state = MovementState.crouching;
             GetComponent<CapsuleCollider>().height = 1;
-            GetComponent<CapsuleCollider>().center = new Vector3(0, 0.35f, 0);
+            GetComponent<CapsuleCollider>().center = new Vector3(0, 0.5f, 0);
             moveSpeed = crouchSpeed;
         }
 
@@ -138,6 +137,8 @@ public class PlayerMovement : Movement
             if (moveSpeed < airMinSpeed)
                 moveSpeed = airMinSpeed;
         }
+        anim.SetBool("Sliding", sliding);
+        anim.SetBool("Crouch", crouching);
     }
 
     public override void Move()
