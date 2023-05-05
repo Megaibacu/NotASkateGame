@@ -2358,7 +2358,7 @@ MonoBehaviour:
   ogMaxSpeed: 0
   currentSpeed: 0
   fall: 0
-  localGravity: -4
+  localGravity: -9
   forwardAcceleration: 5
   readyToJump: 0
   coyoteTime: 0.25
@@ -2383,7 +2383,7 @@ MonoBehaviour:
   speedIncreaseMultiplier: 1.5
   slopeIncreaseMultiplier: 2.5
   groundDrag: 4
-  jumpForce: 30
+  jumpForce: 28
   jumpCooldown: 1
   airMultiplier: 0.4
   crouchSpeed: 3
@@ -2487,7 +2487,7 @@ MonoBehaviour:
   ogMaxSpeed: 0
   currentSpeed: 0
   fall: 0
-  localGravity: -8
+  localGravity: -10
   forwardAcceleration: 2
   readyToJump: 0
   coyoteTime: 0

@@ -4158,7 +4158,7 @@ PrefabInstance:
     - target: {fileID: 6956011625808399714, guid: a3890d4c52a8dd94898badf948bb3782, type: 3}
       propertyPath: _playerInput
       value: 
-      objectReference: {fileID: 1431282591}
+      objectReference: {fileID: 1431282639}
     - target: {fileID: 6956011625808399714, guid: a3890d4c52a8dd94898badf948bb3782, type: 3}
       propertyPath: thingsthatneedpausing.Array.size
       value: 4
@@ -38153,6 +38153,10 @@ PrefabInstance:
       propertyPath: wallJumpForwardForce
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3006619786719330453, guid: 7ddf442bdb13a2c49817ee6f28301870, type: 3}
+      propertyPath: audioobject
+      value: 
+      objectReference: {fileID: 1327014044}
     - target: {fileID: 3531411485052105630, guid: 7ddf442bdb13a2c49817ee6f28301870, type: 3}
       propertyPath: newaudiomanager
       value: 
@@ -38314,6 +38318,10 @@ PrefabInstance:
       value: PlayerPrefab
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021331452488, guid: 7ddf442bdb13a2c49817ee6f28301870, type: 3}
+      propertyPath: jumpForce
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021331452488, guid: 7ddf442bdb13a2c49817ee6f28301870, type: 3}
       propertyPath: groundDrag
       value: 4
       objectReference: {fileID: 0}
@@ -38324,10 +38332,10 @@ PrefabInstance:
     - target: {fileID: 5866666021331452488, guid: 7ddf442bdb13a2c49817ee6f28301870, type: 3}
       propertyPath: _playerInput
       value: 
-      objectReference: {fileID: 1431282591}
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021331452488, guid: 7ddf442bdb13a2c49817ee6f28301870, type: 3}
       propertyPath: localGravity
-      value: -10
+      value: -9
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021331452488, guid: 7ddf442bdb13a2c49817ee6f28301870, type: 3}
       propertyPath: slopeChecker
@@ -38364,7 +38372,11 @@ PrefabInstance:
     - target: {fileID: 5866666021331452498, guid: 7ddf442bdb13a2c49817ee6f28301870, type: 3}
       propertyPath: _playerInput
       value: 
-      objectReference: {fileID: 1431282591}
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021331452498, guid: 7ddf442bdb13a2c49817ee6f28301870, type: 3}
+      propertyPath: localGravity
+      value: -10
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021331452498, guid: 7ddf442bdb13a2c49817ee6f28301870, type: 3}
       propertyPath: slopeChecker
       value: 
@@ -38397,16 +38409,7 @@ PrefabInstance:
     - {fileID: 373673748862672566, guid: 7ddf442bdb13a2c49817ee6f28301870, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5514682090212137391, guid: 7ddf442bdb13a2c49817ee6f28301870, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1431282591}
-    - targetCorrespondingSourceObject: {fileID: 5514682090212137391, guid: 7ddf442bdb13a2c49817ee6f28301870, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1431282619}
-    - targetCorrespondingSourceObject: {fileID: 5514682090212137391, guid: 7ddf442bdb13a2c49817ee6f28301870, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1431282633}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ddf442bdb13a2c49817ee6f28301870, type: 3}
 --- !u!4 &1431282572 stripped
 Transform:
@@ -38428,49 +38431,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5514682090212137391, guid: 7ddf442bdb13a2c49817ee6f28301870, type: 3}
   m_PrefabInstance: {fileID: 1431282571}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1431282591
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1431282575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 3e9b6c6b4265ea64c9c1089610f7f23e, type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Gameplay_p
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
---- !u!114 &1431282619
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1431282575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39a155fc357263a4381e7432bde15845, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioobject: {fileID: 1327014044}
 --- !u!114 &1431282620 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3945440651393942699, guid: 7ddf442bdb13a2c49817ee6f28301870, type: 3}
@@ -38482,38 +38442,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ddc1a2536715a24095c464a2c394d5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1431282627 stripped
+--- !u!114 &1431282639 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5866666021331452498, guid: 7ddf442bdb13a2c49817ee6f28301870, type: 3}
+  m_CorrespondingSourceObject: {fileID: 829474494731765835, guid: 7ddf442bdb13a2c49817ee6f28301870, type: 3}
   m_PrefabInstance: {fileID: 1431282571}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1431282575}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ef04dc3a7c59a542b41823ba4675841, type: 3}
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1431282633
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1431282575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9674d250c01e0742a8cbe569a8d006d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sC: {fileID: 1431282627}
-  tricks:
-  - trickName: Kickflip
-    animationTriggered: Kickflip
-    scoreAwarded: 100
-    trickKey: 107
-  comboTimer: 1
-  tricking: 0
-  fall: 0
 --- !u!1 &1433032303
 GameObject:
   m_ObjectHideFlags: 0
@@ -51614,7 +51553,7 @@ PrefabInstance:
     - target: {fileID: 5992649460379506803, guid: 7977cf121cc40424481fe57062508178, type: 3}
       propertyPath: _playerInput
       value: 
-      objectReference: {fileID: 1431282591}
+      objectReference: {fileID: 1431282639}
     - target: {fileID: 5992649460379506803, guid: 7977cf121cc40424481fe57062508178, type: 3}
       propertyPath: skateimagereal
       value: 
@@ -56671,7 +56610,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1143472954402729420, guid: 268fded3364cf9d42bd852709db5e9e6, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.013125165
+      value: -0.013125167
       objectReference: {fileID: 0}
     - target: {fileID: 1143472954402729420, guid: 268fded3364cf9d42bd852709db5e9e6, type: 3}
       propertyPath: m_LocalRotation.y
@@ -56679,7 +56618,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1143472954402729420, guid: 268fded3364cf9d42bd852709db5e9e6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.013219974
+      value: -0.013219976
       objectReference: {fileID: 0}
     - target: {fileID: 3282440597710011968, guid: 268fded3364cf9d42bd852709db5e9e6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -56820,7 +56759,7 @@ PrefabInstance:
     - target: {fileID: 7114420426633092267, guid: 268fded3364cf9d42bd852709db5e9e6, type: 3}
       propertyPath: _playerInput
       value: 
-      objectReference: {fileID: 1431282591}
+      objectReference: {fileID: 1431282639}
     - target: {fileID: 7282239339086816607, guid: 268fded3364cf9d42bd852709db5e9e6, type: 3}
       propertyPath: m_LookAt
       value: 
