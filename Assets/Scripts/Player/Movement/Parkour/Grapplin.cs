@@ -109,7 +109,11 @@ public class Grapplin : MonoBehaviour
         pm.JumpToPosition(grapplePoint, highestPointOnArc);*/
 
         Vector3 grappleDirection = (grapplePoint - transform.position);
-        pm.Jump(grappleDirection*10);
+        if(pm.grounded)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y + 0.2f, transform.position.z);
+        }
+        pm.Jump(new Vector3(grappleDirection.x, grappleDirection.y * 1.5f, grappleDirection.z));
         print(GetComponent<Rigidbody>().velocity);
         Invoke(nameof(EndGrapple), 1f);
     }

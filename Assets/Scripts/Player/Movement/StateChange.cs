@@ -57,7 +57,6 @@ public class StateChange : MonoBehaviour
         _mov.AirDetection();
         _mov.SoundCheck();
         _mov.Move();
-        print(GetComponent<Rigidbody>().velocity);
     }
 
     public void AnimationLayers()

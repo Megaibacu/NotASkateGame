@@ -80,6 +80,7 @@ public class PlayerMovement : Movement
             state = MovementState.freeze;
             rb.velocity = Vector3.zero;
             moveSpeed = 0f;
+            rb.drag = 4;
         }
 
         // Mode - Wallrunning
@@ -87,6 +88,7 @@ public class PlayerMovement : Movement
         {
             state = MovementState.wallrunning;
             moveSpeed = wallrunSpeed;
+            rb.drag = 4;
         }
 
         // Mode - Sliding
@@ -103,16 +105,18 @@ public class PlayerMovement : Movement
             }
 
             else
-                moveSpeed = sprintSpeed;
+                moveSpeed = slideSpeed;
+            rb.drag = 4;
         }
 
         // Mode - Crouching
-        else if (crouching)
+        else if (crouching && !sliding)
         {
             state = MovementState.crouching;
             GetComponent<CapsuleCollider>().height = 1;
             GetComponent<CapsuleCollider>().center = new Vector3(0, 0.5f, 0);
             moveSpeed = crouchSpeed;
+            rb.drag = 4;
         }
 
         // Mode - Sprinting
@@ -121,6 +125,7 @@ public class PlayerMovement : Movement
             Debug.Log("Sprint");
             state = MovementState.sprinting;
             moveSpeed = sprintSpeed;
+            rb.drag = 4;
         }
 
         // Mode - Walking
@@ -128,6 +133,7 @@ public class PlayerMovement : Movement
         {
             state = MovementState.walking;
             moveSpeed = walkSpeed;
+            rb.drag = 4;
         }
 
         // Mode - Air
@@ -137,6 +143,8 @@ public class PlayerMovement : Movement
 
             if (moveSpeed < airMinSpeed)
                 moveSpeed = airMinSpeed;
+
+            rb.drag = 0;
         }
         anim.SetBool("Sliding", sliding);
         anim.SetBool("Crouch", crouching);
@@ -166,14 +174,12 @@ public class PlayerMovement : Movement
 
         if (grounded)
         {
-           velocity = (orientation.transform.forward * verticalInput + orientation.transform.right * horizontalInput).normalized * currentSpeed; //This part of the script is only meant to change the forward movement of the player so it should only change the forward vector (local)
+           velocity = (orientation.transform.forward * verticalInput + orientation.transform.right * horizontalInput).normalized * currentSpeed;
+            rb.velocity = new Vector3(velocity.x, rb.velocity.y, velocity.z); //Changed the movement mechanics from force based to velocity based
         }
 
-        else if (!grounded)
-        {
-           velocity = (rb.velocity); //This part of the script is only meant to change the forward movement of the player so it should only change the forward vector (local)            
-        }
-        rb.velocity = new Vector3(velocity.x, rb.velocity.y, velocity.z); //Changed the movement mechanics from force based to velocity based
+
+ 
         anim.SetFloat("XSpeed", rb.velocity.magnitude);
     }    
 
@@ -192,40 +198,15 @@ public class PlayerMovement : Movement
         readyToJump = true;
     }
 
-    public void JumpToPosition(Vector3 targetPosition, float trajectoryHeight)
-    {
-        activeGrapple = true;
-
-        velocityToSet = CalculateJumpVelocity(transform.position, targetPosition, trajectoryHeight);
-        Invoke(nameof(SetVelocity), 0.1f);
-    }
-
     //Aplicarlo al movimiento de Slope
     public Vector3 GetSlopeMoveDirection(Vector3 direction)
     {       
         return Vector3.ProjectOnPlane(direction, slopeHit.normal).normalized;
     }
 
-    public Vector3 CalculateJumpVelocity(Vector3 startPoint, Vector3 endPoint, float trajectoryHeight)
+    public override void SpeedControl()
     {
-        float gravity = localGravity;
-        float displacementY = endPoint.y - startPoint.y;
-        Vector3 displacementXZ = new Vector3(endPoint.x - startPoint.x, 0f, endPoint.z - startPoint.z);
-
-        Vector3 velocityY = Vector3.up * Mathf.Sqrt(-30 * gravity * trajectoryHeight);
-        Vector3 velocityXZ = displacementXZ / (Mathf.Sqrt(-30 * trajectoryHeight / gravity)
-            + Mathf.Sqrt(30 * (displacementY - trajectoryHeight) / gravity));
-
-        return velocityXZ + velocityY;
-    }
-
-    private Vector3 velocityToSet;
-    private void SetVelocity()
-    {
-        
-        rb.velocity = velocityToSet;
 
     }
-
 }
 

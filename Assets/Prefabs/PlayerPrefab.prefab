@@ -2373,6 +2373,7 @@ MonoBehaviour:
   slopeChecker: {fileID: 5171195084686607125}
   newaudiomanager: {fileID: 0}
   newmanager: {fileID: 0}
+  source: {fileID: 0}
   paused: 0
   moveSpeed: 0
   walkSpeed: 5
@@ -2412,6 +2413,7 @@ MonoBehaviour:
   _playerInput: {fileID: 0}
   maxSlideTime: 0.75
   slideForce: 200
+  sliding: 0
 --- !u!114 &2349150233410222395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2502,6 +2504,7 @@ MonoBehaviour:
   slopeChecker: {fileID: 7147143307105443039}
   newaudiomanager: {fileID: 0}
   newmanager: {fileID: 0}
+  source: {fileID: 0}
   paused: 0
   grinding: 0
   maxReverseSpeed: 15
@@ -2719,6 +2722,7 @@ MonoBehaviour:
   sp: {fileID: 0}
   splineF: {fileID: 3945440651393942699}
   orientation: {fileID: 1502002698182652772}
+  pCollider: {fileID: 5866666021331452490}
   result:
     position: {x: 0, y: 0, z: 0}
     up: {x: 0, y: 0, z: 0}
@@ -2730,6 +2734,8 @@ MonoBehaviour:
   from: 0
   to: 1
   storedvel: 0
+  grind_cd: 0.5
+  cd_countdown: 0
   balance: 0
 --- !u!114 &21406634040118175
 MonoBehaviour:
