@@ -63,7 +63,7 @@ public class SkateController : Movement
     
     splineTesting sT; 
 
-    AudioSource source;
+    //AudioSource source;
     
     public bool isplaying;
 
@@ -162,7 +162,7 @@ public class SkateController : Movement
         }
     }
 
-    public override void Jump()
+    public override void Jump(Vector3 gP)
     {
         if (grinding)
         {

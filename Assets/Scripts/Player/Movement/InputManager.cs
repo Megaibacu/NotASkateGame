@@ -31,7 +31,7 @@ public class InputManager : MonoBehaviour
 
         if (_pInput.actions["Jump"].IsPressed() && ((_sChange._mov.readyToJump && _sChange._mov.grounded) || _sChange._mov.coyote && _sChange._mov.readyToJump || _grind.sc.grinding) && _sChange._mov.paused == false)
         {
-            _sChange._mov.Jump();
+            _sChange._mov.Jump(GetComponent<Rigidbody>().velocity);
         }
         if (_pInput.actions["Jump"].WasReleasedThisFrame() && ((_sChange._mov.readyToJump && _sChange._mov.grounded) || _sChange._mov.coyote && _sChange._mov.readyToJump) && _sChange._mov.paused == false)
         {

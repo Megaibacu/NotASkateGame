@@ -42,6 +42,7 @@ public abstract class Movement : MonoBehaviour
     [Header("===========Sound=========")]
     public GameObject newaudiomanager;
     public NewAudioManager newmanager;
+    public AudioSource source;
 
     //pausing
     public bool paused;
@@ -54,7 +55,7 @@ public abstract class Movement : MonoBehaviour
     {
 
     }
-    public virtual void Jump()
+    public virtual void Jump(Vector3 grapplePoint)
     {
 
     }

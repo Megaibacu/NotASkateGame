@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class NewAudioManager : MonoBehaviour
 {
-    AudioSource source;
-    AudioSource source2;
+    public List<AudioSource> sources;
     public NewSound[] sounds;
     void Start()
     {
-        source = gameObject.AddComponent<AudioSource>();
-        source2 = gameObject.AddComponent<AudioSource>();
+        sources.AddRange(gameObject.GetComponents<AudioSource>());
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -27,24 +24,25 @@ public class NewAudioManager : MonoBehaviour
             {
                 if (sounds[amount].canoverlap == false)
                 {
-                    source.clip = sounds[amount].clip;
-                    source.volume = sounds[amount].volume;
-                    source.Play();
+
+                    sources[0].clip = sounds[amount].clip;
+                    sources[0].volume = sounds[amount].volume;
+                    sources[0].Play();
                 }
                 else
                 {
-                    source2.clip = sounds[amount].clip;
-                    source2.volume = sounds[amount].volume;
-                    source2.Play();
+                    sources[1].clip = sounds[amount].clip;
+                    sources[1].volume = sounds[amount].volume;
+                    sources[1].Play();
                 }
                 
                 if (sounds[amount].loop == true)
                 {
-                    source.loop = true;
+                    sources[0].loop = true;
                 }
                 else
                 {
-                    source.loop = false;
+                    sources[0].loop = false;
                 }
                 amount = sounds.Length;
             }
@@ -52,6 +50,6 @@ public class NewAudioManager : MonoBehaviour
     }
     public void StopSound()
     {
-        source.Stop();
+        sources[0].Stop();
     }
 }

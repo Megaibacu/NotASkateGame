@@ -1133,7 +1133,6 @@ GameObject:
   - component: {fileID: 8803651182965176126}
   - component: {fileID: 7729838081310379279}
   - component: {fileID: 5992649460379506803}
-  - component: {fileID: 5900743449117584533}
   m_Layer: 0
   m_Name: Triggerzone
   m_TagString: Untagged
@@ -1216,31 +1215,6 @@ MonoBehaviour:
   selectedimage: 0
   currentmaterial: 0
   selectedmaterial: 0
---- !u!114 &5900743449117584533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6632407591870162349}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b77cf7a1c4a010e4a9ced9d1bdd489d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sounds:
-  - name: Select
-    clip: {fileID: 8300000, guid: b142aa02a8648c94b999212277216d05, type: 3}
-    volume: 0.8
-    loop: 0
-  - name: Arrow
-    clip: {fileID: 8300000, guid: fbcc15bd77f3dcd438976ceb4f968093, type: 3}
-    volume: 0.3
-    loop: 0
-  - name: Enter
-    clip: {fileID: 8300000, guid: 4dcfc7bb7813f20469d2fd05a8baaf7c, type: 3}
-    volume: 1
-    loop: 0
 --- !u!1 &7195472376071196896
 GameObject:
   m_ObjectHideFlags: 0

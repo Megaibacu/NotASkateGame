@@ -16,6 +16,7 @@ public class PlayerMovement : Movement
     public float slideSpeed;
     public float wallrunSpeed;
     public float airMinSpeed;
+    protected Vector3 velocity;
 
     public float speedIncreaseMultiplier;
     public float slopeIncreaseMultiplier;
@@ -163,19 +164,26 @@ public class PlayerMovement : Movement
         else if (!grounded)
             currentSpeed = Mathf.Lerp(currentSpeed, moveSpeed, Time.deltaTime * forwardAcceleration);
 
-        Vector3 velocity = (orientation.transform.forward * verticalInput + orientation.transform.right * horizontalInput).normalized * currentSpeed; //This part of the script is only meant to change the forward movement of the player so it should only change the forward vector (local)
+        if (grounded)
+        {
+           velocity = (orientation.transform.forward * verticalInput + orientation.transform.right * horizontalInput).normalized * currentSpeed; //This part of the script is only meant to change the forward movement of the player so it should only change the forward vector (local)
+        }
+
+        else if (!grounded)
+        {
+           velocity = (rb.velocity); //This part of the script is only meant to change the forward movement of the player so it should only change the forward vector (local)            
+        }
         rb.velocity = new Vector3(velocity.x, rb.velocity.y, velocity.z); //Changed the movement mechanics from force based to velocity based
         anim.SetFloat("XSpeed", rb.velocity.magnitude);
     }    
 
-    public override void Jump()
+    public override void Jump(Vector3 jumpVector)
     {
         readyToJump = false;
         newmanager.PlaySound("Jump");
-        anim.SetTrigger("Jump");
-
+        anim.SetTrigger("Jump");        
         // Jump Velocity
-        rb.velocity = new Vector3(rb.velocity.x, 1f * jumpForce, rb.velocity.z);
+        rb.velocity = new Vector3(jumpVector.x, jumpVector.y + 1 * jumpForce, jumpVector.z);
 
         Invoke(nameof(ResetJump), jumpCooldown);
     }

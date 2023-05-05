@@ -99,15 +99,18 @@ public class Grapplin : MonoBehaviour
     {
         pm.freeze = false;
 
-        Vector3 lowestPoint = new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z);
+        /*Vector3 lowestPoint = new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z);
 
         float grapplePointRelYPos = grapplePoint.y - lowestPoint.y;
         float highestPointOnArc = grapplePointRelYPos + overshootYAxis;
 
         if (grapplePointRelYPos < 0) highestPointOnArc = overshootYAxis;
 
-        pm.JumpToPosition(grapplePoint, highestPointOnArc);
+        pm.JumpToPosition(grapplePoint, highestPointOnArc);*/
 
+        Vector3 grappleDirection = (grapplePoint - transform.position);
+        pm.Jump(grappleDirection*10);
+        print(GetComponent<Rigidbody>().velocity);
         Invoke(nameof(EndGrapple), 1f);
     }
 
