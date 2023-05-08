@@ -41,6 +41,8 @@ public class WallRunning : MonoBehaviour
     private PlayerMovement pm;
     private Rigidbody rb;
     public PlayerInput _playerInput;
+    private GameObject lastWall;
+    private GameObject wallhit;
 
     private void Start()
     {
@@ -51,6 +53,8 @@ public class WallRunning : MonoBehaviour
 
     private void Update()
     {
+        if (!AboveGround())
+            lastWall = null;
         CheckForWall();
         StateMachine();
         //Debug.Log(wallLeft);
@@ -66,9 +70,10 @@ public class WallRunning : MonoBehaviour
 
     private void CheckForWall()
     {
-        wallRight = Physics.Raycast(transform.position, orientation.right, out rightWallHit, wallCheckDistance, whatIsWall);
-        wallLeft = Physics.Raycast(transform.position, -orientation.right, out leftWallHit, wallCheckDistance, whatIsWall);
-
+        wallRight = Physics.Raycast(transform.position + transform.up, orientation.right, out rightWallHit, wallCheckDistance, whatIsWall);
+        wallLeft = Physics.Raycast(transform.position + transform.up, -orientation.right, out leftWallHit, wallCheckDistance, whatIsWall);
+        if (wallLeft || wallRight)
+            wallhit = wallRight ? rightWallHit.transform.gameObject : leftWallHit.transform.gameObject;
     }
 
     private bool AboveGround()
@@ -87,13 +92,9 @@ public class WallRunning : MonoBehaviour
 
     private void StateMachine()
     {
-        //  Getting Inputs
-        horizontalInput = _playerInput.actions["Sideways"].ReadValue<float>();
-        verticalInput = _playerInput.actions["Forward"].ReadValue<float>();
-
         //  State 1 - Wallruning
-        if ((wallLeft || wallRight) && verticalInput > 0 && AboveGround() && !exitingWall)
-        {       
+        if ((wallLeft || wallRight) && AboveGround() && !exitingWall && (lastWall == null || lastWall != wallhit))
+        {
             if (!pm.wallrunning)
                 StartWallRun();
 
@@ -102,6 +103,7 @@ public class WallRunning : MonoBehaviour
                 wallRunTimer -= Time.deltaTime;
             if (wallRunTimer <= 0 && pm.wallrunning)
             {
+                lastWall = wallRight ? rightWallHit.transform.gameObject : leftWallHit.transform.gameObject;
                 exitingWall = true;
                 exitWallTimer = exitWallTime;
             }
@@ -113,7 +115,7 @@ public class WallRunning : MonoBehaviour
 
         //  state 2 - Exit
         else if(exitingWall)
-        {
+        {          
             if (pm.wallrunning)    
                 StopWallRun();          
             if (exitWallTimer > 0)
@@ -135,44 +137,46 @@ public class WallRunning : MonoBehaviour
         pm.wallrunning = true;
         wallRunTimer = maxWallRunTime;
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
     private void WallRunningMovement()
     {
-        
-        rb.useGravity = useGravity;        
-
         Vector3 wallNormal = wallRight ? rightWallHit.normal : leftWallHit.normal;
 
         Vector3 wallForward = Vector3.Cross(wallNormal, transform.up);
 
-        
-        
-
-
         //  forward force
-        if(wallRight)
-        rb.AddForce(-1 * wallForward * wallRunForce, ForceMode.Force);
+        if (wallRight)
+        {
+            orientation.forward = -wallForward;
+            rb.velocity = -wallForward * wallRunForce * Time.deltaTime + Vector3.up * rb.velocity.y;
+        }
 
         else
-        rb.AddForce(wallForward * wallRunForce, ForceMode.Force);
+        {
+            orientation.forward = wallForward;
+            rb.velocity = wallForward * wallRunForce * Time.deltaTime + Vector3.up * rb.velocity.y;
+        }
 
         // push to wall force
         if (!(wallLeft && horizontalInput > 0) && !(wallRight && horizontalInput > 0))
             rb.AddForce(-wallNormal * 100, ForceMode.Force);
 
-        // weaken gravity
-        if (useGravity)
             rb.AddForce(transform.up * gravityCounterForce, ForceMode.Force);
     }
 
     private void StopWallRun()
     {
+        rb.constraints = 0;
+        rb.constraints = RigidbodyConstraints.FreezeRotationX;
         pm.wallrunning = false;
     }
 
     private void WallJump()
     {
+        lastWall = wallRight ? rightWallHit.transform.gameObject : leftWallHit.transform.gameObject;
+
         // enter exiting wall state
         exitingWall = true;
         exitWallTimer = exitWallTime;
@@ -183,7 +187,6 @@ public class WallRunning : MonoBehaviour
         Vector3 forceToApply = transform.up * wallJumpUpForce + wallNormal * wallJumpSideForce + transform.forward * wallJumpForwardForce;
 
         // reset y velocity and add Force
-        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-        rb.AddForce(forceToApply, ForceMode.Impulse);
+        rb.velocity = rb.velocity + forceToApply;
     }
 }

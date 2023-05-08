@@ -24,7 +24,7 @@ public class ThirdPersonCam : MonoBehaviour
 
     private void Update()
     {
-        if(state.state == States.parkour)
+        if(state.state == States.parkour && !player.GetComponent<PlayerMovement>().wallrunning)
         {
             //  rotate orientation
             Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);

@@ -152,7 +152,7 @@ public class PlayerMovement : Movement
 
     public override void Move()
     {
-        if (activeGrapple) return;
+        if (activeGrapple || wallrunning) return;
 
         // calculate movement direction
         moveDirection = orientation.transform.forward * verticalInput + orientation.transform.right * horizontalInput;

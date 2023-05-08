@@ -33,7 +33,7 @@ public class Grapplin : MonoBehaviour
 
     private bool grappling;
 
-    private bool isVisible(Camera c, GameObject target)
+    public bool isVisible(Camera c, GameObject target)
     {
         var planes = GeometryUtility.CalculateFrustumPlanes(c);
         var point = target.transform.position;
@@ -59,9 +59,7 @@ public class Grapplin : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        if (_playerInput.actions["Grapple"].WasPressedThisFrame() && grappleObject != null && isVisible(cam, grappleObject)) StartGrapple();
-
+    {     
         if (grapplinCdTimer > 0)
             grapplinCdTimer -= Time.deltaTime;
     }
@@ -72,7 +70,7 @@ public class Grapplin : MonoBehaviour
             lr.SetPosition(0, guntip.position);
     }
 
-    private void StartGrapple()
+    public void StartGrapple()
     {
         if (grapplinCdTimer > 0) return;
 
@@ -98,16 +96,6 @@ public class Grapplin : MonoBehaviour
     private void ExecuteGrapple()
     {
         pm.freeze = false;
-
-        /*Vector3 lowestPoint = new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z);
-
-        float grapplePointRelYPos = grapplePoint.y - lowestPoint.y;
-        float highestPointOnArc = grapplePointRelYPos + overshootYAxis;
-
-        if (grapplePointRelYPos < 0) highestPointOnArc = overshootYAxis;
-
-        pm.JumpToPosition(grapplePoint, highestPointOnArc);*/
-
         Vector3 grappleDirection = (grapplePoint - transform.position);
         if(pm.grounded)
         {

@@ -9,9 +9,11 @@ public class InputManager : MonoBehaviour
     private StateChange _sChange;
     private Sliding _slide;
     private splineTesting _grind;
+    private Grapplin _grap;
     // Start is called before the first frame update
     void Start()
     {
+        _grap = GetComponent<Grapplin>();
         _pInput = GetComponent<PlayerInput>();
         _sChange = GetComponent<StateChange>();
         _slide = GetComponent<Sliding>();
@@ -65,6 +67,9 @@ public class InputManager : MonoBehaviour
 
             _sChange._mov.anim.SetBool("Crouch", false);
         }
+
+        if (_pInput.actions["Grapple"].WasPressedThisFrame() && _grap.grappleObject != null && _grap.isVisible(_grap.cam, _grap.grappleObject)) _grap.StartGrapple();
+
 
         /*//===============Skate Turning 180=============== 
         if (_pInput.actions["Turn"].WasPressedThisFrame() && _sChange._mov.currentSpeed <= 0.5f && _sChange.state == States.skating)
