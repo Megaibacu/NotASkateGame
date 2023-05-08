@@ -20,7 +20,10 @@ public class splineTesting : MonoBehaviour
     public float storedvel;
     public float grind_cd = 0.5f;
     public float cd_countdown;
+    public float grindRadious;
     [Range(-100, 100)] public float balance;
+    public LayerMask grindable;
+    public Collider[] grindables;
 
     // Start is called before the first frame update
     void Start()
@@ -47,19 +50,20 @@ public class splineTesting : MonoBehaviour
         {
             pCollider.isTrigger = false;
         }
+        grindables = Physics.OverlapSphere(orientation.transform.position, grindRadious, grindable);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    public void StartGrind()
     {
-        if(!sc.grinding && cd_countdown == 0)
+        if (!sc.grinding && cd_countdown == 0)
         {
             if (GetComponent<StateChange>().state == States.skating)
             {
-                if (collision.transform.tag == "Spline")
+                if (grindables[0] != null && grindables[0].transform.tag == "Spline")
                 {
-                    sp = collision.gameObject.GetComponent<SplineComputer>();
+                    sp = grindables[0].gameObject.GetComponent<SplineComputer>();
                     splineF.spline = sp;
-                    sp.Project(collision.GetContact(0).point, ref result, from = 0, to = 1);
+                    sp.Project(transform.position, ref result, from = 0, to = 1);
                     startingPos = result.percent;
                     splineF._startPosition = startingPos;
 
@@ -71,15 +75,15 @@ public class splineTesting : MonoBehaviour
                         }
                         else
                             splineF.direction = Spline.Direction.Forward;
+
+                        //Aplicar corutina aquí
                         Grind();
                     }
 
                 }
             }
-        }      
-        
+        }
     }
-
     public void Grind()
     {
         pCollider.isTrigger = true;

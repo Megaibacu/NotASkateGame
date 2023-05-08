@@ -91,7 +91,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Grapple"",
+                    ""name"": ""GrappleGrind"",
                     ""type"": ""Button"",
                     ""id"": ""4824655a-4c40-4dbb-99c4-0c4380ad26a6"",
                     ""expectedControlType"": ""Button"",
@@ -421,7 +421,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Grapple"",
+                    ""action"": ""GrappleGrind"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -432,7 +432,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Grapple"",
+                    ""action"": ""GrappleGrind"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -996,7 +996,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Gameplay_p_Sprint = m_Gameplay_p.FindAction("Sprint", throwIfNotFound: true);
         m_Gameplay_p_Interact = m_Gameplay_p.FindAction("Interact", throwIfNotFound: true);
         m_Gameplay_p_Pause = m_Gameplay_p.FindAction("Pause", throwIfNotFound: true);
-        m_Gameplay_p_Grapple = m_Gameplay_p.FindAction("Grapple", throwIfNotFound: true);
+        m_Gameplay_p_GrappleGrind = m_Gameplay_p.FindAction("GrappleGrind", throwIfNotFound: true);
         m_Gameplay_p_SwitchState = m_Gameplay_p.FindAction("SwitchState", throwIfNotFound: true);
         m_Gameplay_p_Look = m_Gameplay_p.FindAction("Look", throwIfNotFound: true);
         m_Gameplay_p_Turn = m_Gameplay_p.FindAction("Turn", throwIfNotFound: true);
@@ -1082,7 +1082,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_p_Sprint;
     private readonly InputAction m_Gameplay_p_Interact;
     private readonly InputAction m_Gameplay_p_Pause;
-    private readonly InputAction m_Gameplay_p_Grapple;
+    private readonly InputAction m_Gameplay_p_GrappleGrind;
     private readonly InputAction m_Gameplay_p_SwitchState;
     private readonly InputAction m_Gameplay_p_Look;
     private readonly InputAction m_Gameplay_p_Turn;
@@ -1097,7 +1097,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Sprint => m_Wrapper.m_Gameplay_p_Sprint;
         public InputAction @Interact => m_Wrapper.m_Gameplay_p_Interact;
         public InputAction @Pause => m_Wrapper.m_Gameplay_p_Pause;
-        public InputAction @Grapple => m_Wrapper.m_Gameplay_p_Grapple;
+        public InputAction @GrappleGrind => m_Wrapper.m_Gameplay_p_GrappleGrind;
         public InputAction @SwitchState => m_Wrapper.m_Gameplay_p_SwitchState;
         public InputAction @Look => m_Wrapper.m_Gameplay_p_Look;
         public InputAction @Turn => m_Wrapper.m_Gameplay_p_Turn;
@@ -1131,9 +1131,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
-            @Grapple.started += instance.OnGrapple;
-            @Grapple.performed += instance.OnGrapple;
-            @Grapple.canceled += instance.OnGrapple;
+            @GrappleGrind.started += instance.OnGrappleGrind;
+            @GrappleGrind.performed += instance.OnGrappleGrind;
+            @GrappleGrind.canceled += instance.OnGrappleGrind;
             @SwitchState.started += instance.OnSwitchState;
             @SwitchState.performed += instance.OnSwitchState;
             @SwitchState.canceled += instance.OnSwitchState;
@@ -1168,9 +1168,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
-            @Grapple.started -= instance.OnGrapple;
-            @Grapple.performed -= instance.OnGrapple;
-            @Grapple.canceled -= instance.OnGrapple;
+            @GrappleGrind.started -= instance.OnGrappleGrind;
+            @GrappleGrind.performed -= instance.OnGrappleGrind;
+            @GrappleGrind.canceled -= instance.OnGrappleGrind;
             @SwitchState.started -= instance.OnSwitchState;
             @SwitchState.performed -= instance.OnSwitchState;
             @SwitchState.canceled -= instance.OnSwitchState;
@@ -1362,7 +1362,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnSprint(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
-        void OnGrapple(InputAction.CallbackContext context);
+        void OnGrappleGrind(InputAction.CallbackContext context);
         void OnSwitchState(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnTurn(InputAction.CallbackContext context);

@@ -109,7 +109,7 @@ public class WallRunning : MonoBehaviour
             }
 
 
-            if (_playerInput.actions["Jump"].IsPressed())
+            if (_playerInput.actions["Jump"].WasPressedThisFrame())
                 WallJump();
         }
 
@@ -161,7 +161,7 @@ public class WallRunning : MonoBehaviour
 
         // push to wall force
         if (!(wallLeft && horizontalInput > 0) && !(wallRight && horizontalInput > 0))
-            rb.AddForce(-wallNormal * 100, ForceMode.Force);
+            rb.AddForce(-wallNormal * 50, ForceMode.Force);
 
             rb.AddForce(transform.up * gravityCounterForce, ForceMode.Force);
     }

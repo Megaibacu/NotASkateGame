@@ -68,9 +68,9 @@ public class InputManager : MonoBehaviour
             _sChange._mov.anim.SetBool("Crouch", false);
         }
 
-        if (_pInput.actions["Grapple"].WasPressedThisFrame() && _grap.grappleObject != null && _grap.isVisible(_grap.cam, _grap.grappleObject)) _grap.StartGrapple();
+        if (_pInput.actions["GrappleGrind"].WasPressedThisFrame() && _grap.grappleObject != null && _grap.isVisible(_grap.cam, _grap.grappleObject)) _grap.StartGrapple();
 
-
+        if (_pInput.actions["GrappleGrind"].WasPressedThisFrame() && _grind.grindables != null) _grind.StartGrind();
         /*//===============Skate Turning 180=============== 
         if (_pInput.actions["Turn"].WasPressedThisFrame() && _sChange._mov.currentSpeed <= 0.5f && _sChange.state == States.skating)
         {
