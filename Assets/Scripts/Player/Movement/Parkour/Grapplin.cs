@@ -17,6 +17,7 @@ public class Grapplin : MonoBehaviour
     public Collider[] colliders;
     public GameObject closest;
     public PlayerInput _playerInput;
+    private StateChange _st;
 
 
     [Header("Grapplin")]
@@ -54,7 +55,7 @@ public class Grapplin : MonoBehaviour
         StartCoroutine(GrapplingDetection());
         pm = GetComponent<PlayerMovement>();
         _playerInput = GetComponent<PlayerInput>();
-
+        _st = GetComponent<StateChange>();
     }
 
     // Update is called once per frame
@@ -72,25 +73,29 @@ public class Grapplin : MonoBehaviour
 
     public void StartGrapple()
     {
-        if (grapplinCdTimer > 0) return;
+        if(_st.state == States.parkour)
+        {
+            if (grapplinCdTimer > 0) return;
 
-        grappling = true;
-       
-        
-        
-        if (grappleObject != null && isVisible(cam, grappleObject))
-        {           
-            Invoke(nameof(ExecuteGrapple), grappleDelayTime);
-            grapplePoint = grappleObject.transform.position;
-            lr.enabled = true;
-            lr.SetPosition(1, grapplePoint);
-        }
-        else
-        {            
-            Invoke(nameof(EndGrapple), grappleDelayTime);
+            grappling = true;
+
+
+
+            if (grappleObject != null && isVisible(cam, grappleObject))
+            {
+                Invoke(nameof(ExecuteGrapple), grappleDelayTime);
+                grapplePoint = grappleObject.transform.position;
+                lr.enabled = true;
+                lr.SetPosition(1, grapplePoint);
+            }
+            else
+            {
+                Invoke(nameof(EndGrapple), grappleDelayTime);
+            }
+
+
         }
 
-        
     }
 
     private void ExecuteGrapple()
@@ -102,7 +107,6 @@ public class Grapplin : MonoBehaviour
             transform.position = new Vector3(transform.position.x, transform.position.y + 0.2f, transform.position.z);
         }
         pm.Jump(new Vector3(grappleDirection.x, grappleDirection.y * 1.5f, grappleDirection.z));
-        print(GetComponent<Rigidbody>().velocity);
         Invoke(nameof(EndGrapple), 1f);
     }
 

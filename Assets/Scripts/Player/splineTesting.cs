@@ -59,28 +59,32 @@ public class splineTesting : MonoBehaviour
         {
             if (GetComponent<StateChange>().state == States.skating)
             {
-                if (grindables[0] != null && grindables[0].transform.tag == "Spline")
+                if(grindables.Length != 0)
                 {
-                    sp = grindables[0].gameObject.GetComponent<SplineComputer>();
-                    splineF.spline = sp;
-                    sp.Project(transform.position, ref result, from = 0, to = 1);
-                    startingPos = result.percent;
-                    splineF._startPosition = startingPos;
-
-                    if (this.transform.position.y >= result.position.y)
+                    if (grindables[0].transform.tag == "Spline")
                     {
-                        if (Mathf.RoundToInt(result.forward.normalized.z) > Mathf.RoundToInt(orientation.transform.forward.normalized.z))
+                        sp = grindables[0].gameObject.GetComponent<SplineComputer>();
+                        splineF.spline = sp;
+                        sp.Project(transform.position, ref result, from = 0, to = 1);
+                        startingPos = result.percent;
+                        splineF._startPosition = startingPos;
+
+                        if (this.transform.position.y >= result.position.y)
                         {
-                            splineF.direction = Spline.Direction.Backward;
+                            if (Mathf.RoundToInt(result.forward.normalized.z) > Mathf.RoundToInt(orientation.transform.forward.normalized.z) || Mathf.RoundToInt(result.forward.normalized.x) > Mathf.RoundToInt(orientation.transform.forward.normalized.x))
+                            {
+                                splineF.direction = Spline.Direction.Backward;
+                            }
+                            else
+                                splineF.direction = Spline.Direction.Forward;
+
+                            //Aplicar corutina aquí
+                            Grind();
                         }
-                        else
-                            splineF.direction = Spline.Direction.Forward;
 
-                        //Aplicar corutina aquí
-                        Grind();
                     }
-
                 }
+                
             }
         }
     }
@@ -121,7 +125,7 @@ public class splineTesting : MonoBehaviour
         sc.grinding = false;
         rb.transform.position = transform.position + transform.up * 0.3f;
         rb.velocity = storedvel * transform.forward * 3;
-        rb.velocity = new Vector3(rb.velocity.x,20, rb.velocity.z);
+        rb.velocity = new Vector3(rb.velocity.x,30, rb.velocity.z);
         pm.anim.SetTrigger("Jump");
         cd_countdown = grind_cd;
     }
