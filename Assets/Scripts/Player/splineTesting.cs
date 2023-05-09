@@ -24,6 +24,7 @@ public class splineTesting : MonoBehaviour
     [Range(-100, 100)] public float balance;
     public LayerMask grindable;
     public Collider[] grindables;
+    private float smoothing;
 
     // Start is called before the first frame update
     void Start()
@@ -71,15 +72,21 @@ public class splineTesting : MonoBehaviour
 
                         if (this.transform.position.y >= result.position.y)
                         {
-                            if (Mathf.RoundToInt(result.forward.normalized.z) > Mathf.RoundToInt(orientation.transform.forward.normalized.z) || Mathf.RoundToInt(result.forward.normalized.x) > Mathf.RoundToInt(orientation.transform.forward.normalized.x))
+                            if (Vector3.Angle(orientation.transform.forward, result.forward) > 90)
                             {
                                 splineF.direction = Spline.Direction.Backward;
                             }
                             else
                                 splineF.direction = Spline.Direction.Forward;
 
-                            //Aplicar corutina aquí
-                            Grind();
+                            if(Vector3.Distance(transform.position, result.position) > 0.5f)
+                            {
+                                StartCoroutine(Smoothing());
+                            }
+                            else
+                            {
+                                Grind();
+                            }
                         }
 
                     }
@@ -128,5 +135,12 @@ public class splineTesting : MonoBehaviour
         rb.velocity = new Vector3(rb.velocity.x,30, rb.velocity.z);
         pm.anim.SetTrigger("Jump");
         cd_countdown = grind_cd;
+    }
+
+    public IEnumerator Smoothing()
+    {
+        Vector3.Lerp(transform.position, result.position, smoothing);
+        smoothing += Time.deltaTime;
+        yield return null;
     }
 }
