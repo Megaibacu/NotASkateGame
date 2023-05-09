@@ -24,7 +24,6 @@ public class Customizationshop : MonoBehaviour
     public GameObject mockskate;
     public GameObject mockskateimage;
     public GameObject keyprompt;
-    NewAudioManager manager;
 
     Image skatecolor;
     Image skateimage;
@@ -61,8 +60,8 @@ public class Customizationshop : MonoBehaviour
         blackarrows[1] = shopui.transform.GetChild(3).GetComponent<Image>();
         blackarrows[2] = shopui.transform.GetChild(8).GetComponent<Image>();
         blackarrows[3] = shopui.transform.GetChild(9).GetComponent<Image>();
-        manager = soundmanager.GetComponent<NewAudioManager>();
         shopui.GetComponent<Finderscript>().numberofobjects--;
+        _playerInput = FindObjectOfType<PlayerInput>();
         //la camara del jugador deberia ser idealmente una virtual cam, este script es algo chusco ahora
         shopcam.Priority = 1;
     }
@@ -107,7 +106,6 @@ public class Customizationshop : MonoBehaviour
     {
         if (isshoping == false)
         {
-            manager.PlaySound("Enter");
             isshoping = true;
             player.GetComponent<PlayerMovement>().enabled = false;
             player.GetComponent<StateChange>().enabled = false;
@@ -157,7 +155,6 @@ public class Customizationshop : MonoBehaviour
                 }
             }
             rightarrowtimer = 0.3f;
-            manager.PlaySound("Arrow");
         }
         if (_playerInput.actions["Left"].WasPressedThisFrame())
         {
@@ -178,7 +175,6 @@ public class Customizationshop : MonoBehaviour
                 }
             }
             leftarrowtimer = 0.3f;
-            manager.PlaySound("Arrow");
         }
         if (_playerInput.actions["Up"].WasPressedThisFrame())
         {
@@ -206,7 +202,6 @@ public class Customizationshop : MonoBehaviour
             {
                 selectedimage = currentimage;
             }
-            manager.PlaySound("Select");
             blackboxtimer = 0.4f;
         }
 

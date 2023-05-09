@@ -39,11 +39,6 @@ public abstract class Movement : MonoBehaviour
     public RaycastHit slopeHit;
     public RaycastHit forwardHit;
 
-    [Header("===========Sound=========")]
-    public GameObject newaudiomanager;
-    public NewAudioManager newmanager;
-    public AudioSource source;
-
     //pausing
     public bool paused;
     public enum MovementState

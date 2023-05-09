@@ -62,7 +62,6 @@ public class PlayerMovement : Movement
         rb.freezeRotation = true;
         player = this.gameObject;
         readyToJump = true;
-        newmanager = newaudiomanager.GetComponent<NewAudioManager>();
     }
 
     public override void StateHandler()
@@ -122,7 +121,6 @@ public class PlayerMovement : Movement
         // Mode - Sprinting
         else if (grounded && sprinting)
         {
-            Debug.Log("Sprint");
             state = MovementState.sprinting;
             moveSpeed = sprintSpeed;
             rb.drag = 4;
@@ -186,7 +184,6 @@ public class PlayerMovement : Movement
     public override void Jump(Vector3 jumpVector)
     {
         readyToJump = false;
-        newmanager.PlaySound("Jump");
         anim.SetTrigger("Jump");        
         // Jump Velocity
         rb.velocity = new Vector3(jumpVector.x, jumpVector.y + 1 * jumpForce, jumpVector.z);

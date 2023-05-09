@@ -17,6 +17,7 @@ public class ThirdPersonCam : MonoBehaviour
 
     private void Start()
     {
+        _playerInput = FindObjectOfType<PlayerInput>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         state = player.GetComponent<StateChange>();
@@ -31,7 +32,7 @@ public class ThirdPersonCam : MonoBehaviour
             orientation.forward = viewDir.normalized;
 
             //  rotate player object
-            float horizontalInput = _playerInput.actions["Sideways"].ReadValue<float>(); ;
+            float horizontalInput = _playerInput.actions["Sideways"].ReadValue<float>(); 
             float verticalInput = _playerInput.actions["Forward"].ReadValue<float>();
             Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
 

@@ -12,7 +12,6 @@ public class Pause : MonoBehaviour
     //para la blackbox en el menu de pausa
     public Transform[] positions;
 
-    AudioSource source;
     public PlayerInput _playerInput;
 
     int currentselection;
@@ -25,7 +24,7 @@ public class Pause : MonoBehaviour
     void Start()
     {
         soundstimer = 0.3f;
-       
+        _playerInput = FindObjectOfType<PlayerInput>();
 
         positions[0] = thingsthatneedpausing[2].transform.GetChild(2);
         positions[1] = thingsthatneedpausing[2].transform.GetChild(3);
@@ -73,9 +72,6 @@ public class Pause : MonoBehaviour
         {
             thingsthatneedpausing[0].GetComponent<StateChange>().paused = true;
             thingsthatneedpausing[0].GetComponent<PlayerMovement>().paused = true;
-            source = thingsthatneedpausing[1].GetComponent<AudioSource>();
-            currentvolume = source.volume;
-            source.volume = 0;
             thingsthatneedpausing[2].SetActive(true);
             thingsthatneedpausing[3].GetComponent<CinemachineBrain>().enabled = false;
             //esto es lo que hay que tocar cuando se pausa
@@ -83,7 +79,6 @@ public class Pause : MonoBehaviour
         else
         {
             thingsthatneedpausing[0].GetComponent<StateChange>().paused = false;
-            source.volume = currentvolume;
             thingsthatneedpausing[2].SetActive(false);
             jumptimer = 0.1f;
             thingsthatneedpausing[3].GetComponent<CinemachineBrain>().enabled = true;

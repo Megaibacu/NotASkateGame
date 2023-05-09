@@ -76,8 +76,6 @@ public class SkateController : Movement
     {
         readyToJump = true;
         sT = GetComponent<splineTesting>();
-        newmanager = newaudiomanager.GetComponent<NewAudioManager>();
-        source = newaudiomanager.GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
         canMove = true; //Makes sure that the player can move when they put the skate on
@@ -96,12 +94,6 @@ public class SkateController : Movement
                 currentSpeed = Mathf.Lerp(currentSpeed, maxSpeed, Time.deltaTime * forwardAcceleration);
                 steerMultiplier = Mathf.Lerp(steerMultiplier, minSteering, forwardAcceleration * Time.deltaTime);
                 reverseTimer = 0;
-
-                //so that the skate sounds higher as you accelerate
-                if (source.volume < 1) //If thre player isn't facing a slope with a high angle they can move forward
-                {
-                    source.volume += Time.deltaTime;
-                }
             }
 
             else if (verticalInput < 0)
@@ -118,11 +110,6 @@ public class SkateController : Movement
                 currentSpeed = Mathf.Lerp(currentSpeed, 0, Time.deltaTime * breaking);
                 steerMultiplier = Mathf.Lerp(steerMultiplier, maxSteering, breaking * Time.deltaTime);
                 reverseTimer = 0;
-                //make the skate sound lower as you brake
-                if (source.volume > 0)
-                {
-                    source.volume -= Time.deltaTime;
-                }
             }
 
             //Change of velocity in the local forward
@@ -182,7 +169,6 @@ public class SkateController : Movement
             skateJumpPreassure += skateJumpPreassure + minSkateJumpFoce;
             rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
             rb.velocity = new Vector3(rb.velocity.x, skateJumpPreassure, rb.velocity.z);
-            newmanager.PlaySound("Skate Jump");
             skateJumpPreassure = 0;
         }
     }
@@ -242,14 +228,12 @@ public class SkateController : Movement
         {
             if (isplaying == false)
             {
-                newmanager.PlaySound("Skating");
                 isplaying = true;
             }
             //este es el sonido que suena cuando te mueves con el skate, se loopea hasta que te paras
         }
         else
         {
-            newmanager.StopSound();
             isplaying = false;
         }
     }
