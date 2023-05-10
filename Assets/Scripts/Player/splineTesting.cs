@@ -24,7 +24,8 @@ public class splineTesting : MonoBehaviour
     [Range(-100, 100)] public float balance;
     public LayerMask grindable;
     public Collider[] grindables;
-    private float smoothing;
+    private float smoothing = 1;
+    private Vector3 offset;
 
     // Start is called before the first frame update
     void Start()
@@ -52,6 +53,16 @@ public class splineTesting : MonoBehaviour
             pCollider.isTrigger = false;
         }
         grindables = Physics.OverlapSphere(orientation.transform.position, grindRadious, grindable);
+
+        if (sc.grinding && splineF.motion.offset.magnitude > 0)
+        {
+            
+            splineF.motion.offset = Vector2.Lerp(Vector2.zero, splineF.motion.offset, smoothing -= Time.deltaTime *  0.75f);
+        }
+        else if (!sc.grinding)
+        {
+            smoothing = 1;
+        }
     }
 
     public void StartGrind()
@@ -78,15 +89,14 @@ public class splineTesting : MonoBehaviour
                             }
                             else
                                 splineF.direction = Spline.Direction.Forward;
-
-                            if(Vector3.Distance(transform.position, result.position) > 0.5f)
-                            {
-                                StartCoroutine(Smoothing());
-                            }
-                            else
-                            {
+                           
+                                SplineSample projection = new SplineSample();
+                                splineF.Project(transform.position, ref projection);
+                                Matrix4x4 worldToSpline = Matrix4x4.TRS(projection.position, projection.rotation, Vector3.one * projection.size).inverse;
+                                offset = worldToSpline.MultiplyPoint(transform.position);
+                                splineF.motion.offset = offset;
                                 Grind();
-                            }
+                            
                         }
 
                     }
@@ -135,12 +145,5 @@ public class splineTesting : MonoBehaviour
         rb.velocity = new Vector3(rb.velocity.x,30, rb.velocity.z);
         pm.anim.SetTrigger("Jump");
         cd_countdown = grind_cd;
-    }
-
-    public IEnumerator Smoothing()
-    {
-        Vector3.Lerp(transform.position, result.position, smoothing);
-        smoothing += Time.deltaTime;
-        yield return null;
     }
 }
