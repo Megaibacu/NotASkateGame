@@ -26,6 +26,7 @@ public class splineTesting : MonoBehaviour
     public Collider[] grindables;
     private float smoothing = 1;
     private Vector3 offset;
+    private Vector3 pTransform;
 
     // Start is called before the first frame update
     void Start()
@@ -52,12 +53,12 @@ public class splineTesting : MonoBehaviour
         {
             pCollider.isTrigger = false;
         }
-        grindables = Physics.OverlapSphere(orientation.transform.position, grindRadious, grindable);
+        grindables = Physics.OverlapSphere(transform.position, grindRadious, grindable);
 
         if (sc.grinding && splineF.motion.offset.magnitude > 0)
         {
             
-            splineF.motion.offset = Vector2.Lerp(Vector2.zero, splineF.motion.offset, smoothing -= Time.deltaTime *  0.75f);
+            splineF.motion.offset = Vector2.Lerp(Vector2.zero, splineF.motion.offset, smoothing -= Time.deltaTime * 2);
         }
         else if (!sc.grinding)
         {
@@ -67,17 +68,14 @@ public class splineTesting : MonoBehaviour
 
     public void StartGrind()
     {
-        if (!sc.grinding && cd_countdown == 0)
+        if (!sc.grinding && cd_countdown == 0 && GetComponent<StateChange>().state == States.skating && grindables.Length != 0)
         {
-            if (GetComponent<StateChange>().state == States.skating)
+            if (grindables[0].transform.tag == "Spline")
             {
-                if(grindables.Length != 0)
-                {
-                    if (grindables[0].transform.tag == "Spline")
-                    {
+                        pTransform = transform.position;
                         sp = grindables[0].gameObject.GetComponent<SplineComputer>();
                         splineF.spline = sp;
-                        sp.Project(transform.position, ref result, from = 0, to = 1);
+                        sp.Project(pTransform, ref result, from = 0, to = 1);
                         startingPos = result.percent;
                         splineF._startPosition = startingPos;
 
@@ -90,29 +88,32 @@ public class splineTesting : MonoBehaviour
                             else
                                 splineF.direction = Spline.Direction.Forward;
                            
-                                SplineSample projection = new SplineSample();
-                                splineF.Project(transform.position, ref projection);
-                                Matrix4x4 worldToSpline = Matrix4x4.TRS(projection.position, projection.rotation, Vector3.one * projection.size).inverse;
-                                offset = worldToSpline.MultiplyPoint(transform.position);
-                                splineF.motion.offset = offset;
+                               
                                 Grind();
                             
                         }
 
-                    }
-                }
-                
             }
+                
+                
+            
         }
     }
     public void Grind()
     {
+        SplineSample projection = new SplineSample();
+        splineF.Project(pTransform, ref projection);
+        Matrix4x4 worldToSpline = Matrix4x4.TRS(projection.position, projection.rotation, Vector3.one * projection.size).inverse;
+        offset = worldToSpline.MultiplyPoint(pTransform);
+        splineF.motion.offset = offset;
+
         pCollider.isTrigger = true;
         sc.canMove = false;
         Vector3 flatVel = new Vector3(pm.rb.velocity.x, 0f, pm.rb.velocity.z);
         sc.grinding = true;
         splineF._startPosition = startingPos;
         splineF.SetPercent(splineF._startPosition);
+        splineF.RebuildImmediate();
         splineF.follow = true;
         storedvel = sc.currentSpeed;
         splineF.followSpeed = sc.currentSpeed * (int)splineF.direction;
@@ -140,7 +141,7 @@ public class splineTesting : MonoBehaviour
         sc.canMove = true;
         splineF.follow = false;
         sc.grinding = false;
-        rb.transform.position = transform.position + transform.up * 0.3f;
+        rb.transform.position +=  transform.up * 0.3f;
         rb.velocity = storedvel * transform.forward * 3;
         rb.velocity = new Vector3(rb.velocity.x,30, rb.velocity.z);
         pm.anim.SetTrigger("Jump");
