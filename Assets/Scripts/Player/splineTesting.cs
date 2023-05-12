@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Dreamteck.Splines;
+using Cinemachine;
 
 
 public class splineTesting : MonoBehaviour
@@ -28,7 +29,12 @@ public class splineTesting : MonoBehaviour
     private Vector3 offset;
     private Vector3 pTransform;
 
-    // Start is called before the first frame update
+    //This is for changing the camera while you grind
+    public GameObject secondcamobj;
+    public GameObject maincam;
+    GrindCamera secondcam;
+
+
     void Start()
     {
         cd_countdown = 0;
@@ -36,6 +42,7 @@ public class splineTesting : MonoBehaviour
         pm = GetComponent<PlayerMovement>();
         splineF = GetComponent<SplineFollower>();
         rb = GetComponent<Rigidbody>();
+        secondcam = secondcamobj.GetComponent<GrindCamera>();
     }
 
     // Update is called once per frame
@@ -101,6 +108,9 @@ public class splineTesting : MonoBehaviour
     }
     public void Grind()
     {
+        //This is for the camera
+        secondcam.active = true;
+
         SplineSample projection = new SplineSample();
         splineF.Project(pTransform, ref projection);
         Matrix4x4 worldToSpline = Matrix4x4.TRS(projection.position, projection.rotation, Vector3.one * projection.size).inverse;
@@ -118,6 +128,7 @@ public class splineTesting : MonoBehaviour
         storedvel = sc.currentSpeed;
         splineF.followSpeed = sc.currentSpeed * (int)splineF.direction;
 
+      
     }
     public void EndGrindForward()
     {
@@ -132,6 +143,7 @@ public class splineTesting : MonoBehaviour
         if(splineF.direction == Spline.Direction.Backward)
         {
             EndGrind();
+
         }
 
     }
@@ -146,5 +158,7 @@ public class splineTesting : MonoBehaviour
         rb.velocity = new Vector3(rb.velocity.x,30, rb.velocity.z);
         pm.anim.SetTrigger("Jump");
         cd_countdown = grind_cd;
+
+        secondcam.active = false;
     }
 }
