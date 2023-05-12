@@ -16,7 +16,7 @@ public class MockSkateFlip : MonoBehaviour
 
         if (Input.GetKey(KeyCode.F))
         {
-            transform.Rotate(0, 1.3f, 0);
+            transform.Rotate(1.3f, 0, 0);
         }
     }
 }
