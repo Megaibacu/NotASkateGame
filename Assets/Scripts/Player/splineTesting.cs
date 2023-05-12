@@ -33,6 +33,7 @@ public class splineTesting : MonoBehaviour
     public GameObject secondcamobj;
     public GameObject maincam;
     GrindCamera secondcam;
+    CinemachineBrain brain;
 
 
     void Start()
@@ -43,6 +44,7 @@ public class splineTesting : MonoBehaviour
         splineF = GetComponent<SplineFollower>();
         rb = GetComponent<Rigidbody>();
         secondcam = secondcamobj.GetComponent<GrindCamera>();
+        brain = maincam.GetComponent<CinemachineBrain>();
     }
 
     // Update is called once per frame
@@ -97,7 +99,7 @@ public class splineTesting : MonoBehaviour
                            
                                
                                 Grind();
-                            
+   
                         }
 
             }
@@ -108,9 +110,6 @@ public class splineTesting : MonoBehaviour
     }
     public void Grind()
     {
-        //This is for the camera
-        secondcam.active = true;
-
         SplineSample projection = new SplineSample();
         splineF.Project(pTransform, ref projection);
         Matrix4x4 worldToSpline = Matrix4x4.TRS(projection.position, projection.rotation, Vector3.one * projection.size).inverse;
@@ -128,7 +127,9 @@ public class splineTesting : MonoBehaviour
         storedvel = sc.currentSpeed;
         splineF.followSpeed = sc.currentSpeed * (int)splineF.direction;
 
-      
+        //This is for the camera
+        secondcam.active = true;
+        brain.m_DefaultBlend.m_Time = 3.4f;
     }
     public void EndGrindForward()
     {
@@ -160,5 +161,6 @@ public class splineTesting : MonoBehaviour
         cd_countdown = grind_cd;
 
         secondcam.active = false;
+        brain.m_DefaultBlend.m_Time = 5;
     }
 }
