@@ -10,9 +10,10 @@ public abstract class Movement : MonoBehaviour
     //[Header("===============References===============")]
     [HideInInspector] public Animator anim;
     [HideInInspector] public Rigidbody rb;
+     public LayerMask floor;
 
 
-    //[Header("===============Movement===============")]
+    [Header("===============Movement===============")]
     public float horizontalInput;
     public float verticalInput;
     protected RaycastHit hit;
@@ -28,6 +29,7 @@ public abstract class Movement : MonoBehaviour
     public bool coyote;
     public bool coyoteDone;
     public bool grounded;
+    public float airMaxSpeed;
 
     [Header("===============Slope===============")]
     public float slopeAcceleration;
@@ -98,7 +100,7 @@ public abstract class Movement : MonoBehaviour
     public void Grounded() 
     {       
         Debug.DrawRay(player.transform.position, -orientation.transform.up, Color.green, .05f);
-        grounded = Physics.Raycast(player.transform.position, -orientation.transform.up, out hit, .05f);
+        grounded = Physics.Raycast(player.transform.position, -orientation.transform.up, out hit, .1f, floor);
         anim.SetBool("Grounded", grounded);
 
     }

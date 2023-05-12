@@ -11,7 +11,6 @@ public class WallRunning : MonoBehaviour
     public float wallRunForce;
     public float wallJumpUpForce;
     public float wallJumpSideForce;
-    public float wallJumpForwardForce;
     public float maxWallRunTime;
     private float wallRunTimer;
 
@@ -38,6 +37,7 @@ public class WallRunning : MonoBehaviour
 
     [Header("References")]
     public Transform orientation;
+    public Transform body;
     private PlayerMovement pm;
     private Rigidbody rb;
     public PlayerInput _playerInput;
@@ -147,14 +147,16 @@ public class WallRunning : MonoBehaviour
         Vector3 wallForward = Vector3.Cross(wallNormal, transform.up);
 
         //  forward force
-        if (wallRight)
+        if (wallRight && !exitingWall)
         {
+            body.forward = -wallForward;
             orientation.forward = -wallForward;
             rb.velocity = -wallForward * wallRunForce * Time.deltaTime + Vector3.up * rb.velocity.y;
         }
 
-        else
+        else if(!exitingWall)
         {
+            body.forward = wallForward;
             orientation.forward = wallForward;
             rb.velocity = wallForward * wallRunForce * Time.deltaTime + Vector3.up * rb.velocity.y;
         }
@@ -177,16 +179,17 @@ public class WallRunning : MonoBehaviour
     {
         lastWall = wallRight ? rightWallHit.transform.gameObject : leftWallHit.transform.gameObject;
 
+       
         // enter exiting wall state
         exitingWall = true;
         exitWallTimer = exitWallTime;
 
-
         Vector3 wallNormal = wallRight ? rightWallHit.normal : leftWallHit.normal;
 
-        Vector3 forceToApply = transform.up * wallJumpUpForce + wallNormal * wallJumpSideForce + transform.forward * wallJumpForwardForce;
+        Vector3 forceToApply = transform.up * wallJumpUpForce + wallNormal * wallJumpSideForce;
+        forceToApply.z = rb.velocity.z;
 
         // reset y velocity and add Force
-        rb.velocity = rb.velocity + forceToApply;
+        pm.Jump(forceToApply);
     }
 }

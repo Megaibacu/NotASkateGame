@@ -176,7 +176,14 @@ public class PlayerMovement : Movement
             rb.velocity = new Vector3(velocity.x, rb.velocity.y, velocity.z); //Changed the movement mechanics from force based to velocity based
         }
 
-
+        if(!grounded)
+        {
+            rb.velocity += ((horizontalInput * orientation.transform.right * Time.deltaTime + verticalInput * orientation.transform.forward * Time.deltaTime) * 20);
+            if(rb.velocity.magnitude > airMaxSpeed)
+            {
+                rb.velocity = rb.velocity.normalized * airMaxSpeed;
+            }
+        }
  
         anim.SetFloat("XSpeed", rb.velocity.magnitude);
     }    

@@ -143,7 +143,7 @@ public class splineTesting : MonoBehaviour
         sc.grinding = false;
         rb.transform.position +=  transform.up * 0.3f;
         rb.velocity = storedvel * transform.forward * 3;
-        rb.velocity = new Vector3(rb.velocity.x,30, rb.velocity.z);
+        rb.velocity = new Vector3(rb.velocity.x,20, rb.velocity.z);
         pm.anim.SetTrigger("Jump");
         cd_countdown = grind_cd;
     }
