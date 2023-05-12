@@ -5,7 +5,8 @@ using Cinemachine;
 
 public class GrindCamera : MonoBehaviour
 {
-    public Transform grinscamfollow;
+    public Transform grindcamfollow;
+    public Transform player;
     CinemachineVirtualCamera camara;
 
     public bool active;
@@ -19,7 +20,8 @@ public class GrindCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = grinscamfollow.position;
+        transform.position = grindcamfollow.position;
+
 
         if (active)
         {
