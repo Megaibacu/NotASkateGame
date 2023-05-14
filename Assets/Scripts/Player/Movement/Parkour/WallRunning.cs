@@ -38,11 +38,13 @@ public class WallRunning : MonoBehaviour
 
     [Header("References")]
     public Transform orientation;
+    public Transform body;
     private PlayerMovement pm;
     private Rigidbody rb;
     public PlayerInput _playerInput;
     private GameObject lastWall;
     private GameObject wallhit;
+    
 
     private void Start()
     {
@@ -145,16 +147,18 @@ public class WallRunning : MonoBehaviour
         Vector3 wallNormal = wallRight ? rightWallHit.normal : leftWallHit.normal;
 
         Vector3 wallForward = Vector3.Cross(wallNormal, transform.up);
-
+        
         //  forward force
         if (wallRight)
         {
+            body.forward = wallForward;
             orientation.forward = -wallForward;
             rb.velocity = -wallForward * wallRunForce * Time.deltaTime + Vector3.up * rb.velocity.y;
         }
 
         else
         {
+            body.forward = wallForward;
             orientation.forward = wallForward;
             rb.velocity = wallForward * wallRunForce * Time.deltaTime + Vector3.up * rb.velocity.y;
         }
