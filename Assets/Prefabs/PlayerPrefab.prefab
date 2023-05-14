@@ -2342,7 +2342,7 @@ MonoBehaviour:
   rb: {fileID: 5866666021331452489}
   floor:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 136
   horizontalInput: 0
   verticalInput: 0
   currentMomentum: {x: 0, y: 0, z: 0}
