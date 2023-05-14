@@ -42,10 +42,6 @@ public class StateChange : MonoBehaviour
 
     private void Update()
     {
-        if(!_pMov.activeGrapple)
-        {
-
-        }
         AnimationLayers();
         _mov.StateHandler();
         //_mov.SlopeDetection();

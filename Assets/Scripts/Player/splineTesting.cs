@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Dreamteck.Splines;
+using Cinemachine;
 
 
 public class splineTesting : MonoBehaviour
@@ -28,7 +29,13 @@ public class splineTesting : MonoBehaviour
     private Vector3 offset;
     private Vector3 pTransform;
 
-    // Start is called before the first frame update
+    //This is for changing the camera while you grind
+    public GameObject secondcamobj;
+    public GameObject maincam;
+    GrindCamera secondcam;
+    CinemachineBrain brain;
+
+
     void Start()
     {
         cd_countdown = 0;
@@ -36,6 +43,8 @@ public class splineTesting : MonoBehaviour
         pm = GetComponent<PlayerMovement>();
         splineF = GetComponent<SplineFollower>();
         rb = GetComponent<Rigidbody>();
+        secondcam = secondcamobj.GetComponent<GrindCamera>();
+        brain = maincam.GetComponent<CinemachineBrain>();
     }
 
     // Update is called once per frame
@@ -90,7 +99,7 @@ public class splineTesting : MonoBehaviour
                            
                                
                                 Grind();
-                            
+   
                         }
 
             }
@@ -118,6 +127,9 @@ public class splineTesting : MonoBehaviour
         storedvel = sc.currentSpeed;
         splineF.followSpeed = sc.currentSpeed * (int)splineF.direction;
 
+        //This is for the camera
+        secondcam.active = true;
+        brain.m_DefaultBlend.m_Time = 3.4f;
     }
     public void EndGrindForward()
     {
@@ -132,6 +144,7 @@ public class splineTesting : MonoBehaviour
         if(splineF.direction == Spline.Direction.Backward)
         {
             EndGrind();
+
         }
 
     }
@@ -143,8 +156,11 @@ public class splineTesting : MonoBehaviour
         sc.grinding = false;
         rb.transform.position +=  transform.up * 0.3f;
         rb.velocity = storedvel * transform.forward * 3;
-        rb.velocity = new Vector3(rb.velocity.x,30, rb.velocity.z);
+        rb.velocity = new Vector3(rb.velocity.x,20, rb.velocity.z);
         pm.anim.SetTrigger("Jump");
         cd_countdown = grind_cd;
+
+        secondcam.active = false;
+        brain.m_DefaultBlend.m_Time = 5;
     }
 }

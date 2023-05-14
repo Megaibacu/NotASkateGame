@@ -13,7 +13,6 @@ public class Customizationshop : MonoBehaviour
     //objetos que hay que arrastrar desde la escena
     public GameObject Skate;
     public GameObject skateimagereal;
-    public GameObject playercam;
     public GameObject shopui;
     public GameObject player;
     public GameObject soundmanager;
@@ -23,6 +22,7 @@ public class Customizationshop : MonoBehaviour
 
     public GameObject mockskate;
     public GameObject mockskateimage;
+    public GameObject mockskatecolor;
     public GameObject keyprompt;
 
     Image skatecolor;
@@ -33,7 +33,6 @@ public class Customizationshop : MonoBehaviour
 
     public Image[] blackarrows;
     public Sprite[] skateimages;
- 
 
     public bool isshoping;
     public bool isclose;
@@ -45,7 +44,6 @@ public class Customizationshop : MonoBehaviour
     float leftarrowtimer;
     public float isbrowsing;
 
-    int number;
     public int currentimage;
     public int selectedimage;
     public int currentmaterial;
@@ -109,7 +107,6 @@ public class Customizationshop : MonoBehaviour
             isshoping = true;
             player.GetComponent<PlayerMovement>().enabled = false;
             player.GetComponent<StateChange>().enabled = false;
-            playercam.GetComponent<ThirdPersonCam>().enabled = false;
             shopcam.Priority = 11;
             currentmaterial = selectedmaterial;
             currentimage = selectedimage;
@@ -123,7 +120,6 @@ public class Customizationshop : MonoBehaviour
             isshoping = false;
             player.GetComponent<PlayerMovement>().enabled = true;
             player.GetComponent<StateChange>().enabled = true;
-            playercam.GetComponent<ThirdPersonCam>().enabled = true;
             transitioning = 2;
             shopui.SetActive(false);
             blackboxtimer = 0;
@@ -255,15 +251,15 @@ public class Customizationshop : MonoBehaviour
         {
             if (currentmaterial == 0)
             {
-                mockskate.GetComponent<Renderer>().material.color = Color.white;
+                mockskatecolor.GetComponent<Renderer>().material.color = Color.white;
             }
             if (currentmaterial == 1)
             {
-                mockskate.GetComponent<Renderer>().material.color = new Color(0, 98, 255);
+                mockskatecolor.GetComponent<Renderer>().material.color = new Color(0, 98, 255);
             }
             if (currentmaterial == 2)
             {
-                mockskate.GetComponent<Renderer>().material.color = new Color(0, 255, 0);
+                mockskatecolor.GetComponent<Renderer>().material.color = new Color(0, 255, 0);
             }
         }
 

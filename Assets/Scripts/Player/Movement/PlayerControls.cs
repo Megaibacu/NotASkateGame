@@ -643,6 +643,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""efaccad6-23c9-43cc-9404-92c094bd8c85"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""ebe6d307-2199-47ca-bf49-eda323518fa9"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
