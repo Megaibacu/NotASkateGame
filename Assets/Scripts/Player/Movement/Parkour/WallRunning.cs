@@ -43,6 +43,7 @@ public class WallRunning : MonoBehaviour
     public PlayerInput _playerInput;
     private GameObject lastWall;
     private GameObject wallhit;
+    
 
     private void Start()
     {
@@ -145,7 +146,7 @@ public class WallRunning : MonoBehaviour
         Vector3 wallNormal = wallRight ? rightWallHit.normal : leftWallHit.normal;
 
         Vector3 wallForward = Vector3.Cross(wallNormal, transform.up);
-
+        
         //  forward force
         if (wallRight && !exitingWall)
         {

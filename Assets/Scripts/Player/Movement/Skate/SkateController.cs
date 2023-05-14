@@ -124,7 +124,11 @@ public class SkateController : Movement
             //----------Final Steering Direction---------
             steerAmount = steerDirection * steerMultiplier;
             steerVect = new Vector3(orientation.transform.eulerAngles.x, orientation.transform.eulerAngles.y + steerAmount, orientation.transform.eulerAngles.z);
-            orientation.transform.eulerAngles = Vector3.Lerp(orientation.transform.eulerAngles, steerVect, steerTiming * Time.deltaTime);
+
+            if (grounded)
+            {
+                orientation.transform.eulerAngles = Vector3.Lerp(orientation.transform.eulerAngles, steerVect, steerTiming * Time.deltaTime);
+            }
         }       
     }
  
