@@ -31,6 +31,6 @@ public class PlayerAnimEvents : MonoBehaviour
 
     public void FootStep()
     {
-
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.footStep, this.transform.position);
     }
 }

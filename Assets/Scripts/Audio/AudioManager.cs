@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
+using FMOD.Studio;
 
 public class AudioManager : MonoBehaviour
 {
@@ -22,5 +23,11 @@ public class AudioManager : MonoBehaviour
 
         RuntimeManager.PlayOneShot(sound, worldpos);
     
+    }
+    public void PlayOneShot(EventInstance sound, Vector3 worldpos)
+    {
+
+        sound.start();
+
     }
 }

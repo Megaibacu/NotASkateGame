@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public abstract class Movement : MonoBehaviour
 {
@@ -99,10 +100,24 @@ public abstract class Movement : MonoBehaviour
     }
     public void Grounded() 
     {       
-        Debug.DrawRay(player.transform.position, -orientation.transform.up, Color.green, .05f);
         grounded = Physics.Raycast(player.transform.position, -orientation.transform.up, out hit, .1f, floor);
         anim.SetBool("Grounded", grounded);
 
+        if(grounded)
+        {
+            switch (hit.transform.tag)
+            {
+                case "F_Concrete":
+                    FMODEvents.instance.footStep.setParameterByName("Surface", 0);
+                    break;
+                case "F_Wood":
+                    FMODEvents.instance.footStep.setParameterByName("Surface", 1);
+                    break;
+                default:
+                    break;
+            }
+        }
+       
     }
 
     public virtual void SpeedControl()
