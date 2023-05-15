@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class PlayerAnimEvents : MonoBehaviour
 {
@@ -26,5 +27,10 @@ public class PlayerAnimEvents : MonoBehaviour
     public void RestartRB()
     {
         rb.isKinematic = false;
+    }
+
+    public void FootStep()
+    {
+
     }
 }
