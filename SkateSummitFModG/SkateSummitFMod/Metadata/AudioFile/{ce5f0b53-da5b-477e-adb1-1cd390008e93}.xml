@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{ce5f0b53-da5b-477e-adb1-1cd390008e93}">
+		<property name="assetPath">
+			<value>Player/FootSteps/Concrete/Paso2.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.13091666666666665</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{e6a0615f-a90e-47ce-b27c-a402b83939bd}</destination>
+		</relationship>
+	</object>
+</objects>

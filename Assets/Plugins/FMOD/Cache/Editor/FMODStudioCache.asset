@@ -15,10 +15,10 @@ MonoBehaviour:
   Path: SkateSummitFModG/SkateSummitFMod/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638193398233301387
+  lastModified: 638197496083340959
   FileSizes:
   - Name: Desktop
-    Value: 1036
+    Value: 1194
   Exists: 1
 --- !u!114 &-5941098686860092793
 MonoBehaviour:
@@ -35,10 +35,36 @@ MonoBehaviour:
   Path: SkateSummitFModG/SkateSummitFMod/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638193398233306405
+  lastModified: 638197496083350989
   FileSizes:
   - Name: Desktop
-    Value: 712
+    Value: 892
+  Exists: 1
+--- !u!114 &-1259496093226060337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/FootSteps/Surface
+  m_EditorClassIdentifier: 
+  Name: Surface
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 2129246403
+    data2: 2271692093
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Value A
+  - Value B
   Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -55,11 +81,61 @@ MonoBehaviour:
   EditorBanks:
   - {fileID: -5941098686860092793}
   - {fileID: -5972671286247241327}
-  EditorEvents: []
+  - {fileID: 4887810556242928340}
+  EditorEvents:
+  - {fileID: 5383671121097280365}
   EditorParameters: []
   MasterBanks:
   - {fileID: -5972671286247241327}
   StringsBanks:
   - {fileID: -5941098686860092793}
-  cacheTime: 638193398233306405
+  cacheTime: 638197496083867763
   cacheVersion: 131603
+--- !u!114 &4887810556242928340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/SFX Bank.bank
+  m_EditorClassIdentifier: 
+  Path: SkateSummitFModG/SkateSummitFMod/Build/Desktop/SFX Bank.bank
+  Name: SFX Bank
+  StudioPath: bank:/SFX Bank
+  lastModified: 638197496083867763
+  FileSizes:
+  - Name: Desktop
+    Value: 11616
+  Exists: 1
+--- !u!114 &5383671121097280365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/FootSteps
+  m_EditorClassIdentifier: 
+  Path: event:/FootSteps
+  Guid:
+    Data1: 1641440571
+    Data2: 1238511502
+    Data3: 1208104074
+    Data4: 255329906
+  Banks:
+  - {fileID: 4887810556242928340}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -1259496093226060337}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
