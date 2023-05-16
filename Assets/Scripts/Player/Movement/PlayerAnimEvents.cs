@@ -31,6 +31,12 @@ public class PlayerAnimEvents : MonoBehaviour
 
     public void FootStep()
     {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.footStep);
+    }
 
+    public void StopSteps()
+    {
+        print("para");
+        AudioManager.instance.StopSound(FMODEvents.instance.footStep);
     }
 }

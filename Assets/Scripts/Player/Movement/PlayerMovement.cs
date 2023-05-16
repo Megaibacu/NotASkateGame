@@ -34,6 +34,7 @@ public class PlayerMovement : Movement
     [Header("==========References==========")]
     public splineTesting sT;
     public MovementState state;
+    private PlayerAnimEvents pAE;
 
     new public enum MovementState
     {
@@ -55,7 +56,7 @@ public class PlayerMovement : Movement
 
     private void Start()
     {
-        
+        pAE = GetComponent<PlayerAnimEvents>();
         sT = GetComponent<splineTesting>();
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
@@ -154,6 +155,11 @@ public class PlayerMovement : Movement
 
         // calculate movement direction
         moveDirection = orientation.transform.forward * verticalInput + orientation.transform.right * horizontalInput;
+
+        if (verticalInput == 0 && horizontalInput == 0)
+        {
+            pAE.StopSteps();
+        }
 
         // on slope
         if (onUpSlope || onDownSlope)

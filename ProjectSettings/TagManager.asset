@@ -7,6 +7,9 @@ TagManager:
   - RaceEnemy
   - Dialogue
   - Spline
+  - F_Concrete
+  - F_Wood
+  - F_Dirt
   layers:
   - Default
   - TransparentFX
