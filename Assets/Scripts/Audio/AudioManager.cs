@@ -24,10 +24,14 @@ public class AudioManager : MonoBehaviour
         RuntimeManager.PlayOneShot(sound, worldpos);
     
     }
-    public void PlayOneShot(EventInstance sound, Vector3 worldpos)
+    public void PlayOneShot(EventInstance sound)
     {
 
         sound.start();
 
+    }
+    public void StopSound(EventInstance sound)
+    {
+        sound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
     }
 }
