@@ -185,10 +185,10 @@ public class PlayerMovement : Movement
         if(!grounded)
         {
             rb.velocity += ((horizontalInput * orientation.transform.right * Time.deltaTime + verticalInput * orientation.transform.forward * Time.deltaTime) * 20);
-            if(rb.velocity.magnitude > airMaxSpeed)
+            /*if(rb.velocity.magnitude > airMaxSpeed)
             {
                 rb.velocity = rb.velocity.normalized * airMaxSpeed;
-            }
+            }*/
         }
  
         anim.SetFloat("XSpeed", rb.velocity.magnitude);

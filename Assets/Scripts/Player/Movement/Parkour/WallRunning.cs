@@ -188,7 +188,7 @@ public class WallRunning : MonoBehaviour
         Vector3 wallNormal = wallRight ? rightWallHit.normal : leftWallHit.normal;
 
         Vector3 forceToApply = transform.up * wallJumpUpForce + wallNormal * wallJumpSideForce;
-        forceToApply.z = rb.velocity.z;
+        forceToApply.z = rb.velocity.z /2;
 
         // reset y velocity and add Force
         pm.Jump(forceToApply);
