@@ -129,7 +129,7 @@ public class splineTesting : MonoBehaviour
 
         //This is for the camera
         secondcam.active = true;
-        brain.m_DefaultBlend.m_Time = 3.4f;
+        brain.m_DefaultBlend.m_Time = 1f;
     }
     public void EndGrindForward()
     {
@@ -161,6 +161,6 @@ public class splineTesting : MonoBehaviour
         cd_countdown = grind_cd;
 
         secondcam.active = false;
-        brain.m_DefaultBlend.m_Time = 5;
+        brain.m_DefaultBlend.m_Time = 1;
     }
 }

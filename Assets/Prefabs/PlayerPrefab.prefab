@@ -547,6 +547,7 @@ Transform:
   - {fileID: 8762975958490623684}
   - {fileID: 1652421799233884012}
   - {fileID: 5928862982061142756}
+  - {fileID: 379214805970224739}
   m_Father: {fileID: 5171195084686607125}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2211,9 +2212,8 @@ Transform:
   m_Children:
   - {fileID: 908924504}
   - {fileID: 6005557396522497707}
-  - {fileID: 379214805970224739}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1235088405893749103
 Animator:
@@ -2641,11 +2641,11 @@ MonoBehaviour:
   targetRigidbody2D: {fileID: 0}
   targetTransform: {fileID: 5171195084686607125}
   _result:
-    position: {x: 50.737152, y: 108.745674, z: 415.77103}
-    up: {x: 0, y: 1, z: 0}
-    forward: {x: -0.9999742, y: 0, z: -0.007196509}
-    color: {r: 1, g: 1, b: 1, a: 1}
-    size: 1
+    position: {x: 0, y: 0, z: 0}
+    up: {x: 0, y: 0, z: 0}
+    forward: {x: 0, y: 0, z: 0}
+    color: {r: 0, g: 0, b: 0, a: 0}
+    size: 0
     percent: 0
   _finalResult:
     position: {x: 50.737152, y: 108.745674, z: 415.77103}
@@ -3013,12 +3013,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5828104870357873699}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.93, y: 0, z: -1.342}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.9299998, y: 0, z: -1.342}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5171195084686607125}
+  m_Father: {fileID: 6005557396522497707}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5835338432733402601
