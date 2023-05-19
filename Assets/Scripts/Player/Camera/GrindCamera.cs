@@ -25,7 +25,7 @@ public class GrindCamera : MonoBehaviour
 
         if (active)
         {
-            camara.Priority = 10;
+            camara.Priority = 12;
         }
         else
         {
