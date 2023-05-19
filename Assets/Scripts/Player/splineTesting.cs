@@ -38,10 +38,10 @@ public class splineTesting : MonoBehaviour
 
     void Start()
     {
+        splineF = GetComponent<SplineFollower>();
         cd_countdown = 0;
         sc = GetComponent<SkateController>();
         pm = GetComponent<PlayerMovement>();
-        splineF = GetComponent<SplineFollower>();
         rb = GetComponent<Rigidbody>();
         secondcam = secondcamobj.GetComponent<GrindCamera>();
         brain = maincam.GetComponent<CinemachineBrain>();
@@ -84,6 +84,7 @@ public class splineTesting : MonoBehaviour
                         pTransform = transform.position;
                         sp = grindables[0].gameObject.GetComponent<SplineComputer>();
                         splineF.spline = sp;
+                        splineF.RebuildImmediate();
                         sp.Project(pTransform, ref result, from = 0, to = 1);
                         startingPos = result.percent;
                         splineF._startPosition = startingPos;
