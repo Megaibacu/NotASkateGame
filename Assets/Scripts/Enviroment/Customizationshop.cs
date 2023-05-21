@@ -81,6 +81,11 @@ public class Customizationshop : MonoBehaviour
             transitioning -= Time.deltaTime;
         }
 
+        if (isshoping == true && isclose == false)
+        {
+            changecams();
+        }
+
         if(_playerInput.actions["Interact"].WasPressedThisFrame() && isclose == true && transitioning <= 0)
         {
             
@@ -110,7 +115,7 @@ public class Customizationshop : MonoBehaviour
             shopcam.Priority = 11;
             currentmaterial = selectedmaterial;
             currentimage = selectedimage;
-            transitioning = 2;
+            transitioning = 1;
             player.GetComponent<Animator>().SetFloat("XSpeed", 0);
             _playerInput.SwitchCurrentActionMap("ShopControls");
         }
@@ -120,7 +125,7 @@ public class Customizationshop : MonoBehaviour
             isshoping = false;
             player.GetComponent<PlayerMovement>().enabled = true;
             player.GetComponent<StateChange>().enabled = true;
-            transitioning = 2;
+            transitioning = 1;
             shopui.SetActive(false);
             blackboxtimer = 0;
             rightarrowtimer = 0;
