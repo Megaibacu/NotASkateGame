@@ -200,6 +200,7 @@ public class PlayerMovement : Movement
         anim.SetTrigger("Jump");        
         // Jump Velocity
         rb.velocity = new Vector3(jumpVector.x, jumpVector.y + 1 * jumpForce, jumpVector.z);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.jumpSound, this.transform.position);
 
         Invoke(nameof(ResetJump), jumpCooldown);
     }

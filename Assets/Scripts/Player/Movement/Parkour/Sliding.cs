@@ -43,8 +43,7 @@ public class Sliding : MonoBehaviour
     public void StartSlide()
     {
         pm.sliding = true;
-
-        //  animación
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.slide, transform.position);
     }
 
     private void SlidingMovement()

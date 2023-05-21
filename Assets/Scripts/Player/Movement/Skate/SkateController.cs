@@ -84,6 +84,16 @@ public class SkateController : Movement
 
     public override void Move()
     {
+        FMODEvents.instance.skateRolling.getPlaybackState(out FMOD.Studio.PLAYBACK_STATE state);
+        if (state == FMOD.Studio.PLAYBACK_STATE.STOPPED && rb.velocity != Vector3.zero)
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.skateRolling);
+        }
+        else if(rb.velocity == Vector3.zero)
+        {
+            AudioManager.instance.StopSound(FMODEvents.instance.skateRolling);
+        }
+
         playerDirection = transform.forward * verticalInput + transform.right * horizontalInput;
         if(canMove)
         {
@@ -93,7 +103,7 @@ public class SkateController : Movement
                 //Use of lerp to make the velocity change prograsively not at an instant because it would not be realistic enough
                 currentSpeed = Mathf.Lerp(currentSpeed, maxSpeed, Time.deltaTime * forwardAcceleration);
                 steerMultiplier = Mathf.Lerp(steerMultiplier, minSteering, forwardAcceleration * Time.deltaTime);
-                reverseTimer = 0;
+                reverseTimer = 0;   
             }
 
             else if (verticalInput < 0)
@@ -170,6 +180,7 @@ public class SkateController : Movement
     {
         if (!grinding)
         {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.skateJump, transform.position);
             skateJumpPreassure += skateJumpPreassure + minSkateJumpFoce;
             rb.velocity = new Vector3(rb.velocity.x, skateJumpPreassure, rb.velocity.z);
             skateJumpPreassure = 0;
