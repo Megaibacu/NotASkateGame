@@ -87,6 +87,7 @@ public class Grapplin : MonoBehaviour
                 grapplePoint = grappleObject.transform.position;
                 lr.enabled = true;
                 lr.SetPosition(1, grapplePoint);
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.grapple, transform.position);
             }
             else
             {

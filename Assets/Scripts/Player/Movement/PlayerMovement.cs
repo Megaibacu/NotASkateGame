@@ -185,10 +185,10 @@ public class PlayerMovement : Movement
         if(!grounded)
         {
             rb.velocity += ((horizontalInput * orientation.transform.right * Time.deltaTime + verticalInput * orientation.transform.forward * Time.deltaTime) * 20);
-            if(rb.velocity.magnitude > airMaxSpeed)
+            /*if(rb.velocity.magnitude > airMaxSpeed)
             {
                 rb.velocity = rb.velocity.normalized * airMaxSpeed;
-            }
+            }*/
         }
  
         anim.SetFloat("XSpeed", rb.velocity.magnitude);
@@ -200,6 +200,7 @@ public class PlayerMovement : Movement
         anim.SetTrigger("Jump");        
         // Jump Velocity
         rb.velocity = new Vector3(jumpVector.x, jumpVector.y + 1 * jumpForce, jumpVector.z);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.jumpSound, this.transform.position);
 
         Invoke(nameof(ResetJump), jumpCooldown);
     }

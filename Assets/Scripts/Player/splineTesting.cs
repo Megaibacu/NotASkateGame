@@ -38,10 +38,10 @@ public class splineTesting : MonoBehaviour
 
     void Start()
     {
+        splineF = GetComponent<SplineFollower>();
         cd_countdown = 0;
         sc = GetComponent<SkateController>();
         pm = GetComponent<PlayerMovement>();
-        splineF = GetComponent<SplineFollower>();
         rb = GetComponent<Rigidbody>();
         secondcam = secondcamobj.GetComponent<GrindCamera>();
         brain = maincam.GetComponent<CinemachineBrain>();
@@ -84,6 +84,7 @@ public class splineTesting : MonoBehaviour
                         pTransform = transform.position;
                         sp = grindables[0].gameObject.GetComponent<SplineComputer>();
                         splineF.spline = sp;
+                        splineF.RebuildImmediate();
                         sp.Project(pTransform, ref result, from = 0, to = 1);
                         startingPos = result.percent;
                         splineF._startPosition = startingPos;
@@ -129,7 +130,7 @@ public class splineTesting : MonoBehaviour
 
         //This is for the camera
         secondcam.active = true;
-        brain.m_DefaultBlend.m_Time = 3.4f;
+        brain.m_DefaultBlend.m_Time = 1f;
     }
     public void EndGrindForward()
     {
@@ -161,6 +162,6 @@ public class splineTesting : MonoBehaviour
         cd_countdown = grind_cd;
 
         secondcam.active = false;
-        brain.m_DefaultBlend.m_Time = 5;
+        brain.m_DefaultBlend.m_Time = 1;
     }
 }
