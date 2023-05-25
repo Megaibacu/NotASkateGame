@@ -16,6 +16,10 @@ public class StateChange : MonoBehaviour
     public float skateSpeedPercentage;
     public float skateSwitchBoost;
 
+    [Header("==========Particles==========")]
+    public GameObject[] parkourPartciles;
+    public GameObject[] skateParticles;
+
     public States state;
     public GameObject skateGO;
     public GameObject audiomanager;
@@ -77,13 +81,19 @@ public class StateChange : MonoBehaviour
                 skateGO.SetActive(true);                
                 parkourSpeedPercentage = Mathf.Abs(_mov.currentSpeed / _pMov.sprintSpeed);
                 _mov = _sc;
-                _mov.currentSpeed = _mov.maxSpeed * parkourSpeedPercentage;           
+                _mov.currentSpeed = _mov.maxSpeed * parkourSpeedPercentage;
+            parkourPartciles[0].gameObject.SetActive(true);
+            parkourPartciles[1].gameObject.SetActive(true);
+            skateParticles[0].gameObject.SetActive(false);
         }
 
         else
         {           
                 state = States.parkour;
-                _sc.isplaying = false;
+            parkourPartciles[0].gameObject.SetActive(false);
+            parkourPartciles[1].gameObject.SetActive(false);
+            skateParticles[0].gameObject.SetActive(true);
+            _sc.isplaying = false;
                 skateGO.SetActive(false);               
 
                 //Conservation of momentum
@@ -96,7 +106,20 @@ public class StateChange : MonoBehaviour
                 else
                 {
                     _mov.currentSpeed = 10;
-                }    
+                }
+            
+        }
+    }
+
+    public void ParticleActivation(GameObject[] activeGOs, GameObject[] deactivateGOs)
+    {
+        for (int i = 0; i < activeGOs.Length; i++)
+        {
+            activeGOs[i].gameObject.SetActive(true);
+        }
+        for (int i = 0; i < deactivateGOs.Length; i++)
+        {
+            deactivateGOs[i].gameObject.SetActive(false);
         }
     }
 
