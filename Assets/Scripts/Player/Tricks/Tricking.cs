@@ -41,31 +41,40 @@ public class Tricking : MonoBehaviour
 
         if (!sC.grounded && !tricking)
         {
+            
             if (Input.GetButtonDown("FlipTricks"))
             {
-                Debug.Log("Kickflip");
+                string currentAnim = string.Empty;
                 if (Input.GetAxisRaw("Vertical") < 0)
                 {
-                    Debug.Log("Heelflip");
+                    currentAnim = tricks[0].animationTriggered;
+                    Debug.Log("Pop Shuvit");
                 }
                 else if (Input.GetAxisRaw("Vertical") > 0)
                 {
-                    Debug.Log("Pop Shuvit");
+                    currentAnim = tricks[1].animationTriggered;
+                    Debug.Log("Impossible");
                 }
                 else if (Input.GetAxisRaw("Horizontal") < 0)
                 {
+                    currentAnim = tricks[2].animationTriggered;
                     Debug.Log("Kickflip");
                 }
                 else if (Input.GetAxisRaw("Horizontal") > 0)
                 {
+                    currentAnim = tricks[3].animationTriggered;
                     Debug.Log("Heelflip");
+                }
+                else
+                {
+                    currentAnim = "KickFlip";
                 }
 
                 StopCoroutine(StartComboCounter());
                 scoreM.combo++;
                 if (scoreM.combo > 0) { scoreM.curretnScore += (tricks[0].scoreAwarded * scoreM.combo); }
                 else { scoreM.curretnScore += tricks[0].scoreAwarded; }
-                anim.SetTrigger("KickFlip");
+                anim.SetTrigger(currentAnim);
                 tricking = true;
             }
 

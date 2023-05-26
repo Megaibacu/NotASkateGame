@@ -82,17 +82,11 @@ public class StateChange : MonoBehaviour
                 parkourSpeedPercentage = Mathf.Abs(_mov.currentSpeed / _pMov.sprintSpeed);
                 _mov = _sc;
                 _mov.currentSpeed = _mov.maxSpeed * parkourSpeedPercentage;
-            parkourPartciles[0].gameObject.SetActive(true);
-            parkourPartciles[1].gameObject.SetActive(true);
-            skateParticles[0].gameObject.SetActive(false);
         }
 
         else
         {           
                 state = States.parkour;
-            parkourPartciles[0].gameObject.SetActive(false);
-            parkourPartciles[1].gameObject.SetActive(false);
-            skateParticles[0].gameObject.SetActive(true);
             _sc.isplaying = false;
                 skateGO.SetActive(false);               
 
