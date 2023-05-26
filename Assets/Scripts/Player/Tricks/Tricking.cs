@@ -11,6 +11,7 @@ public class Tricking : MonoBehaviour
 
     [Header("===============Skate Tricks===============")]
     public SkateTricks[] tricks; //All the tricks that can be perfornmed by the player. In the future it would be cool to make this customizable
+    public SkateTricks[] grabTricks;
     public float comboTimer; // The time that the player has to do another trick to continue the combo
     [HideInInspector] public bool tricking; //Checks if the player is mid trick to know if they have to fall
     [HideInInspector] public bool fall; //If the player touches the ground and is doing a tricks then they fall
@@ -81,6 +82,7 @@ public class Tricking : MonoBehaviour
             if (Input.GetButton("GrabTricks"))
             {
                 tricking = true;
+                scoreM.curretnScore += (int)(grabTricks[0].scoreAwarded * Time.deltaTime);
             }
         }
 
