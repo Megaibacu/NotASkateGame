@@ -180,6 +180,7 @@ public class SkateController : Movement
     {
         if (!grinding)
         {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.jumpSound, transform.position);
             AudioManager.instance.PlayOneShot(FMODEvents.instance.skateJump, transform.position);
             skateJumpPreassure += skateJumpPreassure + minSkateJumpFoce;
             rb.velocity = new Vector3(rb.velocity.x, skateJumpPreassure, rb.velocity.z);

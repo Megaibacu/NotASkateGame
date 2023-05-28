@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7044323719822520523}
   - component: {fileID: 887357915732579174}
   - component: {fileID: 575966078133702837}
+  - component: {fileID: 8793812942058356255}
   m_Layer: 0
   m_Name: NewAudioManager
   m_TagString: Untagged
@@ -77,6 +78,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3d55fbadea6ccb419a7c1432fbcf08e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8793812942058356255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 122408243730704134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: -1
+  OverrideMaxDistance: -1
 --- !u!1 &4123040830663465897
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,3 +160,45 @@ MonoBehaviour:
       Data3: 1208104074
       Data4: 255329906
     Path: event:/FootSteps
+  <jumpSound>k__BackingField:
+    Guid:
+      Data1: 716475068
+      Data2: 1165725850
+      Data3: -1207365997
+      Data4: -347834338
+    Path: event:/ParkourJump
+  <slide>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <grapple>k__BackingField:
+    Guid:
+      Data1: -2024853414
+      Data2: 1097032834
+      Data3: -2104510276
+      Data4: 709767469
+    Path: event:/Grapple
+  <skateRoll>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <skateJump>k__BackingField:
+    Guid:
+      Data1: 1874589012
+      Data2: 1190048172
+      Data3: -347740489
+      Data4: 1248765767
+    Path: event:/SkateJump
+  <grind>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 

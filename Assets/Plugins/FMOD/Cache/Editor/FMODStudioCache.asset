@@ -1,5 +1,32 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8312311882145320520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Grapple
+  m_EditorClassIdentifier: 
+  Path: event:/Grapple
+  Guid:
+    Data1: -2024853414
+    Data2: 1097032834
+    Data3: -2104510276
+    Data4: 709767469
+  Banks:
+  - {fileID: 4887810556242928340}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 380
 --- !u!114 &-5972671286247241327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15,7 +42,7 @@ MonoBehaviour:
   Path: SkateSummitFModG/SkateSummitFMod/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638205470206412460
+  lastModified: 638208849954647150
   FileSizes:
   - Name: Desktop
     Value: 1194
@@ -35,11 +62,65 @@ MonoBehaviour:
   Path: SkateSummitFModG/SkateSummitFMod/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638205470206412460
+  lastModified: 638208849954662019
   FileSizes:
   - Name: Desktop
-    Value: 892
+    Value: 1024
   Exists: 1
+--- !u!114 &-5853619401961630255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/ParkourJump
+  m_EditorClassIdentifier: 
+  Path: event:/ParkourJump
+  Guid:
+    Data1: 716475068
+    Data2: 1165725850
+    Data3: -1207365997
+    Data4: -347834338
+  Banks:
+  - {fileID: 4887810556242928340}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-4047844212124589314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SkateJump
+  m_EditorClassIdentifier: 
+  Path: event:/SkateJump
+  Guid:
+    Data1: 1874589012
+    Data2: 1190048172
+    Data3: -347740489
+    Data4: 1248765767
+  Banks:
+  - {fileID: 4887810556242928340}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-1259496093226060337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,12 +165,15 @@ MonoBehaviour:
   - {fileID: 4887810556242928340}
   EditorEvents:
   - {fileID: 5383671121097280365}
+  - {fileID: -4047844212124589314}
+  - {fileID: -5853619401961630255}
+  - {fileID: -8312311882145320520}
   EditorParameters: []
   MasterBanks:
   - {fileID: -5972671286247241327}
   StringsBanks:
   - {fileID: -5941098686860092793}
-  cacheTime: 638205470206412460
+  cacheTime: 638208849955956580
   cacheVersion: 131603
 --- !u!114 &4887810556242928340
 MonoBehaviour:
@@ -106,10 +190,10 @@ MonoBehaviour:
   Path: SkateSummitFModG/SkateSummitFMod/Build/Desktop/SFX Bank.bank
   Name: SFX Bank
   StudioPath: bank:/SFX Bank
-  lastModified: 638205470206412460
+  lastModified: 638208849955956580
   FileSizes:
   - Name: Desktop
-    Value: 28800
+    Value: 154656
   Exists: 1
 --- !u!114 &5383671121097280365
 MonoBehaviour:
