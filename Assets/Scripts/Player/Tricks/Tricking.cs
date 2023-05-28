@@ -45,6 +45,7 @@ public class Tricking : MonoBehaviour
             
             if (Input.GetButtonDown("FlipTricks"))
             {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.s_flick, transform.position);
                 string currentAnim = string.Empty;
                 if (Input.GetAxisRaw("Vertical") < 0)
                 {
@@ -100,6 +101,10 @@ public class Tricking : MonoBehaviour
     }
     public void EndTrick()
     {
+        if(!sC.grounded)
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.t_Finish, transform.position);
+        }
         tricking = false;
     }
 

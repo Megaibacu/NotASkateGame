@@ -38,4 +38,13 @@ public class PlayerAnimEvents : MonoBehaviour
     {
         AudioManager.instance.StopSound(FMODEvents.instance.footStep);
     }
+
+    public void Land()
+    {
+        if(GetComponent<StateChange>().state == States.parkour)
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.p_Land, transform.position);
+        else
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.s_Land, transform.position);
+
+    }
 }

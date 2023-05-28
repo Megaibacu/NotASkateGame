@@ -85,11 +85,11 @@ public class SkateController : Movement
     public override void Move()
     {
         FMODEvents.instance.skateRolling.getPlaybackState(out FMOD.Studio.PLAYBACK_STATE state);
-        if (state == FMOD.Studio.PLAYBACK_STATE.STOPPED && rb.velocity != Vector3.zero)
+        if (state == FMOD.Studio.PLAYBACK_STATE.STOPPED && rb.velocity != Vector3.zero && grounded)
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.skateRolling);
         }
-        else if(rb.velocity == Vector3.zero)
+        else if(rb.velocity.magnitude < 1 || !grounded)
         {
             AudioManager.instance.StopSound(FMODEvents.instance.skateRolling);
         }

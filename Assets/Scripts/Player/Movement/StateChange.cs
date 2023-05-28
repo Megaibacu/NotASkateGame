@@ -78,6 +78,7 @@ public class StateChange : MonoBehaviour
         if(state == States.parkour)
         {
                 state = States.skating;
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.stateSwitch, transform.position);
                 skateGO.SetActive(true);                
                 parkourSpeedPercentage = Mathf.Abs(_mov.currentSpeed / _pMov.sprintSpeed);
                 _mov = _sc;
@@ -85,9 +86,10 @@ public class StateChange : MonoBehaviour
         }
 
         else
-        {           
+        {
+                AudioManager.instance.StopSound(FMODEvents.instance.skateRolling);
                 state = States.parkour;
-            _sc.isplaying = false;
+                _sc.isplaying = false;
                 skateGO.SetActive(false);               
 
                 //Conservation of momentum

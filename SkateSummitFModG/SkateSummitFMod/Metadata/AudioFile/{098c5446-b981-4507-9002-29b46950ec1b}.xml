@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="AudioFile" id="{098c5446-b981-4507-9002-29b46950ec1b}">
 		<property name="assetPath">
-			<value>SkateMov5.wav</value>
+			<value>Player/SkateMov/SkateMov5.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>

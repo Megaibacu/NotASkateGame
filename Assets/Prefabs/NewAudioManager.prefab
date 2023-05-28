@@ -159,14 +159,14 @@ MonoBehaviour:
       Data2: 1238511502
       Data3: 1208104074
       Data4: 255329906
-    Path: event:/FootSteps
+    Path: event:/PlayerSFX/Parkour/FootSteps
   <jumpSound>k__BackingField:
     Guid:
       Data1: 716475068
       Data2: 1165725850
       Data3: -1207365997
       Data4: -347834338
-    Path: event:/ParkourJump
+    Path: event:/PlayerSFX/Parkour/ParkourJump
   <slide>k__BackingField:
     Guid:
       Data1: 0
@@ -180,25 +180,60 @@ MonoBehaviour:
       Data2: 1097032834
       Data3: -2104510276
       Data4: 709767469
-    Path: event:/Grapple
+    Path: event:/PlayerSFX/Parkour/Grapple
+  <p_Land>k__BackingField:
+    Guid:
+      Data1: 1284002202
+      Data2: 1131605570
+      Data3: -1806680930
+      Data4: 1671824446
+    Path: event:/PlayerSFX/Parkour/ParkourLand
+  <stateSwitch>k__BackingField:
+    Guid:
+      Data1: -15873762
+      Data2: 1249768733
+      Data3: -155609953
+      Data4: 1210655728
+    Path: event:/PlayerSFX/StateSwitch
   <skateRoll>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: -189581935
+      Data2: 1149056835
+      Data3: -2010707320
+      Data4: -333098418
+    Path: event:/PlayerSFX/Skate/SkateWheelMovement
   <skateJump>k__BackingField:
     Guid:
       Data1: 1874589012
       Data2: 1190048172
       Data3: -347740489
       Data4: 1248765767
-    Path: event:/SkateJump
+    Path: event:/PlayerSFX/Skate/SkateJump
+  <s_Land>k__BackingField:
+    Guid:
+      Data1: -296948816
+      Data2: 1279042301
+      Data3: 989054655
+      Data4: -1320727613
+    Path: event:/PlayerSFX/Skate/SkateLand
   <grind>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: -1912303239
+      Data2: 1188457180
+      Data3: 1230928301
+      Data4: -1873049735
+    Path: event:/PlayerSFX/Skate/Grind
+  <t_Finish>k__BackingField:
+    Guid:
+      Data1: 966831321
+      Data2: 1232479033
+      Data3: -784605256
+      Data4: -233473665
+    Path: event:/PlayerSFX/Skate/TrickFinish
+  <s_flick>k__BackingField:
+    Guid:
+      Data1: -1630902563
+      Data2: 1176843342
+      Data3: 2000150679
+      Data4: -729057804
+    Path: event:/PlayerSFX/Skate/SkateFlick

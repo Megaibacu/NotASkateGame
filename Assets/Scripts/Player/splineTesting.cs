@@ -97,8 +97,8 @@ public class splineTesting : MonoBehaviour
                             }
                             else
                                 splineF.direction = Spline.Direction.Forward;
-                           
-                               
+
+                                AudioManager.instance.PlayOneShot(FMODEvents.instance.grinding);
                                 Grind();
    
                         }
@@ -152,6 +152,8 @@ public class splineTesting : MonoBehaviour
 
     public void EndGrind()
     {
+        AudioManager.instance.StopSound(FMODEvents.instance.grinding);
+
         sc.canMove = true;
         splineF.follow = false;
         sc.grinding = false;

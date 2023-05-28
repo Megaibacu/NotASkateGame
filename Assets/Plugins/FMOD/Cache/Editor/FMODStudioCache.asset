@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8312311882145320520
+--- !u!114 &-8256352416404015879
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10,14 +10,42 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Grapple
+  m_Name: event:/PlayerSFX/Parkour/FootSteps
   m_EditorClassIdentifier: 
-  Path: event:/Grapple
+  Path: event:/PlayerSFX/Parkour/FootSteps
   Guid:
-    Data1: -2024853414
-    Data2: 1097032834
-    Data3: -2104510276
-    Data4: 709767469
+    Data1: 1641440571
+    Data2: 1238511502
+    Data3: 1208104074
+    Data4: 255329906
+  Banks:
+  - {fileID: 4887810556242928340}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -5658914186303128715}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-7077569272677460990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/PlayerSFX/Parkour/ParkourLand
+  m_EditorClassIdentifier: 
+  Path: event:/PlayerSFX/Parkour/ParkourLand
+  Guid:
+    Data1: 1284002202
+    Data2: 1131605570
+    Data3: -1806680930
+    Data4: 1671824446
   Banks:
   - {fileID: 4887810556242928340}
   IsStream: 0
@@ -26,7 +54,34 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 380
+  Length: 0
+--- !u!114 &-6032146286523544667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/PlayerSFX/Skate/SkateJump
+  m_EditorClassIdentifier: 
+  Path: event:/PlayerSFX/Skate/SkateJump
+  Guid:
+    Data1: 1874589012
+    Data2: 1190048172
+    Data3: -347740489
+    Data4: 1248765767
+  Banks:
+  - {fileID: 4887810556242928340}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-5972671286247241327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42,7 +97,7 @@ MonoBehaviour:
   Path: SkateSummitFModG/SkateSummitFMod/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638205470206412460
+  lastModified: 638209016872536818
   FileSizes:
   - Name: Desktop
     Value: 1194
@@ -62,66 +117,12 @@ MonoBehaviour:
   Path: SkateSummitFModG/SkateSummitFMod/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638208917341103478
+  lastModified: 638209016872561607
   FileSizes:
   - Name: Desktop
-    Value: 1024
+    Value: 1378
   Exists: 1
---- !u!114 &-5853619401961630255
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/ParkourJump
-  m_EditorClassIdentifier: 
-  Path: event:/ParkourJump
-  Guid:
-    Data1: 716475068
-    Data2: 1165725850
-    Data3: -1207365997
-    Data4: -347834338
-  Banks:
-  - {fileID: 4887810556242928340}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-4047844212124589314
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SkateJump
-  m_EditorClassIdentifier: 
-  Path: event:/SkateJump
-  Guid:
-    Data1: 1874589012
-    Data2: 1190048172
-    Data3: -347740489
-    Data4: 1248765767
-  Banks:
-  - {fileID: 4887810556242928340}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-1259496093226060337
+--- !u!114 &-5658914186303128715
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -164,17 +165,186 @@ MonoBehaviour:
   - {fileID: -5972671286247241327}
   - {fileID: 4887810556242928340}
   EditorEvents:
-  - {fileID: 5383671121097280365}
-  - {fileID: -4047844212124589314}
-  - {fileID: -5853619401961630255}
-  - {fileID: -8312311882145320520}
+  - {fileID: 1816870347902630429}
+  - {fileID: -8256352416404015879}
+  - {fileID: -6032146286523544667}
+  - {fileID: 2315294071009309526}
+  - {fileID: 3235904649622382590}
+  - {fileID: 8434571959828010616}
+  - {fileID: -7077569272677460990}
+  - {fileID: 6573596955001786404}
+  - {fileID: 3725216794451771796}
+  - {fileID: 3148039209834377247}
+  - {fileID: 260461826313453899}
   EditorParameters: []
   MasterBanks:
   - {fileID: -5972671286247241327}
   StringsBanks:
   - {fileID: -5941098686860092793}
-  cacheTime: 638208917341113449
+  cacheTime: 638209021412206162
   cacheVersion: 131603
+--- !u!114 &260461826313453899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/PlayerSFX/Skate/SkateFlick
+  m_EditorClassIdentifier: 
+  Path: event:/PlayerSFX/Skate/SkateFlick
+  Guid:
+    Data1: -1630902563
+    Data2: 1176843342
+    Data3: 2000150679
+    Data4: -729057804
+  Banks:
+  - {fileID: 4887810556242928340}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &1816870347902630429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/PlayerSFX/StateSwitch
+  m_EditorClassIdentifier: 
+  Path: event:/PlayerSFX/StateSwitch
+  Guid:
+    Data1: -15873762
+    Data2: 1249768733
+    Data3: -155609953
+    Data4: 1210655728
+  Banks:
+  - {fileID: 4887810556242928340}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &2315294071009309526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/PlayerSFX/Parkour/Grapple
+  m_EditorClassIdentifier: 
+  Path: event:/PlayerSFX/Parkour/Grapple
+  Guid:
+    Data1: -2024853414
+    Data2: 1097032834
+    Data3: -2104510276
+    Data4: 709767469
+  Banks:
+  - {fileID: 4887810556242928340}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 280
+--- !u!114 &3148039209834377247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/PlayerSFX/Skate/TrickFinish
+  m_EditorClassIdentifier: 
+  Path: event:/PlayerSFX/Skate/TrickFinish
+  Guid:
+    Data1: 966831321
+    Data2: 1232479033
+    Data3: -784605256
+    Data4: -233473665
+  Banks:
+  - {fileID: 4887810556242928340}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &3235904649622382590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/PlayerSFX/Skate/Grind
+  m_EditorClassIdentifier: 
+  Path: event:/PlayerSFX/Skate/Grind
+  Guid:
+    Data1: -1912303239
+    Data2: 1188457180
+    Data3: 1230928301
+    Data4: -1873049735
+  Banks:
+  - {fileID: 4887810556242928340}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1640
+--- !u!114 &3725216794451771796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/PlayerSFX/Parkour/ParkourJump
+  m_EditorClassIdentifier: 
+  Path: event:/PlayerSFX/Parkour/ParkourJump
+  Guid:
+    Data1: 716475068
+    Data2: 1165725850
+    Data3: -1207365997
+    Data4: -347834338
+  Banks:
+  - {fileID: 4887810556242928340}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &4887810556242928340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,12 +360,12 @@ MonoBehaviour:
   Path: SkateSummitFModG/SkateSummitFMod/Build/Desktop/SFX Bank.bank
   Name: SFX Bank
   StudioPath: bank:/SFX Bank
-  lastModified: 638208917341113449
+  lastModified: 638209021412206162
   FileSizes:
   - Name: Desktop
-    Value: 154656
+    Value: 1022528
   Exists: 1
---- !u!114 &5383671121097280365
+--- !u!114 &6573596955001786404
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -205,21 +375,47 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/FootSteps
+  m_Name: event:/PlayerSFX/Skate/SkateLand
   m_EditorClassIdentifier: 
-  Path: event:/FootSteps
+  Path: event:/PlayerSFX/Skate/SkateLand
   Guid:
-    Data1: 1641440571
-    Data2: 1238511502
-    Data3: 1208104074
-    Data4: 255329906
+    Data1: -296948816
+    Data2: 1279042301
+    Data3: 989054655
+    Data4: -1320727613
   Banks:
   - {fileID: 4887810556242928340}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
-  Parameters:
-  - {fileID: -1259496093226060337}
+  Parameters: []
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &8434571959828010616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/PlayerSFX/Skate/SkateWheelMovement
+  m_EditorClassIdentifier: 
+  Path: event:/PlayerSFX/Skate/SkateWheelMovement
+  Guid:
+    Data1: -189581935
+    Data2: 1149056835
+    Data3: -2010707320
+    Data4: -333098418
+  Banks:
+  - {fileID: 4887810556242928340}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2531

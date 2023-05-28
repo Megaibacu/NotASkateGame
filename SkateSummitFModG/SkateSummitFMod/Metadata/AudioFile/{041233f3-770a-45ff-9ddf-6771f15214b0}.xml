@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
-	<object class="AudioFile" id="{de2bd58e-6d73-4295-b1be-44965975a601}">
+	<object class="AudioFile" id="{041233f3-770a-45ff-9ddf-6771f15214b0}">
 		<property name="assetPath">
-			<value>Player/Grind/MetalGrind2.wav</value>
+			<value>Player/SkateFlick/Flick4.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>
@@ -11,7 +11,7 @@
 			<value>2</value>
 		</property>
 		<property name="length">
-			<value>3.528843537414966</value>
+			<value>1.5913378684807256</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{e6a0615f-a90e-47ce-b27c-a402b83939bd}</destination>
