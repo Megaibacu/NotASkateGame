@@ -95,9 +95,12 @@ public class Tricking : MonoBehaviour
 
         if (fall)
         {
-            // maxSpeed = 0;
+            sC.maxSpeed = 0;
         }
-        else { sC.maxSpeed = sC.ogMaxSpeed; }
+        else 
+        { 
+            sC.maxSpeed = sC.ogMaxSpeed; 
+        }
     }
     public void EndTrick()
     {
@@ -112,5 +115,10 @@ public class Tricking : MonoBehaviour
     {
         yield return new WaitForSeconds(comboTimer);
         scoreM.combo = 0;
+    }
+
+    public void GetUp()
+    {
+        fall = false;
     }
 }
