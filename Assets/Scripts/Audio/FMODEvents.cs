@@ -6,6 +6,16 @@ using FMODUnity;
 public class FMODEvents : MonoBehaviour
 {
 
+    [field: Header("Music")]
+    [field: SerializeField] public EventReference music { get; private set; }
+    public FMOD.Studio.EventInstance musicEvent;
+
+    [field: Header("ButtonHover SFX")]
+    [field: SerializeField] public EventReference h_button { get; private set; }
+
+    [field: Header("ButtonPress SFX")]
+    [field: SerializeField] public EventReference p_button { get; private set; }
+
     [field: Header("FootSteps SFX")]
     [field: SerializeField] public EventReference footSteps { get; private set; }
     public FMOD.Studio.EventInstance footStep;
@@ -64,5 +74,6 @@ public class FMODEvents : MonoBehaviour
         footStep = RuntimeManager.CreateInstance(footSteps);
         skateRolling = RuntimeManager.CreateInstance(skateRoll);
         grinding = RuntimeManager.CreateInstance(grind);
+        musicEvent = RuntimeManager.CreateInstance(music);
     }
 }

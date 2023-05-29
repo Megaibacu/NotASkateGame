@@ -11,6 +11,7 @@ public class InputManager : MonoBehaviour
     private splineTesting _grind;
     private Grapplin _grap;
     private PlayerMovement _pm;
+    private Customizationshop _cs;
     // Start is called before the first frame update
     void Start()
     {
@@ -73,6 +74,7 @@ public class InputManager : MonoBehaviour
         if (_pInput.actions["GrappleGrind"].WasPressedThisFrame() && _grap.grappleObject != null && _grap.isVisible(_grap.cam, _grap.grappleObject)) _grap.StartGrapple();
 
         if (_pInput.actions["GrappleGrind"].WasPressedThisFrame() && _grind.grindables != null) _grind.StartGrind();
+
         /*//===============Skate Turning 180=============== 
         if (_pInput.actions["Turn"].WasPressedThisFrame() && _sChange._mov.currentSpeed <= 0.5f && _sChange.state == States.skating)
         {

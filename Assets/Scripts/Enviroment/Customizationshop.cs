@@ -88,7 +88,7 @@ public class Customizationshop : MonoBehaviour
 
         if(_playerInput.actions["Interact"].WasPressedThisFrame() && isclose == true && transitioning <= 0)
         {
-            
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.p_button, transform.position);
             changecams();
         }
 
@@ -139,6 +139,7 @@ public class Customizationshop : MonoBehaviour
     {
         if (_playerInput.actions["Right"].WasPressedThisFrame())
         {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.h_button, transform.position);
             if (isbrowsing == 0)
             {
                 currentmaterial++;
@@ -159,6 +160,8 @@ public class Customizationshop : MonoBehaviour
         }
         if (_playerInput.actions["Left"].WasPressedThisFrame())
         {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.h_button, transform.position);
+
             if (isbrowsing == 0)
             {
                 currentmaterial--;
@@ -180,6 +183,7 @@ public class Customizationshop : MonoBehaviour
         if (_playerInput.actions["Up"].WasPressedThisFrame())
         {
             isbrowsing++;
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.h_button, transform.position);
             if (isbrowsing > 1)
             {
                 isbrowsing = 0;
@@ -188,6 +192,7 @@ public class Customizationshop : MonoBehaviour
         if (_playerInput.actions["Down"].WasPressedThisFrame())
         {
             isbrowsing--;
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.h_button, transform.position);
             if (isbrowsing < 0)
             {
                 isbrowsing = 1;
@@ -198,6 +203,7 @@ public class Customizationshop : MonoBehaviour
             if (isbrowsing == 0)
             {
                 selectedmaterial = currentmaterial;
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.p_button, transform.position);
             }
             else
             {

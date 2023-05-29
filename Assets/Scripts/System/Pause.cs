@@ -99,6 +99,7 @@ public class Pause : MonoBehaviour
 
         if (_playerInput.actions["Up"].WasPressedThisFrame())
         {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.h_button, transform.position);
             if (currentselection == 0)
             {
                 currentselection++;
@@ -110,6 +111,7 @@ public class Pause : MonoBehaviour
         }
         if (_playerInput.actions["Down"].WasPressedThisFrame())
         {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.h_button, transform.position);
             if (currentselection == 1)
             {
                 currentselection--;
@@ -123,6 +125,7 @@ public class Pause : MonoBehaviour
         //this is for resuming or quitting the game
         if(_playerInput.actions["Select"].WasPressedThisFrame())
         {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.p_button, transform.position);
             if (currentselection == 0)
             {
                 changestates("UnPause");

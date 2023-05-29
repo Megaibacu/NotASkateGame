@@ -42,6 +42,7 @@ public class StateChange : MonoBehaviour
         _sc = GetComponent<SkateController>();
         anim = GetComponent<Animator>();
         _mov = _pMov;
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.musicEvent);
     }
 
     private void Update()
@@ -77,6 +78,7 @@ public class StateChange : MonoBehaviour
     {
         if(state == States.parkour)
         {
+                FMODEvents.instance.musicEvent.setParameterByName("State", 1);
                 state = States.skating;
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.stateSwitch, transform.position);
                 skateGO.SetActive(true);                
@@ -88,6 +90,7 @@ public class StateChange : MonoBehaviour
         else
         {
                 AudioManager.instance.StopSound(FMODEvents.instance.skateRolling);
+                 FMODEvents.instance.musicEvent.setParameterByName("State", 0);
                 state = States.parkour;
                 _sc.isplaying = false;
                 skateGO.SetActive(false);               

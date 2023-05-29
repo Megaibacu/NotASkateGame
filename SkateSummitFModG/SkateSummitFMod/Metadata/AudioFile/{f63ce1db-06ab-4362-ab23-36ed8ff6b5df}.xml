@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="AudioFile" id="{f63ce1db-06ab-4362-ab23-36ed8ff6b5df}">
 		<property name="assetPath">
-			<value>ButtonTop1.wav</value>
+			<value>UI/Buttons/Hover/ButtonTop1.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>

@@ -153,6 +153,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60fbe57e3f4d5044180c36902f96ed9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <music>k__BackingField:
+    Guid:
+      Data1: 531324878
+      Data2: 1110132559
+      Data3: -1618453369
+      Data4: 623771597
+    Path: event:/Music/Music
+  <h_button>k__BackingField:
+    Guid:
+      Data1: 1386732749
+      Data2: 1112150761
+      Data3: 2011332787
+      Data4: -808352042
+    Path: event:/UI/ButtonCursorOnTop
+  <p_button>k__BackingField:
+    Guid:
+      Data1: 500454227
+      Data2: 1252719326
+      Data3: -1757126226
+      Data4: 1937927828
+    Path: event:/UI/ButtonHit
   <footSteps>k__BackingField:
     Guid:
       Data1: 1641440571
