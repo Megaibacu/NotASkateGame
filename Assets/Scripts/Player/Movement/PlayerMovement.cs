@@ -34,6 +34,7 @@ public class PlayerMovement : Movement
     [Header("==========References==========")]
     public splineTesting sT;
     public MovementState state;
+    public GameObject jumpParticles;
     private PlayerAnimEvents pAE;
 
     new public enum MovementState
@@ -201,6 +202,7 @@ public class PlayerMovement : Movement
         // Jump Velocity
         rb.velocity = new Vector3(jumpVector.x, jumpVector.y + 1 * jumpForce, jumpVector.z);
         AudioManager.instance.PlayOneShot(FMODEvents.instance.jumpSound, this.transform.position);
+        Instantiate(jumpParticles, new Vector3(orientation.transform.position.x, orientation.transform.position.y - 1.5f, orientation.transform.position.z), transform.rotation);
 
         Invoke(nameof(ResetJump), jumpCooldown);
     }
