@@ -61,7 +61,8 @@ public class SkateController : Movement
     public float maxSkateJumpFoce; //Max force. Cannot jump higher
     public float skateJumpMultiplier; //Final jump force
     
-    splineTesting sT; 
+    splineTesting sT;
+    Tricking trks;
 
     //AudioSource source;
     
@@ -78,6 +79,7 @@ public class SkateController : Movement
         sT = GetComponent<splineTesting>();
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
+        trks = GetComponent<Tricking>();
         canMove = true; //Makes sure that the player can move when they put the skate on
         player = this.gameObject;
     }
@@ -168,6 +170,8 @@ public class SkateController : Movement
         if (grinding)
         {
             sT.EndGrind();
+            trks.EndTrick();
+            trks.GetUp();
         }
         if (!grinding)
         {
