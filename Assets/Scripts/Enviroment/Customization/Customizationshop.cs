@@ -25,6 +25,7 @@ public class Customizationshop : MonoBehaviour
     public GameObject mockskatecolor;
     public GameObject keyprompt;
 
+    public Image lockicon;
     Image skatecolor;
     Image skateimage;
     Image blackbox;
@@ -51,7 +52,7 @@ public class Customizationshop : MonoBehaviour
 
     Skatespray[] skatesprays = new Skatespray[3];
    
-    new Skatespray currentspray;
+    public Skatespray currentspray;
     void Start()
     {
         skatecolor = shopui.transform.GetChild(1).GetComponent<Image>();
@@ -62,9 +63,11 @@ public class Customizationshop : MonoBehaviour
         blackarrows[1] = shopui.transform.GetChild(3).GetComponent<Image>();
         blackarrows[2] = shopui.transform.GetChild(8).GetComponent<Image>();
         blackarrows[3] = shopui.transform.GetChild(9).GetComponent<Image>();
+        lockicon = shopui.transform.GetChild(10).GetComponent<Image>();
         shopui.GetComponent<Finderscript>().numberofobjects--;
         _playerInput = FindObjectOfType<PlayerInput>();
-        //la camara del jugador deberia ser idealmente una virtual cam, este script es algo chusco ahora
+        currentspray = new Skatespray();
+
         shopcam.Priority = 1;
 
         for (int i = 0; i < 3; i++)
@@ -101,6 +104,8 @@ public class Customizationshop : MonoBehaviour
             AudioManager.instance.PlayOneShot(FMODEvents.instance.p_button, transform.position);
             changecams();
         }
+
+        
 
         if (isshoping == true && transitioning <= 0)
         {
@@ -357,6 +362,11 @@ public class Customizationshop : MonoBehaviour
         {
             spray.unlocked = false;
             spray.price = 3;
+        }
+        if (number == 2)
+        {
+            spray.unlocked = false;
+            spray.price = 5;
         }
         spray.image = skateimages[number];
         skatesprays[number] = spray;

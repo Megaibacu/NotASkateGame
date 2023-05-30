@@ -1014,6 +1014,7 @@ GameObject:
   - component: {fileID: 8803651182965176126}
   - component: {fileID: 7729838081310379279}
   - component: {fileID: 5992649460379506803}
+  - component: {fileID: 6150473943430923036}
   m_Layer: 0
   m_Name: Triggerzone
   m_TagString: Untagged
@@ -1080,6 +1081,7 @@ MonoBehaviour:
   mockskateimage: {fileID: 1609807725273593042}
   mockskatecolor: {fileID: 7958106982680363815}
   keyprompt: {fileID: 7829036943025923144}
+  lockicon: {fileID: 0}
   blackarrows:
   - {fileID: 0}
   - {fileID: 0}
@@ -1097,6 +1099,19 @@ MonoBehaviour:
   selectedimage: 0
   currentmaterial: 0
   selectedmaterial: 0
+--- !u!114 &6150473943430923036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6632407591870162349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24c12f9219526404aafcace0918a43cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shop: {fileID: 5992649460379506803}
 --- !u!1 &7195472376071196896
 GameObject:
   m_ObjectHideFlags: 0
