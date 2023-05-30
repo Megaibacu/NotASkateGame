@@ -97,7 +97,7 @@ MonoBehaviour:
   Path: SkateSummitFModG/SkateSummitFMod/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638209852223311786
+  lastModified: 638205470206412460
   FileSizes:
   - Name: Desktop
     Value: 1194
@@ -117,7 +117,7 @@ MonoBehaviour:
   Path: SkateSummitFModG/SkateSummitFMod/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638209852223321821
+  lastModified: 638209923653198437
   FileSizes:
   - Name: Desktop
     Value: 1622
@@ -212,7 +212,7 @@ MonoBehaviour:
   - {fileID: -5972671286247241327}
   StringsBanks:
   - {fileID: -5941098686860092793}
-  cacheTime: 638209852224204844
+  cacheTime: 638209923653420170
   cacheVersion: 131603
 --- !u!114 &260461826313453899
 MonoBehaviour:
@@ -442,7 +442,7 @@ MonoBehaviour:
   Path: SkateSummitFModG/SkateSummitFMod/Build/Desktop/SFX Bank.bank
   Name: SFX Bank
   StudioPath: bank:/SFX Bank
-  lastModified: 638209852224204844
+  lastModified: 638209923653420170
   FileSizes:
   - Name: Desktop
     Value: 1175840
@@ -544,7 +544,7 @@ MonoBehaviour:
   Path: SkateSummitFModG/SkateSummitFMod/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 638209849848723981
+  lastModified: 638209923653368524
   FileSizes:
   - Name: Desktop
     Value: 2207424
