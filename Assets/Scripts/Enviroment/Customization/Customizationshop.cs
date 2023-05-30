@@ -49,8 +49,9 @@ public class Customizationshop : MonoBehaviour
     public int currentmaterial;
     public int selectedmaterial;
 
-    new Skatespray spray1;
-    new Skatespray spray2;
+    Skatespray[] skatesprays = new Skatespray[3];
+   
+    new Skatespray currentspray;
     void Start()
     {
         skatecolor = shopui.transform.GetChild(1).GetComponent<Image>();
@@ -66,6 +67,11 @@ public class Customizationshop : MonoBehaviour
         //la camara del jugador deberia ser idealmente una virtual cam, este script es algo chusco ahora
         shopcam.Priority = 1;
 
+        for (int i = 0; i < 3; i++)
+        {
+            assignvaluestoimage(skatesprays[i], i);
+        }
+        
     }
 
     // Update is called once per frame
@@ -160,6 +166,7 @@ public class Customizationshop : MonoBehaviour
                     currentimage = 0;
                 }
             }
+            
             rightarrowtimer = 0.3f;
         }
         if (_playerInput.actions["Left"].WasPressedThisFrame())
@@ -207,15 +214,15 @@ public class Customizationshop : MonoBehaviour
             if (isbrowsing == 0)
             {
                 selectedmaterial = currentmaterial;
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.p_button, transform.position);
+                //AudioManager.instance.PlayOneShot(FMODEvents.instance.p_button, transform.position);
             }
             else
             {
                 selectedimage = currentimage;
             }
-            blackboxtimer = 0.4f;
+            //blackboxtimer = 0.4f;
         }
-
+        currentspray = skatesprays[currentimage];
         //esto cambia el color del icono de la UI
         iconchange();
     }
@@ -234,7 +241,7 @@ public class Customizationshop : MonoBehaviour
             skatecolor.color = new Color(0, 255, 0);
         }
 
-        skateimage.sprite = skateimages[currentimage];
+        skateimage.sprite = currentspray.image;
         if (currentimage == 0)
         {
             mockskateimage.GetComponent<Image>().enabled = false;
@@ -242,7 +249,7 @@ public class Customizationshop : MonoBehaviour
         else
         {
             mockskateimage.GetComponent<Image>().enabled = true;
-            mockskateimage.GetComponent<Image>().sprite = skateimages[currentimage];
+            mockskateimage.GetComponent<Image>().sprite = currentspray.image;
         }
     }
     public void changecolorandimage(string skatetype)
@@ -337,6 +344,22 @@ public class Customizationshop : MonoBehaviour
             blackarrows[1].enabled = false;
             blackarrows[3].enabled = false;
         }
+    }
+    public void assignvaluestoimage(Skatespray spray, int number)
+    {
+        spray = new Skatespray();
+        
+        if (number == 0)
+        {
+            spray.unlocked = true;
+        }
+        if (number == 1)
+        {
+            spray.unlocked = false;
+            spray.price = 3;
+        }
+        spray.image = skateimages[number];
+        skatesprays[number] = spray;
     }
     public void OnTriggerStay(Collider other)
     {
