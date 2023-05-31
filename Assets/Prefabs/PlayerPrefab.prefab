@@ -512,9 +512,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1652421799233884012}
   - {fileID: 4283789501615444875}
   - {fileID: 8762975958490623684}
-  - {fileID: 1652421799233884012}
   - {fileID: 379214805970224739}
   m_Father: {fileID: 5171195084686607125}
   m_RootOrder: -1
@@ -2104,10 +2104,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 908924504}
   - {fileID: 6005557396522497707}
+  - {fileID: 908924504}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1235088405893749103
 Animator:
@@ -2279,6 +2279,7 @@ MonoBehaviour:
   crouchSpeed: 3
   sT: {fileID: 7582398950274055220}
   state: 0
+  jumpParticles: {fileID: 9005434998382255198, guid: 2aedd3a4d5c2b864895ca57087dd054d, type: 3}
   sprinting: 0
   sliding: 0
   crouching: 0
@@ -2649,6 +2650,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cassettes: 0
   graffitis: 0
+  money: 0
   maxCassettes: 0
   cassetteCollectibleCount: {fileID: 0}
   timeOnScreen: 2
