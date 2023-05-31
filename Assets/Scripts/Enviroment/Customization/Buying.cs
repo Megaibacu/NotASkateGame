@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,6 +27,23 @@ public class Buying : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+
+        if (shop.isshoping == true)
+        {
+            if (Input.GetKeyDown(KeyCode.Space) && shop.currentspray.unlocked == false)
+            {
+                if (system.money >= shop.currentspray.price)
+                {
+                    system.money -= shop.currentspray.price;
+                    shop.currentspray.unlocked = true;
+                }
+            }
+        }
+
+    }
+    public void updateicons()
+    {
         if (wait > 0)
         {
             wait -= Time.deltaTime;
@@ -45,18 +63,6 @@ public class Buying : MonoBehaviour
             else
             {
                 lockicon.enabled = false;
-            }  
-        }
-
-        if (shop.isshoping == true)
-        {
-            if (Input.GetKeyDown(KeyCode.Space) && shop.currentspray.unlocked == false)
-            {
-                if (system.money >= shop.currentspray.price)
-                {
-                    system.money -= shop.currentspray.price;
-                    shop.currentspray.unlocked = true;
-                }
             }
         }
 

@@ -4,6 +4,7 @@ using UnityEngine;
 using Cinemachine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using Unity.VisualScripting;
 
 public class Customizationshop : MonoBehaviour
 {
@@ -29,6 +30,8 @@ public class Customizationshop : MonoBehaviour
     Image skatecolor;
     Image skateimage;
     Image blackbox;
+
+    public Text price;
 
     Vector3 originalposition;
 
@@ -64,6 +67,7 @@ public class Customizationshop : MonoBehaviour
         blackarrows[2] = shopui.transform.GetChild(8).GetComponent<Image>();
         blackarrows[3] = shopui.transform.GetChild(9).GetComponent<Image>();
         lockicon = shopui.transform.GetChild(10).GetComponent<Image>();
+        price = shopui.transform.GetChild(11).GetComponent<Text>();
         shopui.GetComponent<Finderscript>().numberofobjects--;
         _playerInput = FindObjectOfType<PlayerInput>();
         currentspray = new Skatespray();
@@ -118,6 +122,7 @@ public class Customizationshop : MonoBehaviour
             changecolorandimage("Mock");
             placeblackbox();
             placearrows();
+            displayprice();
         }
     }
     public void changecams()
@@ -360,6 +365,7 @@ public class Customizationshop : MonoBehaviour
         
         if (number == 0)
         {
+            spray.price = 0;
             spray.unlocked = true;
         }
         if (number == 1)
@@ -374,6 +380,10 @@ public class Customizationshop : MonoBehaviour
         }
         spray.image = skateimages[number];
         skatesprays[number] = spray;
+    }
+    public void displayprice()
+    {
+        price.text = currentspray.price.ToString() +" coins";
     }
     public void OnTriggerStay(Collider other)
     {
