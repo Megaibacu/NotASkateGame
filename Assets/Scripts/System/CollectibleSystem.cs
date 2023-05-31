@@ -8,6 +8,7 @@ public class CollectibleSystem : MonoBehaviour
     [Header("==========Counters==========")]
     public int cassettes;
     public int graffitis;
+    public int money;
 
     [Header("==========Max Collectibles==========")]
     private CassetteCollectible[] cassetteCollectibles;

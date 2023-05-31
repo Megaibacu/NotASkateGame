@@ -290,7 +290,11 @@ public class Customizationshop : MonoBehaviour
             }
         }
 
-        skateimagereal.GetComponent<Image>().sprite = skateimages[currentimage];
+        if (currentspray.unlocked)
+        {
+            skateimagereal.GetComponent<Image>().sprite = skateimages[currentimage];
+        }
+        
     }
     public void placeblackbox()
     {

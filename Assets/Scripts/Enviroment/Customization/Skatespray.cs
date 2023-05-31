@@ -5,7 +5,7 @@ using UnityEngine;
 public class Skatespray 
 {
     
-    public float price;
+    public int price;
     public Sprite image;
     public bool unlocked;
 
