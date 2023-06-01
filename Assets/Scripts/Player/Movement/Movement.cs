@@ -7,7 +7,7 @@ public abstract class Movement : MonoBehaviour
 {
     public GameObject orientation; //The way the player model is facing
     [HideInInspector] public GameObject player;
-    [HideInInspector] public GameObject rueda;
+    public GameObject rueda;
 
     //[Header("===============References===============")]
     [HideInInspector] public Animator anim;

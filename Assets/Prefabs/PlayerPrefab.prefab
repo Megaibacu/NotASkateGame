@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5171195084686607125}
-  - component: {fileID: 1235088405893749103}
+  - component: {fileID: 43061359207996558}
   - component: {fileID: 5866666021331452489}
   - component: {fileID: 5866666021331452490}
   - component: {fileID: 8016601825345255085}
@@ -83,7 +83,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &1235088405893749103
+--- !u!95 &43061359207996558
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -92,9 +92,9 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5514682090212137391}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 223da02ca5291b244b31b2c0e9941044, type: 3}
-  m_Controller: {fileID: 9100000, guid: 9dbaaf09caeebbb48b31bd229d010dc6, type: 2}
-  m_CullingMode: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -210,7 +210,7 @@ MonoBehaviour:
   orientation: {fileID: 908924503}
   player: {fileID: 0}
   rueda: {fileID: 0}
-  anim: {fileID: 1235088405893749103}
+  anim: {fileID: 0}
   rb: {fileID: 5866666021331452489}
   sc: {fileID: 0}
   floor:
