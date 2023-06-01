@@ -45,7 +45,7 @@ public class SkateController : Movement
     private float curretnRotate;
     private float rotate;
 
-    [Header("---------Drifting----------")]
+    [Header("===============Drifting===============")]
     private bool driftLeft, driftRight; //Checks if the player is drifting left or right
     public float outwardsDriftForce; //The force that pushes the player when drifting
     public float minSpeedToDrift; //The minimum speed that the player has to go when drifitng
@@ -60,7 +60,10 @@ public class SkateController : Movement
     public float minSkateJumpFoce; //The minimum force that will be perfomred even if the player just presses the jump for one frame
     public float maxSkateJumpFoce; //Max force. Cannot jump higher
     public float skateJumpMultiplier; //Final jump force
-    
+
+    [Header("===============Air Movement===============")]
+    public Transform playerObj;
+
     splineTesting sT;
     Tricking trks;
 
@@ -218,18 +221,14 @@ public class SkateController : Movement
 
             if (steerDirection != 0)
             {
-                Vector3 airRot = new Vector3(orientation.transform.eulerAngles.x, orientation.transform.eulerAngles.y + airSteerMultiplier * steerDirection, orientation.transform.eulerAngles.z);
-                //orientation.transform.eulerAngles = Vector3.Lerp(orientation.transform.eulerAngles, airRot, airSteerTiming * Time.deltaTime);
+                Vector3 airRot = new Vector3(playerObj.transform.eulerAngles.x, playerObj.transform.eulerAngles.y + airSteerMultiplier * steerDirection, playerObj.transform.eulerAngles.z);
+                playerObj.transform.eulerAngles = Vector3.Lerp(playerObj.transform.eulerAngles, airRot, airSteerTiming * Time.deltaTime);
             }
-
-            //currentSpeed = Mathf.Lerp(currentSpeed, 0, .25f * Time.deltaTime);
-            //Vector3 airSpeed = orientation.transform.forward * currentSpeed;
-            //airSpeed.y = rb.velocity.y;
-            //rb.velocity = airSpeed;
         }
         else
         {
             anim.SetBool("Air", false);
+            playerObj.transform.eulerAngles = Vector3.Lerp(playerObj.transform.eulerAngles, orientation.transform.eulerAngles, airSteerTiming * Time.deltaTime);
         }
     }  
 
