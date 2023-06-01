@@ -42,6 +42,7 @@ public class StateChange : MonoBehaviour
         _sc = GetComponent<SkateController>();
         anim = GetComponent<Animator>();
         _mov = _pMov;
+        _mov.sc = this;
         AudioManager.instance.PlayOneShot(FMODEvents.instance.musicEvent);
     }
 
@@ -78,12 +79,14 @@ public class StateChange : MonoBehaviour
     {
         if(state == States.parkour)
         {
+                
                 FMODEvents.instance.musicEvent.setParameterByName("State", 1);
                 state = States.skating;
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.stateSwitch, transform.position);
                 skateGO.SetActive(true);                
                 parkourSpeedPercentage = Mathf.Abs(_mov.currentSpeed / _pMov.sprintSpeed);
                 _mov = _sc;
+                _mov.sc = this;
                 _mov.currentSpeed = _mov.maxSpeed * parkourSpeedPercentage;
         }
 
@@ -98,6 +101,7 @@ public class StateChange : MonoBehaviour
                 //Conservation of momentum
                 skateSpeedPercentage = _mov.currentSpeed / _mov.maxSpeed;
                 _mov = _pMov;
+                _mov.sc = this;
                 if (skateSpeedPercentage < .5f)
                 {
                     _mov.currentSpeed = 5;

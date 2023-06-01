@@ -47,6 +47,7 @@ public class ThirdPersonCam : MonoBehaviour
 
          if(state.state == States.skating)
         {
+            playerObj.forward = Vector3.Slerp(playerObj.forward, orientation.forward, Time.deltaTime * rotationSpeed);
             if (Input.GetAxis("Mouse X") == 0 && Input.GetAxis("Mouse Y") == 0)
             {
                 if(camCdT > 0)

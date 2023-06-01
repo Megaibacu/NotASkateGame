@@ -7,11 +7,13 @@ public abstract class Movement : MonoBehaviour
 {
     public GameObject orientation; //The way the player model is facing
     [HideInInspector] public GameObject player;
+    [HideInInspector] public GameObject rueda;
 
     //[Header("===============References===============")]
     [HideInInspector] public Animator anim;
     [HideInInspector] public Rigidbody rb;
-     public LayerMask floor;
+    [HideInInspector] public StateChange sc;
+    public LayerMask floor;
 
 
     [Header("===============Movement===============")]
@@ -88,7 +90,7 @@ public abstract class Movement : MonoBehaviour
         {
             if (canMove) //Only rotates to face the ground if the slope in front is less than the maximum
             {
-                orientation.transform.rotation = Quaternion.Lerp(orientation.transform.rotation, Quaternion.FromToRotation(orientation.transform.up * 2, hit.normal) * orientation.transform.rotation, 7.5f * Time.deltaTime); //Rotates the player to not face the ground
+                orientation.transform.rotation = Quaternion.Lerp(orientation.transform.rotation, Quaternion.FromToRotation(orientation.transform.up * 2, hit.normal) * orientation.transform.rotation,100 * Time.deltaTime); //Rotates the player to not face the ground
             }           
             anim.SetBool("Air", false);
         }
@@ -99,8 +101,11 @@ public abstract class Movement : MonoBehaviour
         }
     }
     public void Grounded() 
-    {       
+    {    
+        if(sc.state == States.parkour)
         grounded = Physics.Raycast(player.transform.position, -orientation.transform.up, out hit, .1f, floor);
+        else
+            grounded = Physics.Raycast(rueda.transform.position, -orientation.transform.up, out hit, 1f, floor);
         anim.SetBool("Grounded", grounded);
 
         if(grounded)
@@ -144,7 +149,8 @@ public abstract class Movement : MonoBehaviour
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + localGravity * 6 * Time.deltaTime, rb.velocity.z);
             //rb.AddForce(Vector3.up * localGravity, ForceMode.Force);
         }
-
+        else
+            rb.AddForce(Vector3.down *2, ForceMode.Force);
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
     }
 
