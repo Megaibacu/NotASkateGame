@@ -5,7 +5,7 @@ using FMODUnity;
 
 public abstract class Movement : MonoBehaviour
 {
-    [HideInInspector] public GameObject orientation; //The way the player model is facing
+    public GameObject orientation; //The way the player model is facing
     [HideInInspector] public GameObject player;
 
     //[Header("===============References===============")]
