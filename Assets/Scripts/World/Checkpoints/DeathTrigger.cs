@@ -18,7 +18,7 @@ public class DeathTrigger : MonoBehaviour
         if (Input.GetKey(KeyCode.R))
         {
             //player.transform.position = respawnPos.position;
-            SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 
@@ -27,7 +27,7 @@ public class DeathTrigger : MonoBehaviour
         if (other.tag == "Player")
         {
             //other.transform.position = respawnPos.position;
-            SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }
