@@ -79,7 +79,7 @@ public class StateChange : MonoBehaviour
     {
         if(state == States.parkour)
         {
-                
+                transform.position += Vector3.up * 0.5f;
                 FMODEvents.instance.musicEvent.setParameterByName("State", 1);
                 state = States.skating;
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.stateSwitch, transform.position);
