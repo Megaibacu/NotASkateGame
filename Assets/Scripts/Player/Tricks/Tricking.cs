@@ -80,11 +80,11 @@ public class Tricking : MonoBehaviour
                 tricking = true;
             }
 
-            if (Input.GetButton("GrabTricks"))
-            {
-                tricking = true;
-                scoreM.curretnScore += (int)(grabTricks[0].scoreAwarded * Time.deltaTime);
-            }
+            //if (Input.GetButton("GrabTricks"))
+            //{
+            //    tricking = true;
+            //    scoreM.curretnScore += (int)(grabTricks[0].scoreAwarded * Time.deltaTime);
+            //}
         }
 
         if (sC.grounded && tricking)

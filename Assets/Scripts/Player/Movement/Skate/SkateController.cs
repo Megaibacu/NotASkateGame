@@ -182,14 +182,15 @@ public class SkateController : Movement
     }
     public override void JumpRelease()
     {
-        if (!grinding)
+        if (!grinding && skateJumpPreassure > minSkateJumpFoce)
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.jumpSound, transform.position);
             AudioManager.instance.PlayOneShot(FMODEvents.instance.skateJump, transform.position);
-            skateJumpPreassure += skateJumpPreassure + minSkateJumpFoce;
             rb.velocity = new Vector3(rb.velocity.x, skateJumpPreassure, rb.velocity.z);
             skateJumpPreassure = 0;
         }
+        else
+            skateJumpPreassure = 0;
     }
     public override void AirMovement()
     {
