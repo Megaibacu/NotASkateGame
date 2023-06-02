@@ -24,7 +24,7 @@ public class DeathTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" && !other.GetComponent<SkateController>().grinding)
         {
             //other.transform.position = respawnPos.position;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
