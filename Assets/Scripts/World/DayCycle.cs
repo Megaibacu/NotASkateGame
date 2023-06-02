@@ -6,7 +6,7 @@ using TMPro;
 
 public class DayCycle : MonoBehaviour
 {
-    GameManager gm;
+    
 
     [Header("DayNightCycle")]
 
@@ -58,8 +58,6 @@ public class DayCycle : MonoBehaviour
 
     void Start()
     {
-        gm = FindObjectOfType<GameManager>();
-        startHour = gm.stHour;
         currentTime = DateTime.Now.Date + TimeSpan.FromHours(startHour);
 
         sunriseTime = TimeSpan.FromHours(sunrisehour);

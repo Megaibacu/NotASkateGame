@@ -62,6 +62,7 @@ public class Dialogue : MonoBehaviour
     public void StartDialogue()
     {
         player.isKinematic = true;
+        player.GetComponent<PlayerInteract>().enabled = false;
         dialogue.SetActive(true);
 
         index = 0;
@@ -86,6 +87,7 @@ public class Dialogue : MonoBehaviour
             dialogue.SetActive(false);
             player.isKinematic = false;
             inDialogue = false;
+            player.GetComponent<PlayerInteract>().enabled = true;
             OnDialogueEnd();
         }
     }
