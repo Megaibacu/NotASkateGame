@@ -24,7 +24,7 @@ public class Dialogue : MonoBehaviour
         dC = FindObjectOfType<DayCycle>();
         dialogue = GameObject.Find("UI").transform.GetChild(0).gameObject;
         textComp = dialogue.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>();
-        player = FindObjectOfType<Rigidbody>();
+        player = FindObjectOfType<InputManager>().GetComponent<Rigidbody>();
         textComp.text = string.Empty;
     }
 
