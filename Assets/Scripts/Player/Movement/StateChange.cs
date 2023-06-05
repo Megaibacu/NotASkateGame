@@ -42,6 +42,7 @@ public class StateChange : MonoBehaviour
         _sc = GetComponent<SkateController>();
         anim = GetComponent<Animator>();
         _mov = _pMov;
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.musicEvent);
     }
 
     private void Update()

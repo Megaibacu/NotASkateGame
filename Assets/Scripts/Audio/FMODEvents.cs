@@ -75,7 +75,5 @@ public class FMODEvents : MonoBehaviour
         skateRolling = RuntimeManager.CreateInstance(skateRoll);
         grinding = RuntimeManager.CreateInstance(grind);
         musicEvent = RuntimeManager.CreateInstance(music);
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.musicEvent);
-
     }
 }

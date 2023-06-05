@@ -27,6 +27,7 @@ public class DeathTrigger : MonoBehaviour
         if (other.tag == "Player" && !other.GetComponent<SkateController>().grinding)
         {
             //other.transform.position = respawnPos.position;
+            AudioManager.instance.StopSound(FMODEvents.instance.musicEvent);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
