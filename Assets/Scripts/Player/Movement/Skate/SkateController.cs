@@ -14,7 +14,6 @@ public class SkateController : Movement
         Drifting,
         Grinding,
         Tricking,
-
     }
 
     [Header("===============Movement===============")]
@@ -206,10 +205,11 @@ public class SkateController : Movement
 
         if (!grounded) //Will only work if the player is in the air
         {
-            anim.SetBool("Air", true);
-            RaycastHit hit;
-            if (Physics.Raycast(orientation.transform.position, -Vector3.up, out hit, 100f))
+            anim.SetBool("Air", true); //Plays the animation for the playerbeing in the air
+            RaycastHit hit; //A raycast detector that detects the ground
+            if (Physics.Raycast(orientation.transform.position, -Vector3.up, out hit, 100f)) //Detects the floor
             {
+                //Player will always face the floor when on air
                 orientation.transform.rotation = Quaternion.Lerp(orientation.transform.rotation, Quaternion.FromToRotation(orientation.transform.up * 2, hit.normal) * orientation.transform.rotation, 3f * Time.deltaTime);
 
             }
@@ -220,13 +220,8 @@ public class SkateController : Movement
             if (steerDirection != 0)
             {
                 Vector3 airRot = new Vector3(orientation.transform.eulerAngles.x, orientation.transform.eulerAngles.y + airSteerMultiplier * steerDirection, orientation.transform.eulerAngles.z);
-                //orientation.transform.eulerAngles = Vector3.Lerp(orientation.transform.eulerAngles, airRot, airSteerTiming * Time.deltaTime);
+                orientation.transform.eulerAngles = Vector3.Lerp(orientation.transform.eulerAngles, airRot, airSteerTiming * Time.deltaTime);
             }
-
-            //currentSpeed = Mathf.Lerp(currentSpeed, 0, .25f * Time.deltaTime);
-            //Vector3 airSpeed = orientation.transform.forward * currentSpeed;
-            //airSpeed.y = rb.velocity.y;
-            //rb.velocity = airSpeed;
         }
         else
         {

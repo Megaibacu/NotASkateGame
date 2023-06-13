@@ -65,4 +65,8 @@ public class ThirdPersonCam : MonoBehaviour
         }
     }
 
+    public void CameraLookForward()
+    {
+
+    }
 }

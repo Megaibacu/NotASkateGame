@@ -10,14 +10,17 @@ public class PlayerUI : MonoBehaviour
     public GameObject trickIndicator;
     public TextMeshProUGUI playerPoints;
     public TextMeshProUGUI playerCombo;
+    public Image speedometer;
     GameObject ui;
     Tricking trk;
     ScoreManager scoreM;
+    SkateController sC;
 
     private void Start()
     {
         //TRUCOS DESACTIVADOS DEMOMENTO
         trk = FindObjectOfType<Tricking>();
+        sC = FindObjectOfType<SkateController>();
         scoreM = FindObjectOfType<ScoreManager>();
         ui = GameObject.Find("UI");
         trickIndicator = ui.transform.GetChild(1).gameObject;
@@ -27,11 +30,12 @@ public class PlayerUI : MonoBehaviour
     private void Update()
     {
         PointsUI();
+        SpeedometerUpdate();
     }
 
     public void PointsUI()
     {
-        if (trk.tricking)
+        if (trk.flipTricking || trk.grabTricking)
         {
             trickIndicator.SetActive(true);
         }
@@ -42,5 +46,10 @@ public class PlayerUI : MonoBehaviour
 
         playerPoints.text = $"Score: {scoreM.curretnScore}";
         playerCombo.text = $"Combo: {scoreM.combo}";
+    }
+
+    public void SpeedometerUpdate()
+    {
+        speedometer.fillAmount = sC.currentSpeed / sC.maxSpeed;
     }
 }
