@@ -125,6 +125,24 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChangeCamera"",
+                    ""type"": ""Button"",
+                    ""id"": ""204dcf03-9691-41d9-81bb-96ed1ee2d299"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChangeStance"",
+                    ""type"": ""Button"",
+                    ""id"": ""f4473642-970e-4039-8d51-d9e4acc7e9fb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -521,6 +539,61 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Turn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""20eb9990-ecec-4661-bee3-24b0787d2980"",
+                    ""path"": ""<Gamepad>/rightStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Turn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e8ef2c01-284d-47ba-a876-e111340fe78d"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0d957078-e053-491b-823d-e380cf796dbc"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d6646d7d-5841-4e4f-9922-123b1a80f778"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeStance"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8a6c43cc-c4d9-4121-b837-75e5af0eab2e"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeStance"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1011,6 +1084,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Gameplay_p_SwitchState = m_Gameplay_p.FindAction("SwitchState", throwIfNotFound: true);
         m_Gameplay_p_Look = m_Gameplay_p.FindAction("Look", throwIfNotFound: true);
         m_Gameplay_p_Turn = m_Gameplay_p.FindAction("Turn", throwIfNotFound: true);
+        m_Gameplay_p_ChangeCamera = m_Gameplay_p.FindAction("ChangeCamera", throwIfNotFound: true);
+        m_Gameplay_p_ChangeStance = m_Gameplay_p.FindAction("ChangeStance", throwIfNotFound: true);
         // ShopControls
         m_ShopControls = asset.FindActionMap("ShopControls", throwIfNotFound: true);
         m_ShopControls_Up = m_ShopControls.FindAction("Up", throwIfNotFound: true);
@@ -1097,6 +1172,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_p_SwitchState;
     private readonly InputAction m_Gameplay_p_Look;
     private readonly InputAction m_Gameplay_p_Turn;
+    private readonly InputAction m_Gameplay_p_ChangeCamera;
+    private readonly InputAction m_Gameplay_p_ChangeStance;
     public struct Gameplay_pActions
     {
         private @PlayerControls m_Wrapper;
@@ -1112,6 +1189,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @SwitchState => m_Wrapper.m_Gameplay_p_SwitchState;
         public InputAction @Look => m_Wrapper.m_Gameplay_p_Look;
         public InputAction @Turn => m_Wrapper.m_Gameplay_p_Turn;
+        public InputAction @ChangeCamera => m_Wrapper.m_Gameplay_p_ChangeCamera;
+        public InputAction @ChangeStance => m_Wrapper.m_Gameplay_p_ChangeStance;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay_p; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1154,6 +1233,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Turn.started += instance.OnTurn;
             @Turn.performed += instance.OnTurn;
             @Turn.canceled += instance.OnTurn;
+            @ChangeCamera.started += instance.OnChangeCamera;
+            @ChangeCamera.performed += instance.OnChangeCamera;
+            @ChangeCamera.canceled += instance.OnChangeCamera;
+            @ChangeStance.started += instance.OnChangeStance;
+            @ChangeStance.performed += instance.OnChangeStance;
+            @ChangeStance.canceled += instance.OnChangeStance;
         }
 
         private void UnregisterCallbacks(IGameplay_pActions instance)
@@ -1191,6 +1276,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Turn.started -= instance.OnTurn;
             @Turn.performed -= instance.OnTurn;
             @Turn.canceled -= instance.OnTurn;
+            @ChangeCamera.started -= instance.OnChangeCamera;
+            @ChangeCamera.performed -= instance.OnChangeCamera;
+            @ChangeCamera.canceled -= instance.OnChangeCamera;
+            @ChangeStance.started -= instance.OnChangeStance;
+            @ChangeStance.performed -= instance.OnChangeStance;
+            @ChangeStance.canceled -= instance.OnChangeStance;
         }
 
         public void RemoveCallbacks(IGameplay_pActions instance)
@@ -1377,6 +1468,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnSwitchState(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnTurn(InputAction.CallbackContext context);
+        void OnChangeCamera(InputAction.CallbackContext context);
+        void OnChangeStance(InputAction.CallbackContext context);
     }
     public interface IShopControlsActions
     {

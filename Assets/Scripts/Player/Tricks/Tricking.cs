@@ -5,7 +5,7 @@ using UnityEngine;
 public class Tricking : MonoBehaviour
 {
     public SkateController sC;
-    ScoreManager scoreM;
+    public ScoreManager scoreM;
     private Animator anim;
     private Rigidbody rB;
 
@@ -13,7 +13,7 @@ public class Tricking : MonoBehaviour
     public SkateTricks[] tricks; //All the tricks that can be perfornmed by the player. In the future it would be cool to make this customizable
     public SkateTricks[] grabTricks;
     public float comboTimer; // The time that the player has to do another trick to continue the combo
-    SkateTricks currentTrick;
+    public SkateTricks currentTrick;
     [HideInInspector] public bool flipTricking; //Checks if the player is mid trick to know if they have to fall
     [HideInInspector] public bool grabTricking; //Checks if the player is mid trick to know if they have to fall
     [HideInInspector] public bool fall; //If the player touches the ground and is doing a tricks then they fall

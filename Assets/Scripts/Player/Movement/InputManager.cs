@@ -11,6 +11,7 @@ public class InputManager : MonoBehaviour
     private splineTesting _grind;
     private Grapplin _grap;
     private PlayerMovement _pm;
+    private SkateController _sC;
     private Customizationshop _cs;
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,7 @@ public class InputManager : MonoBehaviour
         _slide = GetComponent<Sliding>();
         _grind = GetComponent<splineTesting>();
         _pm = GetComponent<PlayerMovement>();
+        _sC = GetComponent<SkateController>();
     }
 
     // Update is called once per frame
@@ -75,10 +77,11 @@ public class InputManager : MonoBehaviour
 
         if (_pInput.actions["GrappleGrind"].WasPressedThisFrame() && _grind.grindables != null) _grind.StartGrind();
 
-        /*//===============Skate Turning 180=============== 
-        if (_pInput.actions["Turn"].WasPressedThisFrame() && _sChange._mov.currentSpeed <= 0.5f && _sChange.state == States.skating)
-        {
-            _sChange._mov.Turn
-        }*/
+        //===============Skate Turning 180=============== 
+        if (_pInput.actions["Turn"].WasPressedThisFrame() && _sChange._mov.currentSpeed <= 0.5f && _sChange.state == States.skating && _sC.canTurn && _sChange._mov.grounded) { _sC.Turn(); }
+
+        if (_pInput.actions["ChangeCamera"].WasPerformedThisFrame() && _sChange._mov.currentSpeed <= 0.5f) { }
+
+        if (_pInput.actions["ChangeStance"].WasPressedThisFrame() && _sChange.state == States.skating && _sChange._mov.grounded) { _sC.SwitchStance(); }
     }
 }

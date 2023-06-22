@@ -35,6 +35,9 @@ public class splineTesting : MonoBehaviour
     GrindCamera secondcam;
     CinemachineBrain brain;
 
+    Tricking trickingManager;
+    public SkateTricks[] grindTricks;
+
 
     void Start()
     {
@@ -45,6 +48,8 @@ public class splineTesting : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         secondcam = secondcamobj.GetComponent<GrindCamera>();
         brain = maincam.GetComponent<CinemachineBrain>();
+
+        trickingManager = FindObjectOfType<Tricking>();
     }
 
     // Update is called once per frame
@@ -102,6 +107,7 @@ public class splineTesting : MonoBehaviour
                                 Grind();
    
                         }
+                trickingManager.currentTrick = grindTricks[0];
 
             }
                 
@@ -131,6 +137,9 @@ public class splineTesting : MonoBehaviour
         //This is for the camera
         secondcam.active = true;
         brain.m_DefaultBlend.m_Time = 1f;
+
+        trickingManager.scoreM.curretnScore += (int)(grindTricks[0].scoreAwarded * Time.deltaTime);
+
     }
     public void EndGrindForward()
     {
@@ -165,5 +174,7 @@ public class splineTesting : MonoBehaviour
 
         secondcam.active = false;
         brain.m_DefaultBlend.m_Time = 1;
+
+        trickingManager.currentTrick = null;
     }
 }

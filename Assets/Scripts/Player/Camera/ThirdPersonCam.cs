@@ -14,6 +14,7 @@ public class ThirdPersonCam : MonoBehaviour
     StateChange state;
     public PlayerInput _playerInput;
     public CinemachineFreeLook cam;
+    public CinemachineVirtualCamera FPSCam;
     public float camCd;
     public float camCdT;
 
@@ -68,5 +69,13 @@ public class ThirdPersonCam : MonoBehaviour
     public void CameraLookForward()
     {
 
+    }
+
+
+
+    public void ChangeCameras(int FPSCamPriority, int TPSCamPriority)
+    {
+        FPSCam.Priority = FPSCamPriority;
+        cam.Priority = TPSCamPriority;
     }
 }

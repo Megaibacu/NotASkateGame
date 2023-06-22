@@ -22,6 +22,7 @@ public class SkateController : Movement
     public float boostSpeed; //Speed for boosts like when changing from parkour to skate or when drifting
     private float realSpeed; //Checks the real velocity of the rb
     public float reverseSpeedDecrease; //Number that is used to divide the speed so that when you go backwards you go slower   
+    private bool goofy; //Change the player's stance
 
     private float reverseTimer;
     private bool turning;
@@ -59,12 +60,21 @@ public class SkateController : Movement
     public float minSkateJumpFoce; //The minimum force that will be perfomred even if the player just presses the jump for one frame
     public float maxSkateJumpFoce; //Max force. Cannot jump higher
     public float skateJumpMultiplier; //Final jump force
+    public float jumpMaxVelocity;
     
     splineTesting sT;
     Tricking trks;
 
+    [Header("===============Skate Turn===============")]
+    public float timeTurning;
+    public float turningMultiplier;
+    public bool canTurn = true;
+    public Transform playerBody;
+    public Vector3 turnDir;
+    Vector3 prevOrientationRotation;
+
     //AudioSource source;
-    
+
     public bool isplaying;
 
     private void Awake()
@@ -75,6 +85,7 @@ public class SkateController : Movement
     private void Start()
     {
         readyToJump = true;
+        canTurn = true;
         sT = GetComponent<splineTesting>();
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
@@ -140,12 +151,47 @@ public class SkateController : Movement
             {
                 orientation.transform.eulerAngles = Vector3.Lerp(orientation.transform.eulerAngles, steerVect, steerTiming * Time.deltaTime);
             }
-        }       
+        }
+        else
+        {
+            if (currentSpeed > 1f)
+            {
+                currentSpeed = Mathf.Lerp(currentSpeed, (currentSpeed + maxSpeed / currentSpeed), forwardAcceleration * Time.deltaTime);
+                Vector3 velocity = orientation.transform.forward * currentSpeed; //This part of the script is only meant to change the forward movement of the player so it should only change the forward vector (local)
+                rb.velocity = new Vector3(velocity.x, rb.velocity.y, velocity.z); //Changed the movement mechanics from force based to velocity based
+            }
+        }
+
+        //I want to change this from a timer in the invoke to a variable condition. It wasn't working for some reason and I cannot waste more time with this, but in the future this will be changed to make it more stable
+        Debug.Log(turning);
+        Vector3 actualRotation = orientation.transform.eulerAngles;
+        if (turning)
+        {
+            turnDir = new Vector3(0, turnDir.y, 0);
+            orientation.transform.eulerAngles = Vector3.Slerp(orientation.transform.eulerAngles, turnDir, turningMultiplier * Time.deltaTime);
+            
+        }
+        else if (Mathf.Abs(actualRotation.y) == prevOrientationRotation.y + 180)
+        {
+            ResetTurn();
+        }
     }
  
     public void Turn()
     {
-        orientation.transform.eulerAngles = new Vector3(orientation.transform.eulerAngles.x, orientation.transform.eulerAngles.y + 180, orientation.transform.eulerAngles.z);
+        turning = true;
+        canTurn = false;
+        turnDir = new Vector3(0, orientation.transform.eulerAngles.y + 180, 0);
+        prevOrientationRotation = orientation.transform.eulerAngles;
+        if (turnDir.y > 360) { turnDir.y = turnDir.y - 360; }
+        if (turnDir.y < 0) { turnDir.y = turnDir.y + 360; }
+        Invoke(nameof(ResetTurn), timeTurning);
+    }
+
+    public void ResetTurn()
+    {
+        turning = false;
+        canTurn = true;
     }
 
     public void Boost()
@@ -191,17 +237,17 @@ public class SkateController : Movement
         else
             skateJumpPreassure = 0;
     }
+
     public override void AirMovement()
     {
         //Function serves for players to always have their skate facing the floor
         //This makes the skating easier and more arcade as they don't have to worry about landing mechanics like in Skate 3
         //It also makes game design and programming easier as we don't have to worry about creating those landing mechanics with a complex system
-        
+
         //IMPORTANT!!
         //WE SHOULD TALK ABOUT THINGS LIKE HIGH RAMPS AND HOW TO FACE THAT PROBLEM
 
         //Function to keep the momentum of the player
-              
 
         if (!grounded) //Will only work if the player is in the air
         {
@@ -220,12 +266,15 @@ public class SkateController : Movement
             if (steerDirection != 0)
             {
                 Vector3 airRot = new Vector3(orientation.transform.eulerAngles.x, orientation.transform.eulerAngles.y + airSteerMultiplier * steerDirection, orientation.transform.eulerAngles.z);
+                playerBody.transform.eulerAngles = Vector3.Slerp(playerBody.transform.eulerAngles, airRot, airSteerTiming * Time.deltaTime);
                 orientation.transform.eulerAngles = Vector3.Lerp(orientation.transform.eulerAngles, airRot, airSteerTiming * Time.deltaTime);
             }
+            canMove = false;
         }
         else
         {
             anim.SetBool("Air", false);
+            canMove = true;
         }
     }  
 
@@ -251,5 +300,12 @@ public class SkateController : Movement
         {
             isplaying = false;
         }
+
+        
+    }
+
+    public void SwitchStance()
+    {
+        goofy = !goofy;
     }
 }
