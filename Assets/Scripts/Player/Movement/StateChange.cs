@@ -8,7 +8,7 @@ public enum States { parkour, skating}
 public class StateChange : MonoBehaviour
 {
     public Movement _mov;
-    private SkateController _sc;
+    [HideInInspector] public SkateController _sc;
     [HideInInspector]public PlayerMovement _pMov;
 
     [Header("==========Boost==========")]
@@ -49,7 +49,6 @@ public class StateChange : MonoBehaviour
     {
         AnimationLayers();
         _mov.StateHandler();
-        //_mov.SlopeDetection();
         _mov.GroundRotation();
         _mov.Grounded();
         _mov.CoyoteCheck();
@@ -121,12 +120,4 @@ public class StateChange : MonoBehaviour
             deactivateGOs[i].gameObject.SetActive(false);
         }
     }
-
-    /*public IEnumerator SkateBoost()
-    {
-        skateController.maxSpeed = skateSwitchBoost;
-        yield return new WaitForSeconds(boostTimer);
-        skateController.maxSpeed = skateController.ogMaxSpeed;
-        StopCoroutine(SkateBoost());
-    }*/
 }

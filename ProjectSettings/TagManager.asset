@@ -10,6 +10,7 @@ TagManager:
   - F_Concrete
   - F_Wood
   - F_Dirt
+  - PipeFloor
   layers:
   - Default
   - TransparentFX

@@ -143,6 +143,33 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FlipTrick"",
+                    ""type"": ""Button"",
+                    ""id"": ""0490aa74-a717-461e-b4fd-c93a63fab8c2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GrabTrick"",
+                    ""type"": ""Button"",
+                    ""id"": ""60abb1c9-93c4-45b5-b8a3-d923361f760b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotationTrick"",
+                    ""type"": ""Button"",
+                    ""id"": ""480122a2-08ca-4828-a84e-1379182aaa90"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -594,6 +621,72 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ChangeStance"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f9f495db-7af9-4577-b5dc-5dbdadfe72b0"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FlipTrick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""43f75200-7109-4608-b610-d409c82b62c8"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FlipTrick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0f725025-cc9f-4c05-a47f-8601910c4bd3"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GrabTrick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d560e6f8-0f27-4e4b-9420-1f880138f4c9"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GrabTrick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""91e0aee5-90e7-4674-a40b-d1dee8c4a204"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotationTrick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0b9c5524-3e3e-4cf0-bfbe-0962e27edade"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotationTrick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1086,6 +1179,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Gameplay_p_Turn = m_Gameplay_p.FindAction("Turn", throwIfNotFound: true);
         m_Gameplay_p_ChangeCamera = m_Gameplay_p.FindAction("ChangeCamera", throwIfNotFound: true);
         m_Gameplay_p_ChangeStance = m_Gameplay_p.FindAction("ChangeStance", throwIfNotFound: true);
+        m_Gameplay_p_FlipTrick = m_Gameplay_p.FindAction("FlipTrick", throwIfNotFound: true);
+        m_Gameplay_p_GrabTrick = m_Gameplay_p.FindAction("GrabTrick", throwIfNotFound: true);
+        m_Gameplay_p_RotationTrick = m_Gameplay_p.FindAction("RotationTrick", throwIfNotFound: true);
         // ShopControls
         m_ShopControls = asset.FindActionMap("ShopControls", throwIfNotFound: true);
         m_ShopControls_Up = m_ShopControls.FindAction("Up", throwIfNotFound: true);
@@ -1174,6 +1270,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_p_Turn;
     private readonly InputAction m_Gameplay_p_ChangeCamera;
     private readonly InputAction m_Gameplay_p_ChangeStance;
+    private readonly InputAction m_Gameplay_p_FlipTrick;
+    private readonly InputAction m_Gameplay_p_GrabTrick;
+    private readonly InputAction m_Gameplay_p_RotationTrick;
     public struct Gameplay_pActions
     {
         private @PlayerControls m_Wrapper;
@@ -1191,6 +1290,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Turn => m_Wrapper.m_Gameplay_p_Turn;
         public InputAction @ChangeCamera => m_Wrapper.m_Gameplay_p_ChangeCamera;
         public InputAction @ChangeStance => m_Wrapper.m_Gameplay_p_ChangeStance;
+        public InputAction @FlipTrick => m_Wrapper.m_Gameplay_p_FlipTrick;
+        public InputAction @GrabTrick => m_Wrapper.m_Gameplay_p_GrabTrick;
+        public InputAction @RotationTrick => m_Wrapper.m_Gameplay_p_RotationTrick;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay_p; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1239,6 +1341,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ChangeStance.started += instance.OnChangeStance;
             @ChangeStance.performed += instance.OnChangeStance;
             @ChangeStance.canceled += instance.OnChangeStance;
+            @FlipTrick.started += instance.OnFlipTrick;
+            @FlipTrick.performed += instance.OnFlipTrick;
+            @FlipTrick.canceled += instance.OnFlipTrick;
+            @GrabTrick.started += instance.OnGrabTrick;
+            @GrabTrick.performed += instance.OnGrabTrick;
+            @GrabTrick.canceled += instance.OnGrabTrick;
+            @RotationTrick.started += instance.OnRotationTrick;
+            @RotationTrick.performed += instance.OnRotationTrick;
+            @RotationTrick.canceled += instance.OnRotationTrick;
         }
 
         private void UnregisterCallbacks(IGameplay_pActions instance)
@@ -1282,6 +1393,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ChangeStance.started -= instance.OnChangeStance;
             @ChangeStance.performed -= instance.OnChangeStance;
             @ChangeStance.canceled -= instance.OnChangeStance;
+            @FlipTrick.started -= instance.OnFlipTrick;
+            @FlipTrick.performed -= instance.OnFlipTrick;
+            @FlipTrick.canceled -= instance.OnFlipTrick;
+            @GrabTrick.started -= instance.OnGrabTrick;
+            @GrabTrick.performed -= instance.OnGrabTrick;
+            @GrabTrick.canceled -= instance.OnGrabTrick;
+            @RotationTrick.started -= instance.OnRotationTrick;
+            @RotationTrick.performed -= instance.OnRotationTrick;
+            @RotationTrick.canceled -= instance.OnRotationTrick;
         }
 
         public void RemoveCallbacks(IGameplay_pActions instance)
@@ -1470,6 +1590,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnTurn(InputAction.CallbackContext context);
         void OnChangeCamera(InputAction.CallbackContext context);
         void OnChangeStance(InputAction.CallbackContext context);
+        void OnFlipTrick(InputAction.CallbackContext context);
+        void OnGrabTrick(InputAction.CallbackContext context);
+        void OnRotationTrick(InputAction.CallbackContext context);
     }
     public interface IShopControlsActions
     {

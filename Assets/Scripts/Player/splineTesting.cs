@@ -39,6 +39,9 @@ public class splineTesting : MonoBehaviour
     public SkateTricks[] grindTricks;
 
 
+    [Header("===============Tricking===============")]
+    public bool darkSlide;
+
     void Start()
     {
         splineF = GetComponent<SplineFollower>();
@@ -73,6 +76,7 @@ public class splineTesting : MonoBehaviour
         {
             
             splineF.motion.offset = Vector2.Lerp(Vector2.zero, splineF.motion.offset, smoothing -= Time.deltaTime * 2);
+            trickingManager.scoreM.curretnScore += (int)(grindTricks[0].scoreAwarded);
         }
         else if (!sc.grinding)
         {
@@ -86,28 +90,31 @@ public class splineTesting : MonoBehaviour
         {
             if (grindables[0].transform.tag == "Spline")
             {
-                        pTransform = transform.position;
-                        sp = grindables[0].gameObject.GetComponent<SplineComputer>();
-                        splineF.spline = sp;
-                        splineF.RebuildImmediate();
-                        sp.Project(pTransform, ref result, from = 0, to = 1);
-                        startingPos = result.percent;
-                        splineF._startPosition = startingPos;
+                pTransform = transform.position;
+                sp = grindables[0].gameObject.GetComponent<SplineComputer>();
+                splineF.spline = sp;
+                splineF.RebuildImmediate();
+                sp.Project(pTransform, ref result, from = 0, to = 1);
+                startingPos = result.percent;
+                splineF._startPosition = startingPos;
 
-                        if (this.transform.position.y >= result.position.y)
-                        {
-                            if (Vector3.Angle(orientation.transform.forward, result.forward) > 90)
-                            {
-                                splineF.direction = Spline.Direction.Backward;
-                            }
-                            else
-                                splineF.direction = Spline.Direction.Forward;
+                if (this.transform.position.y >= result.position.y)
+                {
+                    if (Vector3.Angle(sc.groundOrientation.forward, result.forward) > 90)
+                    {
+                        splineF.direction = Spline.Direction.Backward;
+                    }
+                    else
+                        splineF.direction = Spline.Direction.Forward;
 
-                                AudioManager.instance.PlayOneShot(FMODEvents.instance.grinding);
-                                Grind();
-   
-                        }
-                trickingManager.currentTrick = grindTricks[0];
+                    AudioManager.instance.PlayOneShot(FMODEvents.instance.grinding);
+                    Grind();
+
+                }
+
+                SelectGrindType();
+                //If flipTicking then boardslide        
+                //trickingManager.currentTrick = grindTricks[0];
 
             }
                 
@@ -135,10 +142,8 @@ public class splineTesting : MonoBehaviour
         splineF.followSpeed = sc.currentSpeed * (int)splineF.direction;
 
         //This is for the camera
-        secondcam.active = true;
-        brain.m_DefaultBlend.m_Time = 1f;
-
-        trickingManager.scoreM.curretnScore += (int)(grindTricks[0].scoreAwarded * Time.deltaTime);
+        //secondcam.active = true;
+        //brain.m_DefaultBlend.m_Time = 1f;
 
     }
     public void EndGrindForward()
@@ -172,9 +177,37 @@ public class splineTesting : MonoBehaviour
         pm.anim.SetTrigger("Jump");
         cd_countdown = grind_cd;
 
-        secondcam.active = false;
-        brain.m_DefaultBlend.m_Time = 1;
+        //secondcam.active = false;
+        //brain.m_DefaultBlend.m_Time = 1;
+    }
 
-        trickingManager.currentTrick = null;
+
+    public void SelectGrindType()
+    {
+        Vector3 playerDirection = sc.orientation.transform.forward;
+        float angle = Vector3.Angle(playerDirection, result.forward);
+
+        //Find if the player is at the right or the left of the rail
+
+        if (trickingManager.flipTricking) { darkSlide = true; }
+        else { darkSlide = false; }
+
+        if (angle >= 0 && angle < 45)
+        {
+            if (sc.verticalInput > 0 || sc.verticalInput == 0) { Debug.Log("50/50"); }
+            else if(sc.verticalInput < 0) { Debug.Log("5-0"); }
+        }
+        else if (angle >= 45 && angle < 135)
+        {
+            Debug.Log("Tailgrind");
+        }
+        else if (angle >= 135 && angle < 225)
+        {
+            Debug.Log("Backwards Grind");
+        }
+        else if (angle >= 225 && angle < 360)
+        {
+            Debug.Log("Nosegrind");
+        }
     }
 }

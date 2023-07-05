@@ -21,11 +21,17 @@ public class SkateController : Movement
     public float timeToReverse; //The time multiplier to make the skate reevert smooth
     public float boostSpeed; //Speed for boosts like when changing from parkour to skate or when drifting
     private float realSpeed; //Checks the real velocity of the rb
-    public float reverseSpeedDecrease; //Number that is used to divide the speed so that when you go backwards you go slower   
+    public float reverseSpeedDecrease; //Number that is used to divide the speed so that when you go backwards you go slower
+    public float timeToTurn; //Marks the time that the player has to hold the deceleration button tu turn 180 in the floor
+    public float slopeMovementSpeed;
+    public float maxBallSpeed; //When the skater grabs their board in the floor to gain more velocity
     private bool goofy; //Change the player's stance
 
     private float reverseTimer;
     private bool turning;
+    private bool directionalBreaking;
+
+    SlopeDirection slopeDir;
 
     [Header("===============Accelerations===============")]
     public float reverseAcceleration; //Acceleration for full stopping. Makes breaking forcefully smooth
@@ -45,7 +51,7 @@ public class SkateController : Movement
     private float curretnRotate;
     private float rotate;
 
-    [Header("---------Drifting----------")]
+    [Header("===============Drifting===============")]
     private bool driftLeft, driftRight; //Checks if the player is drifting left or right
     public float outwardsDriftForce; //The force that pushes the player when drifting
     public float minSpeedToDrift; //The minimum speed that the player has to go when drifitng
@@ -61,6 +67,7 @@ public class SkateController : Movement
     public float maxSkateJumpFoce; //Max force. Cannot jump higher
     public float skateJumpMultiplier; //Final jump force
     public float jumpMaxVelocity;
+    public float maxDuckedVelocity;
     
     splineTesting sT;
     Tricking trks;
@@ -73,7 +80,17 @@ public class SkateController : Movement
     public Vector3 turnDir;
     Vector3 prevOrientationRotation;
 
+    [Header("===============Air Movement===============")]
+    public float trickRotationSpeed;
+    public float minTrickRotationSpeed;
+    public float maxTrickRotationSpeed;
+    public float trickRotationAcceleration;
+    public Transform groundOrientation;
+    float groundTimer;
+    float ogLocalGravity;
+
     //AudioSource source;
+
 
     public bool isplaying;
 
@@ -90,12 +107,17 @@ public class SkateController : Movement
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
         trks = GetComponent<Tricking>();
+        slopeDir = GetComponent<SlopeDirection>();
         canMove = true; //Makes sure that the player can move when they put the skate on
         player = this.gameObject;
+        ogLocalGravity = localGravity;
+        groundOrientation.forward = orientation.transform.forward;
     }
-
+    
+    #region =========SKATE Movement=========
     public override void Move()
     {
+        #region -----Sound-----
         FMODEvents.instance.skateRolling.getPlaybackState(out FMOD.Studio.PLAYBACK_STATE state);
         if (state == FMOD.Studio.PLAYBACK_STATE.STOPPED && rb.velocity != Vector3.zero && grounded)
         {
@@ -105,26 +127,42 @@ public class SkateController : Movement
         {
             AudioManager.instance.StopSound(FMODEvents.instance.skateRolling);
         }
+        #endregion
 
-        playerDirection = transform.forward * verticalInput + transform.right * horizontalInput;
-        if(canMove)
+        #region -----Movement & Steering-----
+
+        //Players input
+        playerDirection = orientation.transform.forward * verticalInput + orientation.transform.right * horizontalInput;
+
+        //==========PLAYER CAN MOVE==========
+        if (canMove)
         {
+            #region -----Forward Movement-----
             if (verticalInput > 0)
             {
                 //The player accelerates forward when the forward input is performed
                 //Use of lerp to make the velocity change prograsively not at an instant because it would not be realistic enough
-                currentSpeed = Mathf.Lerp(currentSpeed, maxSpeed, Time.deltaTime * forwardAcceleration);
+                currentSpeed = Mathf.Lerp(currentSpeed, maxSpeed * verticalInput, Time.deltaTime * forwardAcceleration);
                 steerMultiplier = Mathf.Lerp(steerMultiplier, minSteering, forwardAcceleration * Time.deltaTime);
-                reverseTimer = 0;   
+                reverseTimer = 0;
+                directionalBreaking = true;
             }
+            #endregion
 
+            #region -----Brakeing-----
             else if (verticalInput < 0)
             {
                 //Instead of going backwards changing to goofy
                 //Player needs to have a slower reverse speed and acceleration to simulate the real world in a minimum way
-
                 currentSpeed = Mathf.Lerp(currentSpeed, 0, Time.deltaTime * reverseAcceleration);
                 steerMultiplier = Mathf.Lerp(steerMultiplier, maxSteering, reverseAcceleration * Time.deltaTime);
+                reverseTimer += Time.deltaTime;
+
+                if (reverseTimer >= timeToTurn && directionalBreaking)
+                {
+                    Turn();
+                    directionalBreaking = false;
+                }
             }
             else
             {
@@ -132,13 +170,18 @@ public class SkateController : Movement
                 currentSpeed = Mathf.Lerp(currentSpeed, 0, Time.deltaTime * breaking);
                 steerMultiplier = Mathf.Lerp(steerMultiplier, maxSteering, breaking * Time.deltaTime);
                 reverseTimer = 0;
+                directionalBreaking = true;
+
             }
+            #endregion
 
             //Change of velocity in the local forward
-            Vector3 velocity = orientation.transform.forward * currentSpeed; //This part of the script is only meant to change the forward movement of the player so it should only change the forward vector (local)
+            Vector3 velocity = orientation.transform.forward * currentSpeed; //This part of the script is only meant to change the forward movement of the player so it should only change the forward vector (local)            
             rb.velocity = new Vector3(velocity.x, rb.velocity.y, velocity.z); //Changed the movement mechanics from force based to velocity based
+            
 
             //===================Steering============
+            #region -----Steering-----
             steerDirection = horizontalInput;
             Vector3 steerVect; //Used to get the final rotation of the object
             float steerAmount;
@@ -151,65 +194,60 @@ public class SkateController : Movement
             {
                 orientation.transform.eulerAngles = Vector3.Lerp(orientation.transform.eulerAngles, steerVect, steerTiming * Time.deltaTime);
             }
+            #endregion
+
         }
-        else
+        else //==========AIR VELOCITY==========
         {
             if (currentSpeed > 1f)
             {
                 currentSpeed = Mathf.Lerp(currentSpeed, (currentSpeed + maxSpeed / currentSpeed), forwardAcceleration * Time.deltaTime);
-                Vector3 velocity = orientation.transform.forward * currentSpeed; //This part of the script is only meant to change the forward movement of the player so it should only change the forward vector (local)
+                Vector3 velocity = groundOrientation.forward * currentSpeed; //This part of the script is only meant to change the forward movement of the player so it should only change the forward vector (local)
                 rb.velocity = new Vector3(velocity.x, rb.velocity.y, velocity.z); //Changed the movement mechanics from force based to velocity based
             }
         }
+        #endregion
 
         //I want to change this from a timer in the invoke to a variable condition. It wasn't working for some reason and I cannot waste more time with this, but in the future this will be changed to make it more stable
+        #region -----Turning-----
         Debug.Log(turning);
         Vector3 actualRotation = orientation.transform.eulerAngles;
         if (turning)
         {
-            turnDir = new Vector3(0, turnDir.y, 0);
-            orientation.transform.eulerAngles = Vector3.Slerp(orientation.transform.eulerAngles, turnDir, turningMultiplier * Time.deltaTime);
-            
+            if (!slopeDir.flatSurface) { orientation.transform.eulerAngles = turnDir; }
+            else { orientation.transform.eulerAngles = Vector3.Lerp(orientation.transform.eulerAngles, turnDir, turningMultiplier * Time.deltaTime); }
         }
         else if (Mathf.Abs(actualRotation.y) == prevOrientationRotation.y + 180)
         {
             ResetTurn();
         }
+        #endregion
     }
- 
+    #endregion
+
+    #region ==========TURNING==========
     public void Turn()
     {
         turning = true;
         canTurn = false;
-        turnDir = new Vector3(0, orientation.transform.eulerAngles.y + 180, 0);
+        
+        turnDir = new Vector3(-orientation.transform.eulerAngles.x, orientation.transform.eulerAngles.y + 180, -orientation.transform.eulerAngles.z);
+
         prevOrientationRotation = orientation.transform.eulerAngles;
         if (turnDir.y > 360) { turnDir.y = turnDir.y - 360; }
         if (turnDir.y < 0) { turnDir.y = turnDir.y + 360; }
         Invoke(nameof(ResetTurn), timeTurning);
     }
+    
 
     public void ResetTurn()
     {
         turning = false;
         canTurn = true;
     }
+    #endregion
 
-    public void Boost()
-    {
-        boostTime -= Time.deltaTime;
-
-        if (boostTime > 0) //If the player has a boost
-        {
-            //Play animation for boosts
-            maxSpeed = boostSpeed;
-            currentSpeed = Mathf.Lerp(currentSpeed, maxSpeed, 1 * Time.deltaTime);
-        }
-        else
-        {
-            maxSpeed = ogMaxSpeed;
-        }
-    }
-
+    #region =========SKATE JUMP=========
     public override void Jump(Vector3 gP)
     {
         if (grinding)
@@ -220,11 +258,17 @@ public class SkateController : Movement
         }
         if (!grinding)
         {
-            if (skateJumpPreassure < maxSkateJumpFoce) { skateJumpPreassure += Time.deltaTime * skateJumpMultiplier; }
+            maxSpeed = Mathf.Lerp(maxSpeed, maxDuckedVelocity, Time.deltaTime);
+            if (skateJumpPreassure < maxSkateJumpFoce) 
+            { 
+                skateJumpPreassure += Time.deltaTime * skateJumpMultiplier;
+                //if (OnSlope() && currentSpeed > maxSpeed / 2) { maxSpeed = Mathf.Lerp(maxSpeed, maxDuckedVelocity, Time.deltaTime); }
+            }
             else { skateJumpPreassure = maxSkateJumpFoce; }
         }
 
     }
+
     public override void JumpRelease()
     {
         if (!grinding && skateJumpPreassure > minSkateJumpFoce)
@@ -233,11 +277,18 @@ public class SkateController : Movement
             AudioManager.instance.PlayOneShot(FMODEvents.instance.skateJump, transform.position);
             rb.velocity = new Vector3(rb.velocity.x, skateJumpPreassure, rb.velocity.z);
             skateJumpPreassure = 0;
+
+            //if (slopeDir.upHill && currentSpeed < 3)
+            //{
+            //    Turn();
+            //}
         }
         else
             skateJumpPreassure = 0;
     }
+    #endregion
 
+    #region ==========AIR MOVEMENT==========
     public override void AirMovement()
     {
         //Function serves for players to always have their skate facing the floor
@@ -251,13 +302,13 @@ public class SkateController : Movement
 
         if (!grounded) //Will only work if the player is in the air
         {
+            groundTimer = 0; //Resets the timer that detects the first frame of the player touching the ground
             anim.SetBool("Air", true); //Plays the animation for the playerbeing in the air
             RaycastHit hit; //A raycast detector that detects the ground
             if (Physics.Raycast(orientation.transform.position, -Vector3.up, out hit, 100f)) //Detects the floor
             {
                 //Player will always face the floor when on air
                 orientation.transform.rotation = Quaternion.Lerp(orientation.transform.rotation, Quaternion.FromToRotation(orientation.transform.up * 2, hit.normal) * orientation.transform.rotation, 3f * Time.deltaTime);
-
             }
 
             //NEED TO CHANGE THE REAL ROTATION FOR A SIMPLE MESH ROTATION IN ORDER TO GET THE FORWARD OF THE GAMEOBJECT AND COMPARE IT TO THE FORWARD OF THE ROTATING MESH TO CHECK IF AT THE MOMENT OF LANDING YOU SHOULD FALL
@@ -265,20 +316,62 @@ public class SkateController : Movement
 
             if (steerDirection != 0)
             {
-                Vector3 airRot = new Vector3(orientation.transform.eulerAngles.x, orientation.transform.eulerAngles.y + airSteerMultiplier * steerDirection, orientation.transform.eulerAngles.z);
-                playerBody.transform.eulerAngles = Vector3.Slerp(playerBody.transform.eulerAngles, airRot, airSteerTiming * Time.deltaTime);
+                trickRotationSpeed = Mathf.Lerp(trickRotationSpeed, maxTrickRotationSpeed, trickRotationAcceleration * Time.deltaTime); //Speed of turn increases as the player turns more and more
+                Vector3 airRot = new Vector3(orientation.transform.eulerAngles.x, orientation.transform.eulerAngles.y + trickRotationSpeed * steerDirection, orientation.transform.eulerAngles.z);
                 orientation.transform.eulerAngles = Vector3.Lerp(orientation.transform.eulerAngles, airRot, airSteerTiming * Time.deltaTime);
             }
             canMove = false;
         }
         else
         {
+            TouchGround();
             anim.SetBool("Air", false);
             canMove = true;
+            localGravity = ogLocalGravity;
+
+            if (!HalfPipes())
+            {
+                groundOrientation.forward = orientation.transform.forward;
+            }
+            else
+            {
+                groundOrientation.forward = Vector3.up;
+            }
+
+            trickRotationSpeed = minTrickRotationSpeed;
         }
     }  
 
-    //==============================Setters==============================
+    public void TouchGround()
+    {
+        if (groundTimer < Time.deltaTime)
+        {
+            trks.AirLanding();
+        }
+
+        groundTimer += Time.deltaTime;
+    }
+    #endregion
+
+    public bool HalfPipes() //Used in the movement function
+    {
+        //if the player is in an object with the tag half pipe --> gravity = 0
+        RaycastHit pipeHit;
+        if (Physics.Raycast(orientation.transform.position, -orientation.transform.up, out pipeHit, 1.5f, floor))
+        {
+            if (hit.collider.CompareTag("PipeFloor"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else { return false; }
+    }
+
+    //==============================Setters & Getters==============================
     public void SetCurrentSpeed(float amount)
     {
         currentSpeed = amount;

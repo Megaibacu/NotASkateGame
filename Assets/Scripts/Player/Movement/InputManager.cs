@@ -13,6 +13,7 @@ public class InputManager : MonoBehaviour
     private PlayerMovement _pm;
     private SkateController _sC;
     private Customizationshop _cs;
+    private Tricking _tRK;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +24,7 @@ public class InputManager : MonoBehaviour
         _grind = GetComponent<splineTesting>();
         _pm = GetComponent<PlayerMovement>();
         _sC = GetComponent<SkateController>();
+        _tRK = GetComponent<Tricking>();
     }
 
     // Update is called once per frame
@@ -83,5 +85,13 @@ public class InputManager : MonoBehaviour
         if (_pInput.actions["ChangeCamera"].WasPerformedThisFrame() && _sChange._mov.currentSpeed <= 0.5f) { }
 
         if (_pInput.actions["ChangeStance"].WasPressedThisFrame() && _sChange.state == States.skating && _sChange._mov.grounded) { _sC.SwitchStance(); }
+
+        if (_pInput.actions["FlipTrick"].WasPressedThisFrame() && _sChange.state == States.skating) { _tRK.FlipTrick(); }
+
+        if (_pInput.actions["GrabTrick"].IsPressed() && _sChange.state == States.skating) { _tRK.StartGrabTricks(); }
+        if (_pInput.actions["GrabTrick"].WasReleasedThisFrame() && _sChange.state == States.skating) { _tRK.EndGrabTrick(); }
+        
+        if (_pInput.actions["RotationTrick"].IsPressed() && _sChange.state == States.skating) { _tRK.AirBomb(); }
+        if (_pInput.actions["RotationTrick"].WasReleasedThisFrame() && _sChange.state == States.skating) { _tRK.EndAirBomb(); }
     }
 }
